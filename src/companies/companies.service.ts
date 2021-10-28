@@ -70,10 +70,14 @@ export class CompaniesService {
     return await this.checkExisting(id)
   }
 
-  // async setLogo(id: string, logoURI: string): Promise<Company> {
-  //   const exCompId = await this.checkExisting(id)
-  //   return this.companies[exCompId]
-  // }
+  async setLogo(id: string, logoURI: string): Promise<Company> {
+    let companyEx = await this.checkExisting(id)
+    const companyUpd = {
+      logoURI: 'uploads/' + logoURI
+    }
+    await this.companyRepository.update(id, companyUpd)
+    return await this.checkExisting(id)
+  }
 
   async remove(id: string): Promise<void> {
     const company = await this.checkExisting(id)
