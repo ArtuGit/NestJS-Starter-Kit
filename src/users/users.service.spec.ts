@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { hashSync } from 'bcrypt'
 
-import { IUser } from './interfaces/user.interface'
+import { IUser, IUserPublic } from './interfaces/user.interface'
 import { UsersService } from './users.service'
 
 describe('UsersService', () => {
@@ -19,11 +20,13 @@ describe('UsersService', () => {
   })
   it.each`
     name      | returnVal
-    ${'john'} | ${{ id: '1', username: 'john', password: 'changeme' }}
+    ${'john'} | ${{ id: '1', username: 'john' }}
   `(
     'should call findOne for $name and return $returnVal',
-    async ({ name, returnVal }: { name: string; returnVal: IUser }) => {
-      expect(await service.findOneByUserName(name)).toEqual(returnVal)
+    async ({ name, returnVal }: { name: string; returnVal: IUserPublic }) => {
+      const { password, ...user } = await service.findOneByUserName(name)
+
+      expect(user).toEqual(returnVal)
     },
   )
 })
