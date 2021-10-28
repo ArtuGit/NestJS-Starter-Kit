@@ -1,9 +1,7 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger'
-import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator'
+import {IsEnum, IsNotEmpty, IsString, IsUrl, ValidateIf} from 'class-validator'
 
 import { SalesFunnelStage } from '../types/companies.types'
-
-import { CreateCompanyBody } from './create-company.body'
 
 export class UpdateCompanyBody {
   @ApiProperty({ type: String })
@@ -17,7 +15,7 @@ export class UpdateCompanyBody {
   salesFunnelStage: SalesFunnelStage
 
   @ApiProperty({ type: String })
+  @ValidateIf(o => o.websiteURL !== "")
   @IsUrl()
-  @IsOptional()
-  websiteURL?: string
+  websiteURL?: string = ""
 }

@@ -57,11 +57,11 @@ export class CompaniesController {
     return this.companiesService.findOne(id)
   }
 
-  // @ApiOkResponse({ type: Company })
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
-  //   return this.companiesService.update(id, updateCompanyBody)
-  // }
+  @ApiOkResponse({ type: Company })
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
+    return this.companiesService.update(id, updateCompanyBody)
+  }
 
   // @ApiOkResponse({ type: Company })
   // @Patch(':id')

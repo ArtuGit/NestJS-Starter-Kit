@@ -54,14 +54,11 @@ export class CompaniesService {
     return company
   }
 
-  // async update(id: string, updateCompanyBody: UpdateCompanyBody): Promise<Company> {
-  //   const exCompId = await this.checkExisting(id)
-  //   this.companies[exCompId] = {
-  //     id,
-  //     ...updateCompanyBody,
-  //   }
-  //   return this.companies[exCompId]
-  // }
+  async update(id: string, updateCompanyBody: UpdateCompanyBody): Promise<Company> {
+    let company = await this.checkExisting(id)
+    await this.companyRepository.update(id, updateCompanyBody)
+    return  this.checkExisting(id)
+  }
 
   // async patch(id: string, patchCompanyBody: PatchCompanyBody): Promise<Company> {
   //   const exCompId = await this.checkExisting(id)
