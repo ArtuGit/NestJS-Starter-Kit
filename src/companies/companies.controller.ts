@@ -12,7 +12,7 @@ import {
   UseInterceptors,
   UploadedFile,
   BadRequestException,
-  Req,
+  Req, HttpCode,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express'
@@ -57,17 +57,17 @@ export class CompaniesController {
     return this.companiesService.findOne(id)
   }
 
-  @ApiOkResponse({ type: Company })
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
-    return this.companiesService.update(id, updateCompanyBody)
-  }
+  // @ApiOkResponse({ type: Company })
+  // @Put(':id')
+  // update(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
+  //   return this.companiesService.update(id, updateCompanyBody)
+  // }
 
-  @ApiOkResponse({ type: Company })
-  @Patch(':id')
-  patch(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
-    return this.companiesService.patch(id, updateCompanyBody)
-  }
+  // @ApiOkResponse({ type: Company })
+  // @Patch(':id')
+  // patch(@Param('id') id: string, @Body() updateCompanyBody: UpdateCompanyBody): Promise<Company> {
+  //   return this.companiesService.patch(id, updateCompanyBody)
+  // }
 
   @ApiOkResponse({ type: ImageUploadResult })
   @UseInterceptors(
@@ -88,15 +88,15 @@ export class CompaniesController {
     if (!file) {
       throw new BadRequestException('No file')
     }
-    await this.companiesService.setLogo(companyId, file.filename)
+    //await this.companiesService.setLogo(companyId, file.filename)
     return {
       filename: file.filename,
     }
   }
 
-  @ApiOkResponse({ type: Boolean })
+  @HttpCode(204)
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<boolean> {
+  remove(@Param('id') id: string): Promise<void> {
     return this.companiesService.remove(id)
   }
 }
