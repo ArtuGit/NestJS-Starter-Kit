@@ -12,7 +12,8 @@ import {
   UseInterceptors,
   UploadedFile,
   BadRequestException,
-  Req, HttpCode,
+  Req,
+  HttpCode, HttpStatus,
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express'
@@ -28,7 +29,7 @@ import { UpdateCompanyBody } from './dto/update-company.body'
 import { Company } from './entities/company.entity'
 import { editFileName, imageFileFilter } from './utils/file-upload.utils'
 import { ImageUploadResult } from './dto/image-upload.result'
-import {PatchCompanyBody} from "./dto/patch-company.body";
+import { PatchCompanyBody } from './dto/patch-company.body'
 
 @ApiTags('Companies')
 @UseGuards(JwtAuthGuard)
@@ -89,13 +90,13 @@ export class CompaniesController {
     if (!file) {
       throw new BadRequestException('No file')
     }
-    //await this.companiesService.setLogo(companyId, file.filename)
+    await this.companiesService.setLogo(companyId, file.filename)
     return {
       filename: file.filename,
     }
   }
 
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.companiesService.remove(id)

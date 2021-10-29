@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
+import {Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm'
 
 import { ICompany, SalesFunnelStage } from '../types/companies.types'
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Company implements ICompany {
@@ -11,6 +11,7 @@ export class Company implements ICompany {
 
   @ApiProperty({ type: String })
   @Column()
+  @Index({ unique: true })
   name: string
 
   @ApiProperty({ enum: SalesFunnelStage })

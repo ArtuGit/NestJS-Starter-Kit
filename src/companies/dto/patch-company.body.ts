@@ -1,10 +1,11 @@
-import {ApiProperty, PartialType} from '@nestjs/swagger'
+import { ApiProperty, PartialType } from '@nestjs/swagger'
+import { IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl, ValidateIf } from 'class-validator'
+
+import { SalesFunnelStage } from '../types/companies.types'
 
 import { UpdateCompanyBody } from './update-company.body'
-import {IsEnum, IsNotEmpty, IsOptional, IsString, IsUrl, ValidateIf} from "class-validator";
-import {SalesFunnelStage} from "../types/companies.types";
 
-export class PatchCompanyBody  {
+export class PatchCompanyBody {
   @ApiProperty({ type: String })
   @IsString()
   @IsOptional()

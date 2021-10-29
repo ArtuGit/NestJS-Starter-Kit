@@ -1,7 +1,8 @@
+import { unlink } from 'fs/promises'
+
 import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { EntityNotFoundError, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
-import { TokenExpiredError } from 'jsonwebtoken'
 
 import { GetListQuery, PagedResponse } from '../common/pagination'
 
@@ -9,13 +10,9 @@ import { CreateCompanyBody } from './dto/create-company.body'
 import { UpdateCompanyBody } from './dto/update-company.body'
 import { PatchCompanyBody } from './dto/patch-company.body'
 import { Company } from './entities/company.entity'
-import { ICompany } from './types/companies.types'
-import { companiesStorage } from './storage/companies.storage'
 
 @Injectable()
 export class CompaniesService {
-  private readonly companies: ICompany[]
-
   constructor(
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
@@ -30,8 +27,10 @@ export class CompaniesService {
   }
 
   async findAll(query: GetListQuery): Promise<PagedResponse<Company[]>> {
-    // query is not used for now, but it is ready
-    const companies = await this.companyRepository.find()
+    const companies = await this.companyRepository.find({
+      take: query.take,
+      skip: query.skip,
+    })
     return {
       result: companies,
       totalCount: companies.length,
@@ -55,13 +54,13 @@ export class CompaniesService {
   }
 
   async update(id: string, updateCompanyBody: UpdateCompanyBody): Promise<Company> {
-    let company = await this.checkExisting(id)
+    const company = await this.checkExisting(id)
     await this.companyRepository.update(id, updateCompanyBody)
     return this.checkExisting(id)
   }
 
   async patch(id: string, patchCompanyBody: PatchCompanyBody): Promise<Company> {
-    let companyEx = await this.checkExisting(id)
+    const companyEx = await this.checkExisting(id)
     const companyUpd = {
       ...companyEx,
       ...patchCompanyBody,
@@ -71,16 +70,30 @@ export class CompaniesService {
   }
 
   async setLogo(id: string, logoURI: string): Promise<Company> {
-    let companyEx = await this.checkExisting(id)
+    const companyEx = await this.checkExisting(id)
     const companyUpd = {
-      logoURI: 'uploads/' + logoURI
+      logoURI: 'uploads/' + logoURI,
     }
     await this.companyRepository.update(id, companyUpd)
+    if (companyEx.logoURI) {
+      try {
+        await unlink(companyEx.logoURI)
+      } catch (error) {
+        console.error(`Error on the old logo ${companyEx.logoURI} (company id=${id}) deleting:`, error.message)
+      }
+    }
     return await this.checkExisting(id)
   }
 
   async remove(id: string): Promise<void> {
     const company = await this.checkExisting(id)
+    if (company.logoURI) {
+      try {
+        await unlink(company.logoURI)
+      } catch (error) {
+        console.error('Error on the old logo ${companyEx.logoURI} (company id=${id}) deleting:', error.message)
+      }
+    }
     await this.companyRepository.delete(id)
   }
 }
