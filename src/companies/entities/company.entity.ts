@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import {Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm'
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 import { ICompany, SalesFunnelStage } from '../types/companies.types'
 
