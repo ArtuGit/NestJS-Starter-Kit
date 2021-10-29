@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { validate } from './common/env.validation'
+import { validate } from './common/validations/env.validation'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
 import { CompaniesModule } from './companies/companies.module'

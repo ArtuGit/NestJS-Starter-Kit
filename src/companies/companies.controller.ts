@@ -21,8 +21,8 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { GetListQuery, PagedResponse } from '../common/pagination'
-import { IFileUploaded } from '../common/fileUploaded'
+import { GetListQuery, PagedResponse } from '../common/dto/pagination'
+import { IFileUploaded } from '../common/types/fileUploaded'
 
 import { CompaniesService } from './companies.service'
 import { CreateCompanyBody } from './dto/create-company.body'

@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { validate } from './common/env.validation'
+import { validate } from './common/validations/env.validation'
 
 describe('AppController', () => {
   let appController: AppController
