@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common'
-import { MulterModule } from '@nestjs/platform-express'
-import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { CompaniesService } from './companies.service'
