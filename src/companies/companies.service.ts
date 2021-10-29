@@ -50,13 +50,12 @@ export class CompaniesService {
 
   async findOne(id: string): Promise<Company> {
     const company = await this.checkExisting(id)
-    const company = await this.companyRepository.findOneOrFail(id)
     return company
   }
 
   async update(id: string, updateCompanyBody: UpdateCompanyBody): Promise<Company> {
     const company = await this.checkExisting(id)
-    const upd = await this.companyRepository.update(id, updateCompanyBody)
+    await this.companyRepository.update(id, updateCompanyBody)
     return this.checkExisting(id)
   }
 
@@ -68,6 +67,13 @@ export class CompaniesService {
     }
     await this.companyRepository.update(id, companyUpd)
     return await this.checkExisting(id)
+  }
+
+  //ToDo: Universal update
+  async update_new(id: string, updateCompanyBody: UpdateCompanyBody | PatchCompanyBody): Promise<Company> {
+    const company = await this.checkExisting(id)
+    await this.companyRepository.update(id, updateCompanyBody)
+    return this.checkExisting(id)
   }
 
   async setLogo(id: string, logoURI: string): Promise<Company> {
