@@ -49,7 +49,7 @@ export class CompaniesService {
   }
 
   async findOne(id: string): Promise<Company> {
-    //const company = await this.checkExisting(id)
+    const company = await this.checkExisting(id)
     const company = await this.companyRepository.findOneOrFail(id)
     return company
   }
