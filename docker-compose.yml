@@ -1,6 +1,25 @@
-version: '3'
+version: '3.7'
 
 services:
+  main:
+    container_name: main
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '3015:3015'
+      - '9229:9229'
+    command: npm run start:dev
+    env_file:
+      - ./config/local.env
+    networks:
+      - webnet
+    depends_on:
+      - mysql
+
   mysql:
     image: mysql:8
     restart: always
@@ -9,3 +28,8 @@ services:
       MYSQL_DATABASE: test
     ports:
       - '3306:3306'
+    networks:
+      - webnet
+
+networks:
+  webnet:
