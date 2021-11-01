@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { User as UserLoggedIn } from '../auth/decorators/user.decorator'
 import { TokensService } from '../auth/tokens.service'
-import { User } from '../users/entities/user'
+import { User } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { IUserPublic } from '../users/interfaces/user.interface'
 

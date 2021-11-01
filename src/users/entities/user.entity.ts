@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
 import { IUser } from '../interfaces/user.interface'
-import { Column, Index, PrimaryGeneratedColumn } from 'typeorm'
 
+@Entity()
 export class User implements Omit<IUser, 'password'> {
   @ApiProperty({ type: String })
   @PrimaryGeneratedColumn()

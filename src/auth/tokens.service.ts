@@ -2,7 +2,7 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
-import { User } from '../users/entities/user'
+import { User } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { RefreshTokenPayload } from '../interfaces/tokens-interfaces'
 

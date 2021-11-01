@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
-import { User } from '../users/entities/user'
+import { User } from '../users/entities/user.entity'
 import { usersStorage } from '../users/storage/users.storage'
 
 import { RefreshToken } from './entities/refresh-token.entity'

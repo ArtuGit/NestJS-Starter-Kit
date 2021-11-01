@@ -1,15 +1,20 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { compareSync, hash, hashSync } from 'bcrypt'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
 import { usersStorage } from './storage/users.storage'
 import { IUser } from './interfaces/user.interface'
-import { User } from './entities/user'
+import { User } from './entities/user.entity'
 
 @Injectable()
 export class UsersService {
   private readonly users: IUser[]
 
-  constructor() {
+  constructor(
+    @InjectRepository(User)
+    private readonly companyRepository: Repository<User>,
+  ) {
     this.users = usersStorage
   }
 
