@@ -1,8 +1,7 @@
 version: '3.7'
 
 services:
-  main:
-    container_name: main
+  app:
     build:
       context: .
       target: development
@@ -13,22 +12,15 @@ services:
       - '${PORT}:${PORT}'
       - '9229:9229'
     command: npm run start:dev
-    networks:
-      - webnet
     depends_on:
       - mysql
 
   mysql:
     image: mysql:8
-    hostname: 'db'
+    hostname: ${DB_HOST}
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
     ports:
-      - '3306:3306'
-    networks:
-      - webnet
-
-networks:
-  webnet:
+      - '${DB_PORT}:${DB_PORT}'

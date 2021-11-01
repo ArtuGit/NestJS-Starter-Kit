@@ -10,7 +10,7 @@ enum Environment {
 
 class EnvironmentVariables {
   @IsEnum(Environment)
-  NODE_ENV: Environment = Environment.Development;
+  NODE_ENV: Environment = Environment.Development
 
   @IsNumber()
   readonly PORT: number = 3000
