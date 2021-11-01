@@ -13,7 +13,7 @@ export class UsersService {
 
   constructor(
     @InjectRepository(User)
-    private readonly companyRepository: Repository<User>,
+    private readonly userRepository: Repository<User>,
   ) {
     this.users = usersStorage
   }
@@ -32,8 +32,7 @@ export class UsersService {
       username,
       password: passwordHashed,
     }
-    this.users.push(user)
-    return user
+    return this.userRepository.save(user)
   }
 
   async findOneById(id: string): Promise<IUser> {

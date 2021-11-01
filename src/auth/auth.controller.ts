@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { BadRequestException, Body, Controller, Get, Post, UseFilters, UseGuards } from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
 
@@ -8,11 +8,13 @@ import { TokensService } from '../auth/tokens.service'
 import { User } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { IUserPublic } from '../users/interfaces/user.interface'
+import { QueryFailedExceptionFilter } from '../common/filters/typeorm.query-failed-error.filter'
 
 import { AuthenticatedResponse } from './dto/authenticated.response'
 import { LoginBody, LoginResponse, RefreshBody, RegisterBody } from './dto'
 
 @ApiTags('Authentication')
+@UseFilters(QueryFailedExceptionFilter)
 @Controller({
   path: 'auth',
   version: '1',
