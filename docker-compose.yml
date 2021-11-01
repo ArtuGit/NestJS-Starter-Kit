@@ -10,11 +10,9 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - '3015:3015'
+      - '${PORT}:${PORT}'
       - '9229:9229'
     command: npm run start:dev
-    env_file:
-      - ./config/local.env
     networks:
       - webnet
     depends_on:
@@ -22,6 +20,7 @@ services:
 
   mysql:
     image: mysql:8
+    hostname: 'db'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root

@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer'
-import { IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator'
+import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString, validateSync } from 'class-validator'
 
 enum Environment {
   Development = 'development',
@@ -9,8 +9,8 @@ enum Environment {
 }
 
 class EnvironmentVariables {
-  // @IsEnum(Environment)
-  // NODE_ENV: Environment;
+  @IsEnum(Environment)
+  NODE_ENV: Environment = Environment.Development;
 
   @IsNumber()
   readonly PORT: number = 3000
@@ -33,6 +33,34 @@ class EnvironmentVariables {
   @IsString()
   @IsNotEmpty()
   readonly UPLOAD_DIR: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly DB_TYPE: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly DB_USERNAME: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly DB_PASSWORD: string
+
+  @IsString()
+  @IsNotEmpty()
+  readonly DB_HOST: string
+
+  @IsNumber()
+  @IsNumber()
+  readonly DB_PORT: number
+
+  @IsString()
+  @IsNotEmpty()
+  readonly DB_DATABASE: string
+
+  @IsBoolean()
+  @IsNotEmpty()
+  readonly DB_SYNC: boolean
 }
 
 export function validate(config: Record<string, unknown>) {
