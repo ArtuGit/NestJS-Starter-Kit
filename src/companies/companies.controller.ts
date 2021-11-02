@@ -23,7 +23,7 @@ import { diskStorage } from 'multer'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { GetListQuery, PagedResponse } from '../common/dto/pagination'
-import { IFileUploaded } from '../common/types/fileUploaded'
+import { IFileUploaded } from '../common/types/fileUploaded.types'
 import { QueryFailedExceptionFilter } from '../common/filters/typeorm.query-failed-error.filter'
 
 import { CompaniesService } from './companies.service'

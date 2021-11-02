@@ -16,6 +16,10 @@ export class User implements IUser {
 
   @ApiProperty({ type: String })
   @Column()
+  email: string
+
+  @ApiProperty({ type: String })
+  @Column()
   password: string
 }
 
@@ -25,7 +29,10 @@ export class UserPublic implements IUserPublic {
   id: string
 
   @ApiProperty({ type: String })
-  @Column()
   @Index({ unique: true })
   username: string
+
+  @ApiProperty({ type: String })
+  @Column()
+  email: string
 }

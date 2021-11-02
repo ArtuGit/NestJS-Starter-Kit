@@ -1,10 +1,13 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { compareSync, hash, hashSync } from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { EntityNotFoundError, Repository } from 'typeorm'
+
+import { RegisterBody } from '../auth/dto'
+import { IDbWhereCond } from '../common/types/database.types'
 
 import { usersStorage } from './storage/users.storage'
-import { IUser } from './interfaces/user.interface'
+import { IUser, IUserPublicPartial } from './interfaces/user.interface'
 import { User, UserPublic } from './entities/user.entity'
 
 @Injectable()
@@ -18,19 +21,27 @@ export class UsersService {
     this.users = usersStorage
   }
 
-  public async register(username: string, password: string): Promise<UserPublic> {
-    const exUser = await this.findOneByUserName(username)
+  public async register(body: RegisterBody): Promise<UserPublic> {
+    const users = await this.findByPayload(
+      {
+        username: body.username,
+        email: body.email,
+      },
+      'OR',
+    )
+    if (users.length > 0) {
+      throw new BadRequestException(`Username (${body.username}) or email (${body.email}) is already registered`)
+    }
+    const exUser = await this.findOneByUserName(body.username)
 
     if (exUser) {
-      throw new UnprocessableEntityException(`Username '${username}' already in use`)
+      throw new UnprocessableEntityException(`Username '${body.username}' already in use`)
     }
 
-    const id = Math.floor(10000000 + Math.random() * 90000000).toString()
-    const passwordHashed = await hash(password, 10)
-    const userToSave: IUser = {
-      id,
-      username,
-      password: passwordHashed,
+    const passwordHashed = await hash(body.password, 10)
+    const userToSave: User = {
+      ...new User(),
+      ...body,
     }
     await this.userRepository.save(userToSave)
     const { password: pass, ...userToRet } = userToSave
@@ -43,6 +54,34 @@ export class UsersService {
 
   async findOneByUserName(username: string): Promise<IUser> {
     return this.users.find((user) => user.username === username)
+  }
+
+  async findOneByPayload(payload: IUserPublicPartial, exception = true): Promise<IUser> {
+    let user: IUser = null
+    user = await this.userRepository.findOne(payload)
+    if (!user && exception) {
+      throw new NotFoundException(`User (payload=${payload}) is not found`)
+    }
+    return user
+  }
+
+  async findByPayload(
+    payload: IUserPublicPartial,
+    dbWhereCond: IDbWhereCond = 'AND',
+    exception = true,
+  ): Promise<IUser[]> {
+    let users: IUser[] = []
+    if (dbWhereCond === 'AND') {
+      users = await this.userRepository.find(payload)
+    } else {
+      users = await this.userRepository.find({
+        where: Object.entries(payload).map(([k, v]) => ({ [k]: v })),
+      })
+    }
+    if (users.length === 0 && exception) {
+      throw new NotFoundException(`User (payload=${JSON.stringify(payload)}) is not found`)
+    }
+    return users
   }
 
   async validateCredentials(username: string, pass: string): Promise<UserPublic> {

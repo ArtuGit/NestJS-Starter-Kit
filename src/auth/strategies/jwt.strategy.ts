@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config'
 
 import { UsersService } from '../../users/users.service'
 import { User, UserPublic } from '../../users/entities/user.entity'
-import { IUser } from '../../users/interfaces/user.interface'
+import { IUser, IUserInJwt } from '../../users/interfaces/user.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,30 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate(payload: any): Promise<UserPublic> {
-    const { sub: id } = payload
-    const user: IUser = await this.usersService.findOneById(id)
-    if (!user) {
-      return null
-    }
-    return { id: user.id, username: user.username }
-  }
-}
-
-@Injectable()
-export class JwtStrategyTest extends PassportStrategy(Strategy) {
-  constructor(private readonly configService: ConfigService, private readonly usersService: UsersService) {
-    super(<StrategyOptions>{
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: 'JWT_SECRET',
-      signOptions: {
-        expiresIn: '10m',
-      },
-    })
-  }
-
-  async validate(payload: any): Promise<UserPublic> {
+  async validate(payload: any): Promise<IUserInJwt> {
     const { sub: id } = payload
     const user: IUser = await this.usersService.findOneById(id)
     if (!user) {
