@@ -2,7 +2,7 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
-import { User } from '../users/entities/user.entity'
+import { User, UserPublic } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { RefreshTokenPayload } from '../interfaces/tokens-interfaces'
 
@@ -17,7 +17,7 @@ export class TokensService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async generateAccessToken(user: User): Promise<string> {
+  public async generateAccessToken(user: UserPublic): Promise<string> {
     const opts: SignOptions = {
       subject: String(user.id),
     }
@@ -25,7 +25,7 @@ export class TokensService {
     return this.jwtService.signAsync({}, opts)
   }
 
-  public async generateRefreshToken(user: User, expiresIn: number): Promise<string> {
+  public async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<string> {
     const token = await this.refreshTokensRepository.createRefreshToken(user, expiresIn)
 
     const opts: SignOptions = {

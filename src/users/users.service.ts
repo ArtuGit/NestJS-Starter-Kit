@@ -5,7 +5,7 @@ import { Repository } from 'typeorm'
 
 import { usersStorage } from './storage/users.storage'
 import { IUser } from './interfaces/user.interface'
-import { User } from './entities/user.entity'
+import { User, UserPublic } from './entities/user.entity'
 
 @Injectable()
 export class UsersService {
@@ -18,7 +18,7 @@ export class UsersService {
     this.users = usersStorage
   }
 
-  public async register(username: string, password: string): Promise<IUser> {
+  public async register(username: string, password: string): Promise<UserPublic> {
     const exUser = await this.findOneByUserName(username)
 
     if (exUser) {
@@ -27,12 +27,14 @@ export class UsersService {
 
     const id = Math.floor(10000000 + Math.random() * 90000000).toString()
     const passwordHashed = await hash(password, 10)
-    const user: IUser = {
+    const userToSave: IUser = {
       id,
       username,
       password: passwordHashed,
     }
-    return this.userRepository.save(user)
+    await this.userRepository.save(userToSave)
+    const { password: pass, ...userToRet } = userToSave
+    return userToRet
   }
 
   async findOneById(id: string): Promise<IUser> {
@@ -43,7 +45,7 @@ export class UsersService {
     return this.users.find((user) => user.username === username)
   }
 
-  async validateCredentials(username: string, pass: string): Promise<User> {
+  async validateCredentials(username: string, pass: string): Promise<UserPublic> {
     const user = await this.findOneByUserName(username)
     if (user && compareSync(pass, user.password)) {
       const { password, ...result } = user

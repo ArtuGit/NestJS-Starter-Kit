@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt'
 import { ConfigService } from '@nestjs/config'
 
 import { UsersService } from '../../users/users.service'
-import { User } from '../../users/entities/user.entity'
+import { User, UserPublic } from '../../users/entities/user.entity'
 import { IUser } from '../../users/interfaces/user.interface'
 
 @Injectable()
@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate(payload: any): Promise<User> {
+  async validate(payload: any): Promise<UserPublic> {
     const { sub: id } = payload
     const user: IUser = await this.usersService.findOneById(id)
     if (!user) {
@@ -43,7 +43,7 @@ export class JwtStrategyTest extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate(payload: any): Promise<User> {
+  async validate(payload: any): Promise<UserPublic> {
     const { sub: id } = payload
     const user: IUser = await this.usersService.findOneById(id)
     if (!user) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 
-import { User } from '../users/entities/user.entity'
+import { User, UserPublic } from '../users/entities/user.entity'
 import { usersStorage } from '../users/storage/users.storage'
 
 import { RefreshToken } from './entities/refresh-token.entity'
@@ -13,7 +13,7 @@ export class RefreshTokensRepository {
     this.refreshTokens = []
   }
 
-  public async createRefreshToken(user: User, ttl: number): Promise<RefreshToken> {
+  public async createRefreshToken(user: UserPublic, ttl: number): Promise<RefreshToken> {
     const id = Math.floor(10000000 + Math.random() * 90000000).toString()
     const expiration = new Date()
     expiration.setTime(expiration.getTime() + ttl)

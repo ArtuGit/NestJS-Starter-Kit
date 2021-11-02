@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import { User } from '../../users/entities/user.entity'
+import { User, UserPublic } from '../../users/entities/user.entity'
 
 class AuthenticatedPayload {
   type: string
@@ -11,8 +11,8 @@ class AuthenticatedPayload {
 }
 
 export class AuthenticatedResponse {
-  @ApiProperty({ type: User })
-  user: User
+  @ApiProperty({ type: UserPublic })
+  user: UserPublic
 
   @ApiProperty({ type: AuthenticatedPayload })
   payload: AuthenticatedPayload

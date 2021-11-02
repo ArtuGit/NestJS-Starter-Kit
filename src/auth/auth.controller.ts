@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { User as UserLoggedIn } from '../auth/decorators/user.decorator'
 import { TokensService } from '../auth/tokens.service'
-import { User } from '../users/entities/user.entity'
+import { User, UserPublic } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { IUserPublic } from '../users/interfaces/user.interface'
 import { QueryFailedExceptionFilter } from '../common/filters/typeorm.query-failed-error.filter'
@@ -26,7 +26,11 @@ export class AuthenticationController {
     private readonly usersService: UsersService,
   ) {}
 
-  private static buildResponsePayload(user: User, accessToken: string, refreshToken?: string): AuthenticatedResponse {
+  private static buildResponsePayload(
+    user: UserPublic,
+    accessToken: string,
+    refreshToken?: string,
+  ): AuthenticatedResponse {
     return {
       user: user,
       payload: {
