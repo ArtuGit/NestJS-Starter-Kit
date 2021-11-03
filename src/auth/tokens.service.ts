@@ -26,7 +26,10 @@ export class TokensService {
   }
 
   public async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<string> {
-    const token = await this.refreshTokensRepository.createRefreshToken(user, expiresIn)
+    const token = await this.refreshTokensRepository.createRefreshToken(
+      user,
+      expiresIn * 60 * 1000, //minutes to milliseconds
+    )
 
     const opts: SignOptions = {
       expiresIn,

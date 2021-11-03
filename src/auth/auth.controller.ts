@@ -48,7 +48,7 @@ export class AuthenticationController {
     const token = await this.tokensService.generateAccessToken(user)
     const refresh = await this.tokensService.generateRefreshToken(
       user,
-      this.configService.get<number>('JWT_ACCESS_TOKEN_DURATION_IN_MINUTES') * 60,
+      this.configService.get<number>('JWT_REFRESH_TOKEN_DURATION_IN_MINUTES'),
     )
 
     return AuthenticationController.buildResponsePayload(user, token, refresh)
@@ -70,7 +70,7 @@ export class AuthenticationController {
     const token = await this.tokensService.generateAccessToken(user)
     const refresh = await this.tokensService.generateRefreshToken(
       user,
-      this.configService.get<number>('JWT_ACCESS_TOKEN_DURATION_IN_MINUTES') * 60,
+      this.configService.get<number>('JWT_REFRESH_TOKEN_DURATION_IN_MINUTES'),
     )
     return AuthenticationController.buildResponsePayload(user, token, refresh)
   }
