@@ -1,12 +1,11 @@
 import { BadRequestException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
-import { compareSync, hash, hashSync } from 'bcrypt'
+import { compareSync, hash } from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm'
-import { EntityNotFoundError, Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 
 import { RegisterBody } from '../auth/dto'
 import { IDbWhereCond } from '../common/types/database.types'
 
-import { usersStorage } from './storage/users.storage'
 import { IUser, IUserPublicPartial } from './interfaces/user.interface'
 import { User, UserPublic } from './entities/user.entity'
 
@@ -17,9 +16,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {
-    this.users = usersStorage
-  }
+  ) {}
 
   public async register(body: RegisterBody): Promise<UserPublic> {
     const users = await this.findByPayload(
@@ -28,6 +25,7 @@ export class UsersService {
         email: body.email,
       },
       'OR',
+      false,
     )
     if (users.length > 0) {
       throw new BadRequestException(`Username (${body.username}) or email (${body.email}) is already registered`)
