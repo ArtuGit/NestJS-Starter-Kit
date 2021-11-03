@@ -4,8 +4,8 @@ import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
 import { User, UserPublic } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
-import { RefreshTokenPayload } from '../interfaces/tokens-interfaces'
 
+import { RefreshTokenPayload, RefreshTokenResult } from './interfaces/tokens-interfaces'
 import { RefreshTokensRepository } from './refresh-tokens.repository'
 import { RefreshToken } from './entities/refresh-token.entity'
 
@@ -17,15 +17,15 @@ export class TokensService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async generateAccessToken(user: UserPublic): Promise<string> {
+  public async generateAccessToken(user: UserPublic, refreshTokenId: string): Promise<string> {
     const opts: SignOptions = {
       subject: String(user.id),
     }
 
-    return this.jwtService.signAsync({}, opts)
+    return this.jwtService.signAsync({ refreshTokenId }, opts)
   }
 
-  public async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<string> {
+  public async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<RefreshTokenResult> {
     const token = await this.refreshTokensRepository.createRefreshToken(
       user,
       expiresIn * 60 * 1000, //minutes to milliseconds
@@ -37,7 +37,10 @@ export class TokensService {
       jwtid: String(token.id),
     }
 
-    return this.jwtService.signAsync({}, opts)
+    return {
+      id: token.id,
+      token: await this.jwtService.signAsync({}, opts),
+    }
   }
 
   public async resolveRefreshToken(encoded: string): Promise<{ user: User; token: RefreshToken }> {
@@ -62,9 +65,9 @@ export class TokensService {
   }
 
   public async createAccessTokenFromRefreshToken(refresh: string): Promise<{ token: string; user: User }> {
-    const { user } = await this.resolveRefreshToken(refresh)
-    const token = await this.generateAccessToken(user)
-    return { user, token }
+    const { user, token } = await this.resolveRefreshToken(refresh)
+    const tokenAccess = await this.generateAccessToken(user, token.id)
+    return { user, token: tokenAccess }
   }
 
   private async decodeRefreshToken(tokenRefresh: string): Promise<RefreshTokenPayload> {

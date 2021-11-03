@@ -45,13 +45,12 @@ export class AuthenticationController {
   @Post('/register')
   public async register(@Body() body: RegisterBody): Promise<AuthenticatedResponse> {
     const user = await this.usersService.register(body)
-    const token = await this.tokensService.generateAccessToken(user)
-    const refresh = await this.tokensService.generateRefreshToken(
+    const refreshTokenResult = await this.tokensService.generateRefreshToken(
       user,
       this.configService.get<number>('JWT_REFRESH_TOKEN_DURATION_IN_MINUTES'),
     )
-
-    return AuthenticationController.buildResponsePayload(user, token, refresh)
+    const token = await this.tokensService.generateAccessToken(user, refreshTokenResult.id)
+    return AuthenticationController.buildResponsePayload(user, token, refreshTokenResult.token)
   }
 
   @ApiOkResponse({ type: LoginResponse })
@@ -67,12 +66,13 @@ export class AuthenticationController {
       throw new BadRequestException()
     }
 
-    const token = await this.tokensService.generateAccessToken(user)
-    const refresh = await this.tokensService.generateRefreshToken(
+    const refreshTokenResult = await this.tokensService.generateRefreshToken(
       user,
       this.configService.get<number>('JWT_REFRESH_TOKEN_DURATION_IN_MINUTES'),
     )
-    return AuthenticationController.buildResponsePayload(user, token, refresh)
+    const token = await this.tokensService.generateAccessToken(user, refreshTokenResult.id)
+
+    return AuthenticationController.buildResponsePayload(user, token, refreshTokenResult.token)
   }
 
   @ApiOkResponse({ type: LoginResponse })
