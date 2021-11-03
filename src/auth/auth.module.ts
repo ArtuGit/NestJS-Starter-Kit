@@ -2,6 +2,7 @@ import { forwardRef, Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { UsersModule } from '../users/users.module'
 
@@ -9,6 +10,7 @@ import { JwtStrategy } from './strategies/jwt.strategy'
 import { TokensService } from './tokens.service'
 import { RefreshTokensRepository } from './refresh-tokens.repository'
 import { AuthenticationController } from './auth.controller'
+import { RefreshToken } from './entities/refresh-token.entity'
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { AuthenticationController } from './auth.controller'
       }),
       inject: [ConfigService],
     }),
+    TypeOrmModule.forFeature([RefreshToken]),
   ],
   providers: [RefreshTokensRepository, TokensService, JwtStrategy],
   controllers: [AuthenticationController],

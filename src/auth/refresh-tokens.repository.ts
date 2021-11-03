@@ -1,39 +1,33 @@
 import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
 
-import { User, UserPublic } from '../users/entities/user.entity'
-import { usersStorage } from '../users/storage/users.storage'
+import { UserPublic } from '../users/entities/user.entity'
 
 import { RefreshToken } from './entities/refresh-token.entity'
 
 @Injectable()
 export class RefreshTokensRepository {
-  private refreshTokens: RefreshToken[]
-
-  constructor() {
-    this.refreshTokens = []
-  }
+  constructor(
+    @InjectRepository(RefreshToken)
+    private readonly refreshTokenOrm: Repository<RefreshToken>,
+  ) {}
 
   public async createRefreshToken(user: UserPublic, ttl: number): Promise<RefreshToken> {
-    const id = Math.floor(10000000 + Math.random() * 90000000).toString()
     const expiration = new Date()
     expiration.setTime(expiration.getTime() + ttl)
 
     const token: RefreshToken = {
-      id,
+      ...new RefreshToken(),
       userId: user.id,
       isRevoked: false,
       expires: expiration,
     }
 
-    this.refreshTokens.push(token)
-    return token
+    return this.refreshTokenOrm.save(token)
   }
 
-  public async findTokenById(id: string): Promise<RefreshToken | null> {
-    const exTokenInd: number = this.refreshTokens.findIndex((el) => el.id === id)
-    if (exTokenInd === -1) {
-      return null
-    }
-    return this.refreshTokens[exTokenInd]
+  public async findTokenById(id: string): Promise<RefreshToken> {
+    return this.refreshTokenOrm.findOne(id)
   }
 }
