@@ -30,7 +30,7 @@ export class UsersService {
     if (users.length > 0) {
       throw new BadRequestException(`Username (${body.username}) or email (${body.email}) is already registered`)
     }
-    const exUser = await this.findOneByUserName(body.username)
+    const exUser = await this.findOneByPayload({ username: body.username }, false)
 
     if (exUser) {
       throw new UnprocessableEntityException(`Username '${body.username}' already in use`)
@@ -40,18 +40,11 @@ export class UsersService {
     const userToSave: User = {
       ...new User(),
       ...body,
+      password: passwordHashed,
     }
     await this.userRepository.save(userToSave)
     const { password: pass, ...userToRet } = userToSave
     return userToRet
-  }
-
-  async findOneById(id: string): Promise<IUser> {
-    return this.users.find((user) => user.id === id)
-  }
-
-  async findOneByUserName(username: string): Promise<IUser> {
-    return this.users.find((user) => user.username === username)
   }
 
   async findOneByPayload(payload: IUserPublicPartial, exception = true): Promise<IUser> {
@@ -83,7 +76,7 @@ export class UsersService {
   }
 
   async validateCredentials(username: string, pass: string): Promise<UserPublic> {
-    const user = await this.findOneByUserName(username)
+    const user = await this.findOneByPayload({ username }, false)
     if (user && compareSync(pass, user.password)) {
       const { password, ...result } = user
       return result

@@ -84,7 +84,7 @@ export class TokensService {
       throw new UnprocessableEntityException('Refresh token malformed')
     }
 
-    return this.usersService.findOneById(subId)
+    return this.usersService.findOneByPayload({ id: subId })
   }
 
   private async getStoredTokenFromRefreshTokenPayload(payload: RefreshTokenPayload): Promise<RefreshToken | null> {
