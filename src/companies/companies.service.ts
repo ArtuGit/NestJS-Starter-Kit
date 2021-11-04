@@ -69,13 +69,6 @@ export class CompaniesService {
     return await this.checkExisting(id)
   }
 
-  //ToDo: Universal update
-  async update_new(id: string, updateCompanyBody: UpdateCompanyBody | PatchCompanyBody): Promise<Company> {
-    const company = await this.checkExisting(id)
-    await this.companyRepository.update(id, updateCompanyBody)
-    return this.checkExisting(id)
-  }
-
   async setLogo(id: string, logoURI: string): Promise<Company> {
     const companyEx = await this.checkExisting(id)
     const companyUpd = {
