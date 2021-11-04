@@ -9,15 +9,15 @@ export class PatchCompanyBody {
   @ApiProperty({ type: String })
   @IsString()
   @IsOptional()
-  name: string
+  name?: string
 
   @ApiProperty({ enum: SalesFunnelStage })
   @IsOptional()
   @IsEnum(SalesFunnelStage)
-  salesFunnelStage: SalesFunnelStage
+  salesFunnelStage?: SalesFunnelStage
 
   @ApiProperty({ type: String })
   @IsOptional()
   @IsUrl()
-  websiteURL: string
+  websiteURL?: string
 }

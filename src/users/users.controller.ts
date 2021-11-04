@@ -1,10 +1,8 @@
-import { Body, Controller, Param, Post, UseFilters, UseGuards } from '@nestjs/common'
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { Controller, Param, Post, UseFilters, UseGuards } from '@nestjs/common'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { QueryFailedExceptionFilter } from '../common/filters/typeorm.query-failed-error.filter'
-import { Company } from '../companies/entities/company.entity'
-import { CreateCompanyBody } from '../companies/dto/create-company.body'
 import { UserId } from '../auth/decorators/user.decorator'
 
 @ApiTags('Users')

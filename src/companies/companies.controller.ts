@@ -90,7 +90,7 @@ export class CompaniesController {
     @Req() req,
     @Body('companyId') companyId: string,
     @UploadedFile() file: Express.Multer.File,
-  ): Promise<IFileUploaded> {
+  ): Promise<ImageUploadResult> {
     if (!file) {
       throw new BadRequestException('No file')
     }
