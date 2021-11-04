@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
+import { IRefreshToken } from '../interfaces/tokens-interfaces'
+
 @Entity()
-export class RefreshToken {
+export class RefreshToken implements IRefreshToken {
   @ApiProperty({ type: String })
   @PrimaryGeneratedColumn()
   id: string

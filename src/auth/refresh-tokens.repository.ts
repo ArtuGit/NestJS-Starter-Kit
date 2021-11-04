@@ -5,6 +5,7 @@ import { Repository } from 'typeorm'
 import { UserPublic } from '../users/entities/user.entity'
 
 import { RefreshToken } from './entities/refresh-token.entity'
+import { IRefreshTokenPatchPayload } from './interfaces/tokens-interfaces'
 
 @Injectable()
 export class RefreshTokensRepository {
@@ -13,7 +14,7 @@ export class RefreshTokensRepository {
     private readonly refreshTokenOrm: Repository<RefreshToken>,
   ) {}
 
-  public async createRefreshToken(user: UserPublic, ttl: number): Promise<RefreshToken> {
+  async createRefreshToken(user: UserPublic, ttl: number): Promise<RefreshToken> {
     const expiration = new Date()
     expiration.setTime(expiration.getTime() + ttl)
 
@@ -27,7 +28,11 @@ export class RefreshTokensRepository {
     return this.refreshTokenOrm.save(token)
   }
 
-  public async findTokenById(id: string): Promise<RefreshToken> {
+  async findTokenById(id: string): Promise<RefreshToken> {
     return this.refreshTokenOrm.findOne(id)
+  }
+
+  async updateTokenById(id: string, refreshTokenPatchPayload: IRefreshTokenPatchPayload) {
+    return this.refreshTokenOrm.update(id, refreshTokenPatchPayload)
   }
 }

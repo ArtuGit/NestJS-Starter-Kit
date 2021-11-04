@@ -1,4 +1,16 @@
-import { BadRequestException, Body, Controller, Get, Post, UseFilters, UseGuards } from '@nestjs/common'
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseFilters,
+  UseGuards,
+  Headers,
+} from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
 
@@ -89,5 +101,14 @@ export class AuthenticationController {
   @Get('me')
   me(@UserLoggedIn() user: any): User {
     return user
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('logout')
+  async logout(@Headers('Authorization') auth: string): Promise<void> {
+    const jwt = auth.replace('Bearer ', '')
+    await this.tokensService.revokeAccessToken(jwt)
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common'
+import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
@@ -11,13 +11,13 @@ import { RefreshToken } from './entities/refresh-token.entity'
 
 @Injectable()
 export class TokensService {
-  public constructor(
+  constructor(
     private readonly refreshTokensRepository: RefreshTokensRepository,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
-  public async generateAccessToken(user: UserPublic, refreshTokenId: string): Promise<string> {
+  async generateAccessToken(user: UserPublic, refreshTokenId: string): Promise<string> {
     const opts: SignOptions = {
       subject: String(user.id),
     }
@@ -25,7 +25,7 @@ export class TokensService {
     return this.jwtService.signAsync({ refreshTokenId }, opts)
   }
 
-  public async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<RefreshTokenResult> {
+  async generateRefreshToken(user: UserPublic, expiresIn: number): Promise<RefreshTokenResult> {
     const token = await this.refreshTokensRepository.createRefreshToken(
       user,
       expiresIn * 60 * 1000, //minutes to milliseconds
@@ -43,7 +43,7 @@ export class TokensService {
     }
   }
 
-  public async resolveRefreshToken(encoded: string): Promise<{ user: User; token: RefreshToken }> {
+  async resolveRefreshToken(encoded: string): Promise<{ user: User; token: RefreshToken }> {
     const payload = await this.decodeRefreshToken(encoded)
     const token = await this.getStoredTokenFromRefreshTokenPayload(payload)
 
@@ -64,7 +64,7 @@ export class TokensService {
     return { user, token }
   }
 
-  public async createAccessTokenFromRefreshToken(refresh: string): Promise<{ token: string; user: User }> {
+  async createAccessTokenFromRefreshToken(refresh: string): Promise<{ token: string; user: User }> {
     const { user, token } = await this.resolveRefreshToken(refresh)
     const tokenAccess = await this.generateAccessToken(user, token.id)
     return { user, token: tokenAccess }
@@ -101,5 +101,13 @@ export class TokensService {
     }
 
     return this.refreshTokensRepository.findTokenById(tokenId)
+  }
+
+  async revokeAccessToken(jwt: string): Promise<void> {
+    const tokenDecoded = this.jwtService.decode(jwt, { json: true }) as { refreshTokenId: string }
+    const updRes = await this.refreshTokensRepository.updateTokenById(tokenDecoded.refreshTokenId, { isRevoked: true })
+    if (updRes.affected === 0) {
+      throw new NotFoundException(`Refresh token (id=${tokenDecoded.refreshTokenId}) does not exist`)
+    }
   }
 }
