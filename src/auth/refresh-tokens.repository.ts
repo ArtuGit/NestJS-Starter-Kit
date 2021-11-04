@@ -29,7 +29,7 @@ export class RefreshTokensRepository {
   }
 
   async findTokenById(id: string): Promise<RefreshToken> {
-    return this.refreshTokenOrm.findOne(id)
+    return this.refreshTokenOrm.findOne({ id, isRevoked: false })
   }
 
   async updateTokenById(id: string, refreshTokenPatchPayload: IRefreshTokenPatchPayload) {

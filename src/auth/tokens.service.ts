@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
@@ -100,7 +100,11 @@ export class TokensService {
       throw new UnprocessableEntityException('Refresh token malformed')
     }
 
-    return this.refreshTokensRepository.findTokenById(tokenId)
+    const token = await this.refreshTokensRepository.findTokenById(tokenId)
+    if (!token) {
+      throw new BadRequestException('Refresh token does not exist or revoked')
+    }
+    return token
   }
 
   async revokeAccessToken(jwt: string): Promise<void> {
