@@ -25,14 +25,11 @@ export class User implements IUser {
 
 export class UserPublic implements IUserPublic {
   @ApiProperty({ type: String })
-  @PrimaryGeneratedColumn()
   id: string
 
   @ApiProperty({ type: String })
-  @Index({ unique: true })
   username: string
 
   @ApiProperty({ type: String })
-  @Column()
   email: string
 }

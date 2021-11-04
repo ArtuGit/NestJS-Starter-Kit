@@ -65,7 +65,7 @@ export class AuthenticationController {
     return AuthenticationController.buildResponsePayload(user, token, refreshTokenResult.token)
   }
 
-  @ApiOkResponse({ type: LoginResponse })
+  @ApiOkResponse({ type: AuthenticatedResponse })
   @Post('login')
   async login(@Body() { username, password }: LoginBody): Promise<AuthenticatedResponse> {
     if (!username || !password) throw new BadRequestException()
@@ -87,9 +87,9 @@ export class AuthenticationController {
     return AuthenticationController.buildResponsePayload(user, token, refreshTokenResult.token)
   }
 
-  @ApiOkResponse({ type: LoginResponse })
+  @ApiOkResponse({ type: AuthenticatedResponse })
   @Post('refresh')
-  public async refresh(@Body() body: RefreshBody) {
+  public async refresh(@Body() body: RefreshBody): Promise<AuthenticatedResponse> {
     const { user, token } = await this.tokensService.createAccessTokenFromRefreshToken(body.refreshToken)
 
     return AuthenticationController.buildResponsePayload(user, token)
@@ -107,7 +107,7 @@ export class AuthenticationController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete('logout')
-  async logout(@Headers('Authorization') auth: string): Promise<void> {
+  async logout(@Headers('') auth: string): Promise<void> {
     const jwt = auth.replace('Bearer ', '')
     await this.tokensService.revokeAccessToken(jwt)
   }

@@ -3,10 +3,13 @@ import { ApiProperty } from '@nestjs/swagger'
 import { User, UserPublic } from '../../users/entities/user.entity'
 
 class AuthenticatedPayload {
+  @ApiProperty({ type: String })
   type: string
 
+  @ApiProperty({ type: String })
   token: string
 
+  @ApiProperty({ type: String })
   refresh_token?: string
 }
 
