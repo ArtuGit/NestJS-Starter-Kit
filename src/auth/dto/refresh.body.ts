@@ -1,4 +1,4 @@
-import { IS_JWT, IsNotEmpty } from 'class-validator'
+import { IsNotEmpty } from 'class-validator'
 
 export class RefreshBody {
   @IsNotEmpty()

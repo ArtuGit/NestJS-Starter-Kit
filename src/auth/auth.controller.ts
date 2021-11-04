@@ -54,7 +54,7 @@ export class AuthenticationController {
   }
 
   @ApiOkResponse({ type: AuthenticatedResponse })
-  @Post('/register')
+  @Post('register')
   public async register(@Body() body: RegisterBody): Promise<AuthenticatedResponse> {
     const user = await this.usersService.register(body)
     const refreshTokenResult = await this.tokensService.generateRefreshToken(
@@ -88,7 +88,7 @@ export class AuthenticationController {
   }
 
   @ApiOkResponse({ type: LoginResponse })
-  @Post('/refresh')
+  @Post('refresh')
   public async refresh(@Body() body: RefreshBody) {
     const { user, token } = await this.tokensService.createAccessTokenFromRefreshToken(body.refreshToken)
 
