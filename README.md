@@ -34,3 +34,5 @@
 - Validation and DTOs for requests Params, Bodies and Query strings
 - Controllers, Services, Entities, Repository
 - Interfaces to sync with Front End
+
+### Tests

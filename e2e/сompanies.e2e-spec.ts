@@ -129,6 +129,7 @@ describe('Companies', () => {
       expect(res.body.result.result[1]).toEqual(expect.objectContaining(COMPANY_BAR))
       expect(res.body.result.result[2]).toEqual(expect.objectContaining(COMPANY_BAZ))
       expect(res.body.result.totalCount).toEqual(3)
+      expect(findMock).toBeCalledWith({ take, skip })
     })
   })
 })
