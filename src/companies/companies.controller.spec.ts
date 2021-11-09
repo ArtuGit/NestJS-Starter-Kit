@@ -14,7 +14,7 @@ import { PatchCompanyBody } from './dto/patch-company.body'
 
 const companyId = '1'
 
-const COMPANY_FOO: Company = {
+export const COMPANY_FOO: Company = {
   id: '1',
   logoURI: '/logo-foo.png',
   name: 'Foo',
@@ -22,7 +22,7 @@ const COMPANY_FOO: Company = {
   websiteURL: 'https://www.foo.com',
 }
 
-const COMPANY_BAR: Company = {
+export const COMPANY_BAR: Company = {
   id: '2',
   logoURI: '/logo-bar.png',
   name: 'Bar',
@@ -30,7 +30,7 @@ const COMPANY_BAR: Company = {
   websiteURL: 'https://www.bar.com',
 }
 
-const COMPANY_BAZ: Company = {
+export const COMPANY_BAZ: Company = {
   id: '3',
   logoURI: '/logo-baZ.png',
   name: 'Baz',
@@ -38,19 +38,19 @@ const COMPANY_BAZ: Company = {
   websiteURL: 'https://www.baz.com',
 }
 
-const createCompanyBody: CreateCompanyBody = {
+export const createCompanyBody: CreateCompanyBody = {
   name: 'New company',
   salesFunnelStage: SalesFunnelStage.Awareness,
   websiteURL: 'https://www.new.com',
 }
 
-const updateCompanyBody: UpdateCompanyBody = {
+export const updateCompanyBody: UpdateCompanyBody = {
   name: 'Updated name',
   salesFunnelStage: SalesFunnelStage.Engagement,
   websiteURL: null,
 }
 
-const patchCompanyBody: PatchCompanyBody = {
+export const patchCompanyBody: PatchCompanyBody = {
   name: 'Updated name',
   salesFunnelStage: SalesFunnelStage.CP,
   websiteURL: null,
