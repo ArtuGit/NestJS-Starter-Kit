@@ -36,3 +36,6 @@
 - Interfaces to sync with Front End
 
 ### Tests
+
+- Unit Tests with Jest spy
+- E2E Tests with Jest Mock of DB layer
