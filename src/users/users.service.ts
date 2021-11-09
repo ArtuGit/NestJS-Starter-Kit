@@ -6,8 +6,11 @@ import { Repository } from 'typeorm'
 import { RegisterBody } from '../auth/dto'
 import { IDbWhereCond } from '../common/types/database.types'
 
-import { IUser, IUserPublicPartial } from './interfaces/user.interface'
+import { IUser, IUserPublic, IUserPublicPartial } from './interfaces/user.interface'
 import { User, UserPublic } from './entities/user.entity'
+import { TEST_USER } from './mocks/users.mocks'
+
+const isDev = process.env.NODE_ENV !== 'production'
 
 @Injectable()
 export class UsersService {
@@ -73,12 +76,17 @@ export class UsersService {
     return users
   }
 
-  async validateCredentials(username: string, pass: string): Promise<UserPublic> {
-    const user = await this.findOneByPayload({ username }, false)
-    if (user && compareSync(pass, user.password)) {
-      const { password, ...result } = user
-      return result
+  async validateCredentials(username: string, pass: string): Promise<IUserPublic> {
+    let user: IUser = null
+    if (isDev && username === TEST_USER.username && pass === TEST_USER.password) {
+      user = <any>TEST_USER
+    } else {
+      user = await this.findOneByPayload({ username }, false)
+      if (user && compareSync(pass, user.password)) {
+        const { password, ...result } = user
+        user = <IUser>result
+      }
     }
-    return null
+    return user
   }
 }

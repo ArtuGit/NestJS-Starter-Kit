@@ -14,7 +14,7 @@ import { PatchCompanyBody } from './dto/patch-company.body'
 
 const companyId = '1'
 
-const COMPANY_FOO: Company = {
+export const COMPANY_FOO: Company = {
   id: '1',
   logoURI: '/logo-foo.png',
   name: 'Foo',
@@ -22,7 +22,7 @@ const COMPANY_FOO: Company = {
   websiteURL: 'https://www.foo.com',
 }
 
-const COMPANY_BAR: Company = {
+export const COMPANY_BAR: Company = {
   id: '2',
   logoURI: '/logo-bar.png',
   name: 'Bar',
@@ -30,7 +30,7 @@ const COMPANY_BAR: Company = {
   websiteURL: 'https://www.bar.com',
 }
 
-const COMPANY_BAZ: Company = {
+export const COMPANY_BAZ: Company = {
   id: '3',
   logoURI: '/logo-baZ.png',
   name: 'Baz',
