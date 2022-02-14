@@ -39,6 +39,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document)
 
   const port = configService.get<number>('PORT')
-  app.listen(port, () => console.info(`The server is running on ${port}`))
+  app.listen(port, () => console.info(`The server2 is running on ${port}`))
 }
 bootstrap()

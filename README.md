@@ -1,5 +1,7 @@
 # NestJS Starter Kit - TypeORM
 
+## Features
+
 ### Dev Tools
 
 - Better ESLint configuration
@@ -39,3 +41,23 @@
 
 - Unit Tests with Jest spy
 - E2E Tests with Jest Mock of DB layer
+
+## Start/Stop
+
+### Start
+
+Copy config file for Docker
+`cp ./config/common.env ./.env`
+
+Start with dockerized Node and MySQL
+`docker compose up`
+
+or Start with dockerized MySQL and local node
+
+```
+docker compose up mysql
+npm run start:dev
+```
+
+Finish Docker
+`docker compose down`
