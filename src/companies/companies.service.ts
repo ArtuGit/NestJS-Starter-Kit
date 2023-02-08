@@ -39,7 +39,7 @@ export class CompaniesService {
 
   async checkExisting(id: string): Promise<Company> {
     try {
-      const company = await this.companyRepository.findOneOrFail(id)
+      const company = await this.companyRepository.findOneOrFail({ where: { id } })
       return company
     } catch (e) {
       if (e instanceof EntityNotFoundError) {
