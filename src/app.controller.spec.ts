@@ -26,7 +26,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toMatch(new RegExp('^Hello World!?'))
+      expect(appController.getHello()).toMatch(new RegExp('^<div>Hello World!?'))
     })
   })
 })

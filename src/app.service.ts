@@ -8,6 +8,8 @@ export class AppService {
   getHello(): string {
     const port = this.configService.get<number>('PORT')
     const commonVar = this.configService.get<string>('COMMON_VAR')
-    return `Hello World! (on port ${port}) <br> COMMON_VAR="${commonVar}"`
+    return `<div>Hello World! (on port ${port}) <br> 
+            COMMON_VAR="${commonVar}",</div>
+            see <a href="/api">Swagger</a>`
   }
 }
