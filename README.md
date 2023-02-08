@@ -1,4 +1,4 @@
-# NestJS Starter Kit - TypeORM
+# NestJS Starter Kit v2
 
 ## Features
 
