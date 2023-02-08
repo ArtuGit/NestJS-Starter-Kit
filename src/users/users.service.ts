@@ -50,7 +50,7 @@ export class UsersService {
 
   async findOneByPayload(payload: IUserPublicPartial, exception = true): Promise<IUser> {
     let user: IUser = null
-    user = await this.userRepository.findOne(payload)
+    user = await this.userRepository.findOne({ where: { ...payload } })
     if (!user && exception) {
       throw new NotFoundException(`User (payload=${payload}) is not found`)
     }
@@ -64,7 +64,7 @@ export class UsersService {
   ): Promise<IUser[]> {
     let users: IUser[] = []
     if (dbWhereCond === 'AND') {
-      users = await this.userRepository.find(payload)
+      users = await this.userRepository.find({ where: { ...payload } })
     } else {
       users = await this.userRepository.find({
         where: Object.entries(payload).map(([k, v]) => ({ [k]: v })),
