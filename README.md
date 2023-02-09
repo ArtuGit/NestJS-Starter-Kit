@@ -62,5 +62,6 @@ docker compose up mysql
 npm run start:dev
 ```
 
+### Stop
 Finish Docker
-`docker compose down`
+`docker compose stop`
