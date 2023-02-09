@@ -14,14 +14,14 @@ import {
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
 
-import { JwtAuthGuard } from './guards/jwt-auth.guard'
-import { User as UserLoggedIn } from './decorators/user.decorator'
-import { TokensService } from './tokens.service'
 import { User, UserPublic } from '../users/entities/user.entity'
 import { UsersService } from '../users/users.service'
 import { IUserPublic } from '../users/interfaces/user.interface'
 import { QueryFailedExceptionFilter } from '../../common/filters/typeorm.query-failed-error.filter'
 
+import { TokensService } from './tokens.service'
+import { User as UserLoggedIn } from './decorators/user.decorator'
+import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { AuthenticatedResponse } from './dto/authenticated.response'
 import { LoginBody, LoginResponse, RefreshBody, RegisterBody } from './dto'
 
