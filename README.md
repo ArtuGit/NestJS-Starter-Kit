@@ -32,7 +32,9 @@
 
 ### Examples
 
-- Examples for REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
+- Authentication: JWT Token,Refresh Token 
+- Users: Register, Login
+- REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
 - Validation and DTOs for requests Params, Bodies and Query strings
 - Controllers, Services, Entities, Repository
 - Interfaces to sync with Front End
