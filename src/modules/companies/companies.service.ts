@@ -4,7 +4,7 @@ import { Injectable, NotFoundException, UnprocessableEntityException } from '@ne
 import { EntityNotFoundError, Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import { GetListQuery, PagedResponse } from '../common/dto/pagination'
+import { GetListQuery, PagedResponse } from '../../common/dto/pagination'
 
 import { CreateCompanyBody } from './dto/create-company.body'
 import { UpdateCompanyBody } from './dto/update-company.body'

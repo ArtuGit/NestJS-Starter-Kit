@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 
-import { GetListQuery, PagedResponse } from '../common/dto/pagination'
-import { mockRepository } from '../common/tests/mock.repository'
+import { GetListQuery, PagedResponse } from '../../common/dto/pagination'
+import { mockRepository } from '../../common/tests/mock.repository'
 
 import { CompaniesController } from './companies.controller'
 import { CompaniesService } from './companies.service'

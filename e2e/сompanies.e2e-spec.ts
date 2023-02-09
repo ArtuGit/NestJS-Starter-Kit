@@ -7,11 +7,16 @@ import { SignOptions } from 'jsonwebtoken'
 import { getRepositoryToken } from '@nestjs/typeorm'
 
 import { AppModule } from '../src/app.module'
-import { CompaniesModule } from '../src/companies/companies.module'
-import { TEST_USER } from '../src/users/mocks/users.mocks'
-import { CreateCompanyBody } from '../../NestJS Samples/rest-api-swagger/dist/companies/dto/create-company.body'
-import { COMPANY_BAR, COMPANY_BAZ, COMPANY_FOO, createCompanyBody } from '../src/companies/companies.controller.spec'
-import { Company } from '../../NestJS Samples/rest-api-swagger/dist/companies/entities/company.entity'
+import { CompaniesModule } from '../src/modules/companies/companies.module'
+import { TEST_USER } from '../src/modules/users/mocks/users.mocks'
+import { CreateCompanyBody } from '../src/modules/companies/dto/create-company.body'
+import {
+  COMPANY_BAR,
+  COMPANY_BAZ,
+  COMPANY_FOO,
+  createCompanyBody,
+} from '../src/modules/companies/companies.controller.spec'
+import { Company } from '../src/modules/companies/entities/company.entity'
 import { PagedResponse } from '../src/common/dto/pagination'
 
 describe('Companies', () => {

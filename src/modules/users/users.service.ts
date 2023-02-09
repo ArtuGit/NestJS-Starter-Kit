@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { RegisterBody } from '../auth/dto'
-import { IDbWhereCond } from '../common/types/database.types'
+import { IDbWhereCond } from '../../common/types/database.types'
 
 import { IUser, IUserPublic, IUserPublicPartial } from './interfaces/user.interface'
 import { User, UserPublic } from './entities/user.entity'
