@@ -17,6 +17,7 @@
     "start:repl:watch": "npm run start -- --watch --entryFile repl",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "job": "ts-node src/job.ts",
     "lint": "eslint \"{src,apps,libs,test,e2e}/**/*.ts\" --fix",
     "lint:fix": "eslint \"{src,apps,libs,test,e2e}/**/*.ts\" --fix",
     "test": "jest --passWithNoTests",
