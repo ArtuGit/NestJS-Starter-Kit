@@ -33,13 +33,15 @@
 
 - multi-stage build (dev, prod)
 
-### Examples
+### It contains working examples
+
 - REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
 - Validation and DTOs for requests Params, Bodies and Query strings
-- Controllers, Services, Entities, Repository
+- Router, Controllers, Services, Entities, Repository
 - Interfaces to sync with Front End
 - Logger Using
 - Static Content
+- Decorators, Guards, Strategies, and others
 
 ### Tests
 
@@ -64,5 +66,6 @@ npm run start:dev
 ```
 
 ### Stop
+
 Finish Docker
 `docker compose stop`
