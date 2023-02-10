@@ -25,10 +25,9 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { AuthenticatedResponse } from './dto/authenticated.response'
 import { LoginBody, LoginResponse, RefreshBody, RegisterBody } from './dto'
 
-@ApiTags('Authentication')
+@ApiTags('Users')
 @UseFilters(QueryFailedExceptionFilter)
 @Controller({
-  path: 'auth',
   version: '1',
 })
 export class AuthenticationController {

@@ -11,7 +11,6 @@ import { UserId } from './modules/auth/decorators/user.decorator'
 @ApiBearerAuth()
 @UseFilters(QueryFailedExceptionFilter)
 @Controller({
-  path: 'user',
   version: '1',
 })
 export class UsersController {

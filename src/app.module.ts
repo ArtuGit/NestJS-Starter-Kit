@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { RouterModule } from '@nestjs/core'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -25,7 +26,21 @@ import { CompaniesModule } from './modules/companies/companies.module'
     }),
 
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [
+        ConfigModule,
+        RouterModule.register([
+          {
+            path: 'user',
+            module: UsersModule,
+            children: [
+              {
+                path: '/',
+                module: AuthModule,
+              },
+            ],
+          },
+        ]),
+      ],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get('DB_HOST'),
