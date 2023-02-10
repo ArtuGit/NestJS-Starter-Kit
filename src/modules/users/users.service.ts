@@ -3,9 +3,9 @@ import { compareSync, hash } from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
-import { RegisterBody } from './modules/auth/dto'
 import { IDbWhereCond } from '../../common/types/database.types'
 
+import { RegisterBody } from './modules/auth/dto'
 import { IUser, IUserPublic, IUserPublicPartial } from './interfaces/user.interface'
 import { User, UserPublic } from './entities/user.entity'
 import { TEST_USER } from './mocks/users.mocks'
