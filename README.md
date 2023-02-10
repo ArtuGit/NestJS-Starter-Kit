@@ -41,7 +41,6 @@
 - Jobs
 - Decorators, Guards, Strategies, and others
 
-
 ### Tests
 
 - Unit Tests with Jest spy
@@ -50,7 +49,8 @@
 ### Docker
 
 - multi-stage build (dev, prod)
-- 
+-
+
 ## Start/Stop
 
 Install dependencies:
@@ -64,12 +64,14 @@ Copy config file for Docker
 Start with dockerized Node and MySQL
 `docker compose up`
 
-or Start with dockerized MySQL and local node _(recommended currently)_
+or Start with dockerized MySQL and local node (recommended currently)\_
 
 ```
 docker compose up mysql
 npm run start:dev
 ```
+
+Go to http://localhost:3015
 
 ### Stop
 
