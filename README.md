@@ -27,7 +27,7 @@
 ### ORM and DB
 
 - TypeORM
-- Tested on MySQL (ready for others DBs)
+- Tested on MySQL (ready for other DBs)
 
 ### It contains working examples
 
