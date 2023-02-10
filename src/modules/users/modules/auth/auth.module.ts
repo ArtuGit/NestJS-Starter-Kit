@@ -4,7 +4,7 @@ import { PassportModule } from '@nestjs/passport'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { UsersModule } from '../users/users.module'
+import { UsersModule } from '../../users.module'
 
 import { JwtStrategy } from './strategies/jwt.strategy'
 import { TokensService } from './tokens.service'

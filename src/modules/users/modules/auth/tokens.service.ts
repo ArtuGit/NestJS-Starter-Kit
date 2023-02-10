@@ -2,8 +2,8 @@ import { BadRequestException, Injectable, NotFoundException, UnprocessableEntity
 import { JwtService } from '@nestjs/jwt'
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 
-import { User, UserPublic } from '../users/entities/user.entity'
-import { UsersService } from '../users/users.service'
+import { User, UserPublic } from '../../entities/user.entity'
+import { UsersService } from '../../users.service'
 
 import { RefreshTokenPayload, RefreshTokenResult } from './interfaces/tokens-interfaces'
 import { RefreshTokensRepository } from './refresh-tokens.repository'

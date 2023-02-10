@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
-import { UserPublic } from '../users/entities/user.entity'
+import { UserPublic } from '../../entities/user.entity'
 
 import { RefreshToken } from './entities/refresh-token.entity'
 import { IRefreshTokenPatchPayload } from './interfaces/tokens-interfaces'

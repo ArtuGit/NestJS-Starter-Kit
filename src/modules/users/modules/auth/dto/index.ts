@@ -1,5 +1,5 @@
 export * from './refresh.body'
 export * from './register.body'
 export * from './login.body'
-export * from '../../users/entities/user.entity'
+export * from '../../../entities/user.entity'
 export * from './login.response'
