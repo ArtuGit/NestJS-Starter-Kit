@@ -9,7 +9,7 @@
 - Husky (pre-commit, pre-push)
 - Simple and necessary Swagger definitions
 - Read-Eval-Print-Loop (REPL) mode
-- Jobs
+- Jobs (Nest CLI separate process)
 
 ### Configuration
 
@@ -37,6 +37,7 @@
 
 - REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
 - Validation and DTOs for requests Params, Bodies and Query strings
+- Modules, sub modules
 - Router, Controllers, Services, Entities, Repository
 - Interfaces to sync with Front End
 - Logger Using
@@ -61,7 +62,7 @@ Copy config file for Docker
 Start with dockerized Node and MySQL
 `docker compose up`
 
-or Start with dockerized MySQL and local node *(recommended currently)*
+or Start with dockerized MySQL and local node _(recommended currently)_
 
 ```
 docker compose up mysql
