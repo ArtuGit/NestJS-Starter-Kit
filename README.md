@@ -21,6 +21,7 @@
 
 - Access and Refresh tokens
 - Storing Refresh tokens in DB
+- Login
 - Refresh token revoking (logout)
 
 ### ORM and DB
@@ -33,14 +34,12 @@
 - multi-stage build (dev, prod)
 
 ### Examples
-
-- Authentication: JWT Token,Refresh Token 
-- Users: Register, Login
 - REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
 - Validation and DTOs for requests Params, Bodies and Query strings
 - Controllers, Services, Entities, Repository
 - Interfaces to sync with Front End
 - Logger Using
+- Static Content
 
 ### Tests
 
