@@ -15,7 +15,7 @@
 
 - custom config directory and files
 - config validation
-- common and local configuration examples
+- common (in a repo) and local
 
 ### JWT authentication
 
@@ -35,6 +35,7 @@
 - Validation and DTOs for requests Params, Bodies and Query strings
 - Modules, sub modules
 - Router, Controllers, Services, Entities, Repository
+- Configuration
 - Interfaces to sync with Front End
 - Logger Using
 - Static Content
