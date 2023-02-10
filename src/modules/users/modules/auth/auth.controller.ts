@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -105,7 +104,7 @@ export class AuthenticationController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Delete('logout')
+  @Post('logout')
   async logout(@Headers('') auth: string): Promise<void> {
     const jwt = auth.replace('Bearer ', '')
     await this.tokensService.revokeAccessToken(jwt)
