@@ -1,5 +1,7 @@
+import { join } from 'path';
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { AppController } from './app.controller'
@@ -15,6 +17,10 @@ import { CompaniesModule } from './modules/companies/companies.module'
       validate,
       envFilePath: ['./config/common.env', './config/local.env'],
       isGlobal: true,
+    }),
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'static'),
     }),
 
     TypeOrmModule.forRootAsync({
