@@ -21,7 +21,7 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { JwtAuthGuard } from '../users/modules/auth/guards/jwt-auth.guard'
 import { GetListQuery, PagedResponse } from '../../common/dto/pagination'
 import { IFileUploaded } from '../../common/types/fileUploaded.types'
 import { QueryFailedExceptionFilter } from '../../common/filters/typeorm.query-failed-error.filter'
