@@ -50,7 +50,7 @@
 ### Docker
 
 - multi-stage build (dev, prod)
-- 
+
 ## Start/Stop
 
 Install dependencies:
