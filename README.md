@@ -9,6 +9,7 @@
 - Husky (pre-commit, pre-push)
 - Simple and necessary Swagger definitions
 - Read-Eval-Print-Loop (REPL) mode
+- Jobs
 
 ### Configuration
 
