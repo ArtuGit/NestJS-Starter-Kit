@@ -50,6 +50,9 @@
 
 ## Start/Stop
 
+Install dependencies:
+`npm install`
+
 ### Start
 
 Copy config file for Docker
@@ -58,7 +61,7 @@ Copy config file for Docker
 Start with dockerized Node and MySQL
 `docker compose up`
 
-or Start with dockerized MySQL and local node
+or Start with dockerized MySQL and local node *(recommended currently)*
 
 ```
 docker compose up mysql
