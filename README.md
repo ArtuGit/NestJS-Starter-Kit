@@ -9,7 +9,7 @@
 - Husky (pre-commit, pre-push)
 - Simple and necessary Swagger definitions
 - Read-Eval-Print-Loop (REPL) mode
-- Jobs (Nest CLI separate process)
+- Jobs (each job is run as a Nest CLI separate process)
 
 ### Configuration
 
@@ -29,10 +29,6 @@
 - TypeORM
 - Tested on MySQL (ready for others DBs)
 
-### Docker
-
-- multi-stage build (dev, prod)
-
 ### It contains working examples
 
 - REST API Endpoints: POST, POST upload, GET, PUT, PATCH, DELETE
@@ -42,13 +38,19 @@
 - Interfaces to sync with Front End
 - Logger Using
 - Static Content
+- Jobs
 - Decorators, Guards, Strategies, and others
+
 
 ### Tests
 
 - Unit Tests with Jest spy
 - E2E Tests with Jest Mock of DB layer
 
+### Docker
+
+- multi-stage build (dev, prod)
+- 
 ## Start/Stop
 
 Install dependencies:
