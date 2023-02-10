@@ -15,7 +15,7 @@ import { RefreshToken } from './entities/refresh-token.entity'
 @Module({
   imports: [
     ConfigModule,
-    UsersModule,
+    forwardRef(() => UsersModule),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],

@@ -39,7 +39,6 @@ import { CompaniesModule } from './modules/companies/companies.module'
       inject: [ConfigService],
     }),
 
-    AuthModule,
     UsersModule,
     CompaniesModule,
   ],
