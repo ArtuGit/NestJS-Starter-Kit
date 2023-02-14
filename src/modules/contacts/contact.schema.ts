@@ -6,20 +6,21 @@ export type ContactDocument = HydratedDocument<Contact>
 
 @Schema()
 export class Contact {
-  @Prop()
+  @Prop({ type: String, required: true })
   @ApiProperty({ type: String })
-  firstName: string
+  readonly firstName: string
 
-  @Prop()
+  @Prop({ type: String, required: true })
   @ApiProperty({ type: String })
-  lastName: string
+  readonly lastName: string
 
-  @Prop()
+  @Prop({ type: String, required: false })
   @ApiProperty({ type: String })
-  title: string
+  readonly title?: string
 
-  @Prop()
-  birthdate
+  @Prop({ type: Date, required: false })
+  @ApiProperty({ type: Date })
+  readonly birthdate?: Date
 }
 
 export const ContactSchema = SchemaFactory.createForClass(Contact)
