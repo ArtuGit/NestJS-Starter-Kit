@@ -17,6 +17,9 @@ export class Contact {
   @Prop()
   @ApiProperty({ type: String })
   title: string
+
+  @Prop()
+  birthdate
 }
 
 export const ContactSchema = SchemaFactory.createForClass(Contact)
