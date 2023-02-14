@@ -21,8 +21,8 @@
 
 - Access and Refresh tokens
 - Storing Refresh tokens in DB
-- Login
-- Refresh token revoking (logout)
+- Login / Logout
+- Refresh token revoking
 
 ### ORM and DB
 
