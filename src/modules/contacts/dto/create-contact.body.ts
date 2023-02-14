@@ -1,6 +1,6 @@
 import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-export class CreateCatBody {
+export class CreateContactBody {
   @IsString()
   @IsNotEmpty()
   name: string
