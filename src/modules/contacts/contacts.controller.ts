@@ -6,7 +6,6 @@ import { MongoIdParam } from '../../common/dto/mongo-id.param'
 import { ContactsService } from './contacts.service'
 import { Contact } from './contact.schema'
 import { CreateContactBody } from './dto/create-contact.body'
-import {Company} from "../companies/entities/company.entity";
 
 @ApiTags('Contact')
 @Controller({
