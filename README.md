@@ -3,6 +3,8 @@
 ## Features
 
 - Fastify
+- TypeORM: tested on MySQL (ready for other DBs)
+- Mongoose
 
 ### Dev Tools
 
@@ -25,11 +27,6 @@
 - Storing Refresh tokens in DB
 - Login
 - Refresh token revoking (logout)
-
-### ORM and DB
-
-- TypeORM
-- Tested on MySQL (ready for other DBs)
 
 ### It contains working examples
 
