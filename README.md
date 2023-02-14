@@ -67,6 +67,7 @@ or Start with dockerized MySQL and local node (recommended currently)\_
 
 ```
 docker compose up mysql
+docker compose up mongo
 npm run start:dev
 ```
 
