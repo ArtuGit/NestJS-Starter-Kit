@@ -50,7 +50,7 @@
 
 - multi-stage build (dev, prod)
 
-## Start/Stop
+## Start / Stop
 
 Install dependencies:
 `npm install`
