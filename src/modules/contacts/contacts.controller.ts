@@ -34,7 +34,6 @@ export class ContactsController {
     return this.contactsService.findOne(id)
   }
 
-  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   async delete(@Param('id', ValidateMongoId) id: string) {
     return this.contactsService.delete(id)
