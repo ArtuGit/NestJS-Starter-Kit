@@ -51,7 +51,7 @@ class EnvironmentVariables {
   readonly DB_HOST: string
 
   @IsNumber()
-  @IsNumber()
+  @IsNotEmpty()
   readonly DB_PORT: number
 
   @IsString()
@@ -61,6 +61,13 @@ class EnvironmentVariables {
   @IsBoolean()
   @IsNotEmpty()
   readonly DB_SYNC: boolean
+
+  @IsNumber()
+  @IsNotEmpty()
+  MONGODB_PORT: number
+  @IsString()
+  @IsNotEmpty()
+  readonly MONGODB_URI: string
 }
 
 export function validate(config: Record<string, unknown>) {
