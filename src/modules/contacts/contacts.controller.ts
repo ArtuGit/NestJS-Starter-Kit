@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 
+import { MongoIdParam } from '../../common/dto/mongo-id.param'
+
 import { ContactsService } from './contacts.service'
 import { Contact } from './contact.schema'
 import { CreateContactBody } from './dto/create-contact.body'
@@ -24,7 +26,7 @@ export class ContactsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Contact> {
+  async findOne(@Param('id') id: MongoIdParam): Promise<Contact> {
     return this.contactsService.findOne(id)
   }
 
