@@ -2,8 +2,6 @@ import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 
-import { MongoIdParam } from '../../common/dto/mongo-id.param'
-
 import { Contact, ContactDocument } from './contact.schema'
 import { CreateContactBody } from './dto/create-contact.body'
 
@@ -20,11 +18,11 @@ export class ContactsService {
     return this.contactModel.find().exec()
   }
 
-  async findOne(id: MongoIdParam): Promise<Contact> {
+  async findOne(id: string): Promise<Contact> {
     return this.contactModel.findOne({ _id: id }).exec()
   }
 
-  async delete(id: MongoIdParam) {
+  async delete(id: string) {
     const deletedContact = await this.contactModel.findByIdAndRemove({ _id: id }).exec()
     return deletedContact
   }
