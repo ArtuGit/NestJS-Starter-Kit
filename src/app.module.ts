@@ -13,6 +13,7 @@ import { validate } from './common/validations/env.validation'
 import { AuthModule } from './modules/users/modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
 import { CompaniesModule } from './modules/companies/companies.module'
+import { CatsModule } from './modules/cats/cats.module'
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { CompaniesModule } from './modules/companies/companies.module'
 
     UsersModule,
     CompaniesModule,
+    CatsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
