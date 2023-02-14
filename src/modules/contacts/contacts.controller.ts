@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger'
 
 import { MongoIdParam } from '../../common/dto/mongo-id.param'
 
@@ -15,9 +15,10 @@ import { CreateContactBody } from './dto/create-contact.body'
 export class ContactsController {
   constructor(private readonly contactsService: ContactsService) {}
 
+  @ApiCreatedResponse({ type: Contact })
   @Post()
-  create(@Body() createCatBody: CreateContactBody): Promise<Contact> {
-    return this.contactsService.create(createCatBody)
+  create(@Body() createContactBody: CreateContactBody): Promise<Contact> {
+    return this.contactsService.create(createContactBody)
   }
 
   @Get()
@@ -31,7 +32,7 @@ export class ContactsController {
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id') id: MongoIdParam) {
     return this.contactsService.delete(id)
   }
 }

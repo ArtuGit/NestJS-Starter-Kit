@@ -24,7 +24,7 @@ export class ContactsService {
     return this.contactModel.findOne({ _id: id }).exec()
   }
 
-  async delete(id: string) {
+  async delete(id: MongoIdParam) {
     const deletedContact = await this.contactModel.findByIdAndRemove({ _id: id }).exec()
     return deletedContact
   }

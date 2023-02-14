@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
+import { ApiProperty } from '@nestjs/swagger'
 import { HydratedDocument } from 'mongoose'
 
 export type ContactDocument = HydratedDocument<Contact>
@@ -6,13 +7,16 @@ export type ContactDocument = HydratedDocument<Contact>
 @Schema()
 export class Contact {
   @Prop()
-  name: string
+  @ApiProperty({ type: String })
+  firstName: string
 
   @Prop()
-  age: number
+  @ApiProperty({ type: String })
+  lastName: string
 
   @Prop()
-  breed: string
+  @ApiProperty({ type: String })
+  title: string
 }
 
 export const ContactSchema = SchemaFactory.createForClass(Contact)
