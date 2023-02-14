@@ -17,9 +17,9 @@
 
 ### Configuration
 
-- custom config directory and files
-- config validation
-- common (in a repo) and local
+- Custom config directory and files
+- Config validation
+- Common (in a repo) and local
 
 ### JWT authentication
 
@@ -48,7 +48,7 @@
 
 ### Docker
 
-- multi-stage build (dev, prod)
+- Multi-stage build (dev, prod)
 
 ## Start / Stop
 
