@@ -1,15 +1,19 @@
+import { ApiProperty } from '@nestjs/swagger'
 import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class CreateContactBody {
+  @ApiProperty({ type: String })
   @IsString()
   @IsNotEmpty()
-  name: string
+  firstName: string
 
-  @IsNumber()
-  @IsNotEmpty()
-  age: number
-
+  @ApiProperty({ type: String })
   @IsString()
-  @IsOptional()
-  breed?: string
+  @IsNotEmpty()
+  lastName: string
+
+  @ApiProperty({ type: String })
+  @IsString()
+  @IsNotEmpty()
+  title: string
 }
