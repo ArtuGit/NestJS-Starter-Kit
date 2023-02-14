@@ -20,11 +20,11 @@ export class ContactsService {
     return this.contactModel.find().exec()
   }
 
-  async findOne(id: MongoIdParam): Promise<Contact> {
+  async findOne(id: string): Promise<Contact> {
     return this.contactModel.findOne({ _id: id }).exec()
   }
 
-  async delete(id: MongoIdParam) {
+  async delete(id: string) {
     const deletedContact = await this.contactModel.findByIdAndRemove({ _id: id }).exec()
     return deletedContact
   }
