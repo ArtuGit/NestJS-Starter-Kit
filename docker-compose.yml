@@ -24,3 +24,10 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}
     ports:
       - '${DB_PORT}:${DB_PORT}'
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - '${MONGODB_PORT}:${MONGODB_PORT}'
+    volumes:
+      - /data/db
