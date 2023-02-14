@@ -2,6 +2,8 @@
 
 ## Features
 
+- Fastify
+
 ### Dev Tools
 
 - Better ESLint configuration
