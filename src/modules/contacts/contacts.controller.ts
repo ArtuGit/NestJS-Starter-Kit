@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Delete, Body, Param, HttpCode, HttpStatus } from '@nestjs/common'
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 
+import { ValidateMongoId } from '../../common/validations/mongo-id.validation'
+
 import { ContactsService } from './contacts.service'
 import { Contact } from './contact.schema'
 import { CreateContactBody } from './dto/create-contact.body'
@@ -26,13 +28,13 @@ export class ContactsController {
 
   @ApiOkResponse({ type: Contact })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Contact> {
+  async findOne(@Param('id', ValidateMongoId) id: string): Promise<Contact> {
     return this.contactsService.findOne(id)
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', ValidateMongoId) id: string) {
     return this.contactsService.delete(id)
   }
 }
