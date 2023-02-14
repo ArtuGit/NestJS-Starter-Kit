@@ -11,25 +11,25 @@ import { CreateContactBody } from './dto/create-contact.body'
   version: '1',
 })
 export class ContactsController {
-  constructor(private readonly catsService: ContactsService) {}
+  constructor(private readonly contactsService: ContactsService) {}
 
   @Post()
   create(@Body() createCatBody: CreateContactBody): Promise<Contact> {
-    return this.catsService.create(createCatBody)
+    return this.contactsService.create(createCatBody)
   }
 
   @Get()
   async findAll(): Promise<Contact[]> {
-    return this.catsService.findAll()
+    return this.contactsService.findAll()
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Contact> {
-    return this.catsService.findOne(id)
+    return this.contactsService.findOne(id)
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    return this.catsService.delete(id)
+    return this.contactsService.delete(id)
   }
 }
