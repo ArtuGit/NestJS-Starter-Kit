@@ -1,15 +1,15 @@
-import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class CreateCatBody {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name: string
 
   @IsNumber()
   @IsNotEmpty()
-  age: number;
+  age: number
 
   @IsString()
   @IsOptional()
-  breed?: string;
+  breed?: string
 }
