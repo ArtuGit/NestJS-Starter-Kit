@@ -17,7 +17,7 @@ import {
   HttpStatus,
   UseFilters,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 
@@ -45,7 +45,7 @@ import { PatchCompanyBody } from './dto/patch-company.body'
 export class CompaniesController {
   constructor(private readonly companiesService: CompaniesService) {}
 
-  @ApiOkResponse({ type: Company })
+  @ApiCreatedResponse({ type: Company })
   @Post()
   async create(@Body() createCompanyBody: CreateCompanyBody): Promise<Company> {
     return this.companiesService.create(createCompanyBody)

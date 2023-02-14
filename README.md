@@ -2,6 +2,10 @@
 
 ## Features
 
+- Fastify
+- TypeORM: tested on MySQL (ready for other DBs)
+- Mongoose
+
 ### Dev Tools
 
 - Better ESLint configuration
@@ -13,9 +17,9 @@
 
 ### Configuration
 
-- custom config directory and files
-- config validation
-- common (in a repo) and local
+- Custom config directory and files
+- Config validation
+- Common (in a repo) and local
 
 ### JWT authentication
 
@@ -23,11 +27,6 @@
 - Storing Refresh tokens in DB
 - Login / Logout
 - Refresh token revoking
-
-### ORM and DB
-
-- TypeORM
-- Tested on MySQL (ready for other DBs)
 
 ### It contains working examples
 
@@ -49,9 +48,9 @@
 
 ### Docker
 
-- multi-stage build (dev, prod)
+- Multi-stage build (dev, prod)
 
-## Start/Stop
+## Start / Stop
 
 Install dependencies:
 `npm install`
@@ -68,6 +67,7 @@ or Start with dockerized MySQL and local node (recommended currently)\_
 
 ```
 docker compose up mysql
+docker compose up mongo
 npm run start:dev
 ```
 

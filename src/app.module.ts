@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { MongooseModule } from '@nestjs/mongoose'
 import { RouterModule } from '@nestjs/core'
 
 import { AppController } from './app.controller'
@@ -12,6 +13,7 @@ import { validate } from './common/validations/env.validation'
 import { AuthModule } from './modules/users/modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
 import { CompaniesModule } from './modules/companies/companies.module'
+import { ContactsModule } from './modules/contacts/contacts.module'
 
 @Module({
   imports: [
@@ -54,8 +56,17 @@ import { CompaniesModule } from './modules/companies/companies.module'
       inject: [ConfigService],
     }),
 
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
+
     UsersModule,
     CompaniesModule,
+    ContactsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
