@@ -9,7 +9,7 @@
     "prepare": "husky install $PWD/.husky",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"e2e/**/*.ts\"",
     "format:staged": "pretty-quick --staged",
     "start": "nest start",
     "start:dev": "nest start --watch",
