@@ -2,9 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing'
 import * as request from 'supertest'
 import { Connection } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
-import { ValidationPipe } from '@nestjs/common'
+import { ExecutionContext, UnauthorizedException, ValidationPipe } from '@nestjs/common'
 import { SignOptions } from 'jsonwebtoken'
 import { getRepositoryToken } from '@nestjs/typeorm'
+import { JwtAuthGuard } from '../src/modules/users/modules/auth/guards/jwt-auth.guard'
 
 import { AppModule } from '../src/app.module'
 import { CompaniesModule } from '../src/modules/companies/companies.module'
@@ -52,6 +53,17 @@ describe('Companies', () => {
           ),
         }),
       })
+      .overrideGuard(JwtAuthGuard)
+      .useValue({
+        canActivate: (context: ExecutionContext) => {
+          const req = context.switchToHttp().getRequest()
+          if (req.headers.authorization.split(' ')[1]!=='wrong'){
+            req.user = TEST_USER
+            return true
+          }
+          throw new UnauthorizedException();
+        },
+      })
 
       .compile()
 
@@ -81,7 +93,7 @@ describe('Companies', () => {
 
   describe('POST /companies', () => {
     it('returns 401 Unauthorized when auth token is invalid', async () => {
-      const res = await request(app.getHttpServer()).post('/companies').set('Authorization', 'Bearer Bear')
+      const res = await request(app.getHttpServer()).post('/companies').set('Authorization', 'Bearer wrong')
       expect(res.status).toBe(401)
     })
 
@@ -111,7 +123,7 @@ describe('Companies', () => {
 
   describe('GET /companies', () => {
     it('returns 401 Unauthorized when auth token is invalid', async () => {
-      const res = await request(app.getHttpServer()).get('/companies').set('Authorization', 'Bearer skunk')
+      const res = await request(app.getHttpServer()).get('/companies').set('Authorization', 'Bearer wrong')
       expect(res.status).toBe(401)
     })
 
