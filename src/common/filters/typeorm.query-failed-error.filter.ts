@@ -16,6 +16,6 @@ export class QueryFailedExceptionFilter implements ExceptionFilter {
       code,
       errno,
     }
-    response.status(HttpStatus.BAD_REQUEST).json(errorResponse)
+    response.status(HttpStatus.BAD_REQUEST).send(errorResponse)
   }
 }
