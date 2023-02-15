@@ -5,8 +5,8 @@ import { JwtService } from '@nestjs/jwt'
 import { ExecutionContext, UnauthorizedException, ValidationPipe } from '@nestjs/common'
 import { SignOptions } from 'jsonwebtoken'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { JwtAuthGuard } from '../src/modules/users/modules/auth/guards/jwt-auth.guard'
 
+import { JwtAuthGuard } from '../src/modules/users/modules/auth/guards/jwt-auth.guard'
 import { AppModule } from '../src/app.module'
 import { CompaniesModule } from '../src/modules/companies/companies.module'
 import { TEST_USER } from '../src/modules/users/mocks/users.mocks'
@@ -57,11 +57,11 @@ describe('Companies', () => {
       .useValue({
         canActivate: (context: ExecutionContext) => {
           const req = context.switchToHttp().getRequest()
-          if (req.headers.authorization.split(' ')[1]!=='wrong'){
+          if (req.headers.authorization.split(' ')[1] !== 'wrong') {
             req.user = TEST_USER
             return true
           }
-          throw new UnauthorizedException();
+          throw new UnauthorizedException()
         },
       })
 
