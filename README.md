@@ -40,6 +40,7 @@
 - Static Content
 - Jobs
 - Decorators, Guards, Strategies, and others
+- Role-based access control (RBAC) - in progress
 
 ### Tests
 
