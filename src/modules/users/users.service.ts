@@ -3,6 +3,7 @@ import { compareSync, hash } from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
+import { Role } from '../../common/roles/role.enum'
 import { IDbWhereCond } from '../../common/types/database.types'
 
 import { RegisterBody } from './modules/auth/dto'
@@ -41,6 +42,7 @@ export class UsersService {
     const userToSave: User = {
       ...new User(),
       ...body,
+      roles: [Role.User],
       password: passwordHashed,
     }
     await this.userRepository.save(userToSave)

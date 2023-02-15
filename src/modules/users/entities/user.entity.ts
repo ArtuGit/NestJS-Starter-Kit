@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm'
 
+import { Role } from '../../../common/roles/role.enum'
 import { IUser, IUserPublic } from '../interfaces/user.interface'
 
 @Entity()
@@ -10,16 +11,24 @@ export class User implements IUser {
   id: string
 
   @ApiProperty({ type: String })
-  @Column()
+  @Column({ nullable: false })
   @Index({ unique: true })
   username: string
 
   @ApiProperty({ type: String })
-  @Column()
+  @Column({ nullable: false })
+  @Index({ unique: true })
   email: string
 
+  @ApiProperty({
+    type: String,
+    isArray: true,
+  })
+  @Column({ type: 'simple-array', nullable: false })
+  roles: Role[]
+
   @ApiProperty({ type: String })
-  @Column()
+  @Column({ nullable: false })
   password: string
 }
 

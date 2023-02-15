@@ -65,6 +65,7 @@ class EnvironmentVariables {
   @IsNumber()
   @IsNotEmpty()
   MONGODB_PORT: number
+
   @IsString()
   @IsNotEmpty()
   readonly MONGODB_URI: string
