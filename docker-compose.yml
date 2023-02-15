@@ -1,22 +1,22 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      target: development
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    ports:
-      - '${PORT}:${PORT}'
-      - '9229:9229'
-    command: npm run start:dev
-    depends_on:
-      - mysql
+  #  app:
+  #    build:
+  #      context: .
+  #      target: development
+  #    volumes:
+  #      - .:/usr/src/app
+  #      - /usr/src/app/node_modules
+  #    ports:
+  #      - '${PORT}:${PORT}'
+  #      - '9229:9229'
+  #    command: npm run start:dev
+  #    depends_on:
+  #      - mysql
 
   mysql:
-    image: mysql:8
+    image: mysql
     hostname: ${DB_HOST}
     restart: always
     environment:
@@ -26,7 +26,7 @@ services:
       - '${DB_PORT}:${DB_PORT}'
 
   mongo:
-    image: mongo:5.0
+    image: mongo
     ports:
       - '${MONGODB_PORT}:${MONGODB_PORT}'
     volumes:

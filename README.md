@@ -57,17 +57,9 @@ Install dependencies:
 
 ### Start
 
-Copy config file for Docker
-`cp ./config/common.env ./.env`
-
-Start with dockerized Node and MySQL
-`docker compose up`
-
-or Start with dockerized MySQL and local node (recommended currently)\_
-
 ```
-docker compose up mysql
-docker compose up mongo
+cp ./config/common.env ./.env
+docker compose up
 npm run start:dev
 ```
 
