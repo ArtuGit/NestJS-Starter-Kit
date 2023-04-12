@@ -12,6 +12,8 @@ import {
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
+import { AuthGuard } from 'src/common/roles/roles.decorators'
+import { Role } from 'src/common/roles/role.enum'
 
 import { User, UserPublic } from '../../entities/user.entity'
 import { UsersService } from '../../users.service'
@@ -93,7 +95,7 @@ export class AuthenticationController {
     return AuthenticationController.buildResponsePayload(user, token)
   }
 
-  @UseGuards(JwtAuthGuard)
+  @AuthGuard([Role.Admin, Role.User])
   @ApiBearerAuth()
   @ApiOkResponse({ type: User })
   @Get('me')
