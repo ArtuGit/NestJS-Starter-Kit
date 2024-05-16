@@ -64,56 +64,6 @@ export class UsersController {
     return user.getPublicUser();
   }
 
-  @Get('sub-users')
-  @Roles([RolesEnum.PRIMARY_USER])
-  @UserDecorators.GetSubUsers()
-  async getSubUsers(@Req() req: AuthenticatedRequestType): Promise<User[]> {
-    return await this.usersService.getSubUsers(req.user.id);
-  }
-
-  @Get('sub-users/:id')
-  @Roles([RolesEnum.PRIMARY_USER])
-  @UserDecorators.GetSubUserById()
-  async getSubUserById(
-    @Req() req: AuthenticatedRequestType,
-    @Param() { id }: ValidateIdAsUUIDInParamDTO,
-  ): Promise<User> {
-    return await this.usersService.getSubUserById(req.user.id, id);
-  }
-
-  @Post('sub-users/')
-  @Roles([RolesEnum.PRIMARY_USER])
-  @UserDecorators.CreateSubUser()
-  async createSubUser(
-    @Req() req: AuthenticatedRequestType,
-    @Body()
-    input: CreateUserDTO,
-  ): Promise<ReturnMessage> {
-    return await this.usersService.createSubUser(req.user.id, input);
-  }
-
-  @Patch('sub-users/:id')
-  @Roles([RolesEnum.PRIMARY_USER])
-  @UserDecorators.UpdateSubUser()
-  async updateSubUser(
-    @Req() req: AuthenticatedRequestType,
-    @Param() { id }: ValidateIdAsUUIDInParamDTO,
-    @Body()
-    input: UpdateSubUserDTO,
-  ): Promise<ReturnMessage> {
-    return await this.usersService.updateSubUser(req.user.id, id, input);
-  }
-
-  @Delete('sub-users/:id')
-  @Roles([RolesEnum.PRIMARY_USER])
-  @UserDecorators.DeleteSubUser()
-  async deleteSubUser(
-    @Req() req: AuthenticatedRequestType,
-    @Param() { id }: ValidateIdAsUUIDInParamDTO,
-  ): Promise<ReturnMessage> {
-    return await this.usersService.deleteSubUser(req.user.id, id);
-  }
-
   @Post('activate/resend')
   @Public()
   @UserDecorators.ResendActivationEmail()
@@ -219,21 +169,5 @@ export class UsersController {
         id: req.user.id,
       }),
     );
-  }
-
-  @Get('api-access')
-  @UserDecorators.GetApiAccessKey()
-  async getMyApiAccess(
-    @Req() req: AuthenticatedRequestType,
-  ): Promise<ReturnApiAccessKey> {
-    return await this.usersService.getMyApiAccess(req.user);
-  }
-
-  @Post('api-access')
-  @UserDecorators.RegenerateApiAccessKey()
-  async regenerateMyApiAccess(
-    @Req() req: AuthenticatedRequestType,
-  ): Promise<ReturnApiAccessKey> {
-    return await this.usersService.regenerateMyApiAccess(req.user);
   }
 }

@@ -127,33 +127,6 @@ export class UsersService {
     return user
   }
 
-  public async createSubUser(id: string, input: CreateUserDTO) {
-    const currentUser = await this.usersRepository.findOne({ where: { id } })
-
-    if (!currentUser) {
-      throw new NotFoundException('User not found.')
-    }
-
-    const userExists = await this.usersRepository.findOne({
-      where: { email: input.email },
-    })
-
-    if (userExists) {
-      throw new ConflictException('User exists.')
-    }
-
-    await this.usersRepository
-      .create({
-        ...input,
-        primaryUser: currentUser,
-        role: RolesEnum.SUB_USER,
-        isEmailConfirmed: true,
-        apiAccessKey: 'x_' + crypto.randomBytes(32).toString('hex'),
-      })
-      .save()
-
-    return { message: 'OK' }
-  }
 
   public async updateSubUser(id: string, subUserId: string, { fullName, userName, email, password }: UpdateSubUserDTO) {
     const currentUser = await this.usersRepository.findOne({ where: { id } })
@@ -178,52 +151,6 @@ export class UsersService {
     await subUser.save()
 
     return { message: 'OK' }
-  }
-
-  public async deleteSubUser(id: string, subUserId: string) {
-    const [currentUser, subUser] = await Promise.all([
-      this.usersRepository.findOne({ where: { id } }),
-      this.usersRepository.findOne({
-        where: { id: subUserId, primaryUser: { id } },
-      }),
-    ])
-
-    if (!currentUser) throw new NotFoundException('User not found.')
-    if (!subUser) throw new NotFoundException('Sub-User not found.')
-
-    // ToDo: newVersion
-    // await this.transactionsService.createTransaction({
-    //   transactionType: TransactionTypeEnum.INTERNAL_TRANSACTION,
-    //   transactionFlow: TransactionFlowEnum.WITHDRAW,
-    //   sum: subUser.balance,
-    //   toUserId: subUser.id,
-    //   fromUserId: currentUser.id,
-    // })
-
-    await this.usersRepository.remove(subUser)
-
-    return { message: 'OK' }
-  }
-
-  public async getSubUsers(id: string): Promise<User[]> {
-    const { subUsers } = await this.findUserByID(id, { subUsers: true })
-
-    return subUsers
-  }
-
-  public async getSubUserById(id: string, subUserId: string): Promise<User> {
-    const subUser = await this.usersRepository.findOne({
-      where: {
-        id: subUserId,
-        primaryUser: { id },
-      },
-    })
-
-    if (!subUser) {
-      throw new NotFoundException('User not found.')
-    }
-
-    return subUser
   }
 
   public async changeUserPassword({
@@ -442,46 +369,5 @@ export class UsersService {
     await user.save()
 
     return { message: 'OK' }
-  }
-
-  public async findUserByExternalApiKey(key: string): Promise<User> {
-    const user = await this.usersRepository.findOne({
-      where: { apiAccessKey: key },
-    })
-
-    if (!user) {
-      this.logger.error(`User with external api key: ${key} not found.`)
-      throw new BadRequestException('User with this external api key not found.')
-    }
-
-    return user
-  }
-
-  // ToDo: newVersion
-  // public async getUniqUsersFromNumbers(numbersIds: string[]): Promise<User[]> {
-  //   const users = await this.usersRepository.find({
-  //     where: {
-  //       userPhones: {
-  //         id: In(numbersIds),
-  //       },
-  //     },
-  //   })
-  //
-  //   return users
-  // }
-
-  public async getMyApiAccess(user: TokenPayloadType): Promise<ReturnApiAccessKey> {
-    const userFromDB = await this.findUserByID(user.id)
-    return { accessKey: userFromDB.apiAccessKey }
-  }
-
-  public async regenerateMyApiAccess(user: TokenPayloadType): Promise<ReturnApiAccessKey> {
-    const userFromDB = await this.findUserByID(user.id)
-
-    userFromDB.apiAccessKey = 'x_' + crypto.randomBytes(32).toString('hex')
-
-    await userFromDB.save()
-
-    return { accessKey: userFromDB.apiAccessKey }
   }
 }

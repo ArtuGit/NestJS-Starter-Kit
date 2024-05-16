@@ -3,18 +3,18 @@ version: "3.8"
 services:
 
   postgres:
-    container_name: tsg-postgres
+    container_name: nsk-postgres
     image: postgres
     ports:
-      - "7632:5432"
+      - "7532:5432"
     volumes:
       - ./volumes/db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d tsg"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nsk"]
       interval: 5s
       timeout: 15s
       start_period: 10s
       retries: 10
     environment:
-      - POSTGRES_DB=tsg
+      - POSTGRES_DB=nsk
       - POSTGRES_PASSWORD=postgres
