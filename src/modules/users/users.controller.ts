@@ -1,21 +1,9 @@
-import {
-  BadRequestException,
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Query,
-  Req,
-  Res,
-} from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, Res } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { Response } from 'express'
 
-import { UsersService } from './users.service';
-import * as UserDecorators from './decorators';
+import { UsersService } from './users.service'
+import * as UserDecorators from './decorators'
 import {
   ChangeUserPasswordDTO,
   ChangeUserNamesDTO,
@@ -25,14 +13,14 @@ import {
   SendRestorePasswordDTO,
   SetRestoredPasswordDTO,
   UpdateSubUserDTO,
-} from './dto';
-import { User } from './users.entity';
-import { AuthenticatedRequestType } from '../auth/types/types';
-import { ReturnApiAccessKey, ReturnMessage } from '../../utils';
-import { Public, Roles } from '../auth/decorators';
-import { WinstonLogger } from '../../config';
-import { RolesEnum } from './enums';
-import { ValidateIdAsUUIDInParamDTO } from '../../utils/validation';
+} from './dto'
+import { User } from './users.entity'
+import { AuthenticatedRequestType } from '../auth/types/types'
+import { ReturnApiAccessKey, ReturnMessage } from '../../utils'
+import { Public, Roles } from '../auth/decorators'
+import { WinstonLogger } from '../../config'
+import { RolesEnum } from './enums'
+import { ValidateIdAsUUIDInParamDTO } from '../../utils/validation'
 
 @ApiTags('Users')
 @Controller('users')
@@ -44,12 +32,10 @@ export class UsersController {
 
   @Get('get-me')
   @UserDecorators.GetUser()
-  async getProfile(
-    @Req() req: AuthenticatedRequestType,
-  ): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
-    const user = await this.usersService.findUserByID(req.user.id);
+  async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
+    const user = await this.usersService.findUserByID(req.user.id)
 
-    return user.getPublicUser();
+    return user.getPublicUser()
   }
 
   @Post('create')
@@ -59,35 +45,30 @@ export class UsersController {
     @Body()
     input: CreateUserDTO,
   ): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
-    const user = await this.usersService.createUser(input);
+    const user = await this.usersService.createUser(input)
 
-    return user.getPublicUser();
+    return user.getPublicUser()
   }
 
   @Post('activate/resend')
   @Public()
   @UserDecorators.ResendActivationEmail()
-  async resendActivationEmail(
-    @Query() query: ResendActivationEmailDTO,
-  ): Promise<ReturnMessage> {
-    const user = await this.usersService.findUserByEmail(query.email);
+  async resendActivationEmail(@Query() query: ResendActivationEmailDTO): Promise<ReturnMessage> {
+    const user = await this.usersService.findUserByEmail(query.email)
 
     if (user.isEmailConfirmed) {
-      this.logger.error(`User with id: ${user.id} already activated.`);
-      throw new BadRequestException('User already activated.');
+      this.logger.error(`User with id: ${user.id} already activated.`)
+      throw new BadRequestException('User already activated.')
     }
 
-    return this.usersService.sendActivationEmail(user.id, user.email);
+    return this.usersService.sendActivationEmail(user.id, user.email)
   }
 
   @Post('activate/:activateToken')
   @Public()
   @UserDecorators.ActivateUser()
-  async activateUser(
-    @Param('activateToken') activateToken: string,
-    @Res() res: Response,
-  ): Promise<void> {
-    res.status(200).send(await this.usersService.activateUser(activateToken));
+  async activateUser(@Param('activateToken') activateToken: string, @Res() res: Response): Promise<void> {
+    res.status(200).send(await this.usersService.activateUser(activateToken))
   }
 
   @Post('change-password')
@@ -98,21 +79,16 @@ export class UsersController {
     @Body()
     input: ChangeUserPasswordDTO,
   ): Promise<void> {
-    const id = req.user['id'];
+    const id = req.user['id']
 
-    res
-      .status(200)
-      .send(await this.usersService.changeUserPassword({ ...input, id }));
+    res.status(200).send(await this.usersService.changeUserPassword({ ...input, id }))
   }
 
   @Post('change-email/:changeToken')
   @Public()
   @UserDecorators.SetUserEmail()
-  async setUserEmail(
-    @Res() res: Response,
-    @Param('changeToken') changeToken: string,
-  ): Promise<void> {
-    res.status(200).send(await this.usersService.setUserEmail(changeToken));
+  async setUserEmail(@Res() res: Response, @Param('changeToken') changeToken: string): Promise<void> {
+    res.status(200).send(await this.usersService.setUserEmail(changeToken))
   }
 
   @Post('change-email')
@@ -125,7 +101,7 @@ export class UsersController {
     return this.usersService.sendChangeUserEmailMessage({
       ...input,
       id: req.user.id,
-    });
+    })
   }
 
   @Post('pass-restore/:changeToken')
@@ -136,11 +112,7 @@ export class UsersController {
     @Param('changeToken') restoreToken: string,
     @Body() input: SetRestoredPasswordDTO,
   ): Promise<void> {
-    res
-      .status(200)
-      .send(
-        await this.usersService.setRestoredPassword({ ...input, restoreToken }),
-      );
+    res.status(200).send(await this.usersService.setRestoredPassword({ ...input, restoreToken }))
   }
 
   @Post('pass-restore')
@@ -152,7 +124,7 @@ export class UsersController {
   ): Promise<ReturnMessage> {
     return this.usersService.sendRestorePassword({
       ...input,
-    });
+    })
   }
 
   @Post('change-names')
@@ -168,6 +140,6 @@ export class UsersController {
         ...input,
         id: req.user.id,
       }),
-    );
+    )
   }
 }

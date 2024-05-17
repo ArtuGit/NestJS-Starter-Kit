@@ -59,15 +59,7 @@ export class EnvConfigDTO {
 
   @IsString()
   @IsNotEmpty()
-  GATEWAY_API_HOST: string
-
-  @IsString()
-  @IsNotEmpty()
   FRONTEND_HOST: string
-
-  @IsString()
-  @IsNotEmpty()
-  BACKEND_HOST: string
 
   @IsEmail()
   SENDGRID_FROM: string
@@ -85,43 +77,5 @@ export class EnvConfigDTO {
   SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID: string
 
   @IsString()
-  @IsNotEmpty()
-  STRIPE_SECRET: string
-
-  @IsString()
-  @IsNotEmpty()
-  STRIPE_WEBHOOK_SECRET: string
-
-  @IsString()
-  @IsNotEmpty()
-  STRIPE_DEFAULT_PRICE_ID: string
-
-  @IsString()
-  STRIPE_COUPON_10: string
-
-  @IsString()
-  STRIPE_COUPON_15: string
-
-  @IsString()
-  STRIPE_COUPON_20: string
-
-  @IsString()
-  STRIPE_COUPON_25: string
-
-  @IsString()
-  @IsOptional()
-  NON_INSTANT_PURCHASES_DISCORD_WEBHOOK: string | null
-
-  @IsString()
   STATIC_PATH: string
-
-  @IsString()
-  GATEWAYS_LIST: string
-
-  @IsString()
-  SERVICES_LIST: string
-
-  @IsString()
-  @IsOptional()
-  ERROR_LOGGING_DISCORD_WEBHOOK: string
 }

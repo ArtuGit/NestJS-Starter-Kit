@@ -127,7 +127,6 @@ export class UsersService {
     return user
   }
 
-
   public async updateSubUser(id: string, subUserId: string, { fullName, userName, email, password }: UpdateSubUserDTO) {
     const currentUser = await this.usersRepository.findOne({ where: { id } })
 
