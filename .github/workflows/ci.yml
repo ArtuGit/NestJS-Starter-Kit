@@ -19,14 +19,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: pnpm install
+      - name: Install PNpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
         run: pnpm install
 
-#      - name: Install dependencies
-#        run: yarn install
-#
-#      - name: Lint code
-#        run: yarn lint
-#
-#      - name: Run tests
-#        run: yarn test
+      - name: Lint code
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
