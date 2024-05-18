@@ -32,6 +32,7 @@ import { AppController } from './app.controller'
     }),
     ServeStaticModule.forRoot({
       rootPath: envConfig.STATIC_PATH,
+      serveRoot: '/static',
     }),
     AuthModule,
     UsersModule,
