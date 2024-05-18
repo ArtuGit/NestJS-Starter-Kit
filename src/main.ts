@@ -33,7 +33,9 @@ async function bootstrap() {
     }),
   )
 
-  SwaggerModule.setup('doc', app, SwaggerModule.createDocument(app, swaggerConfig))
+  if (process.env.NODE_ENV !== 'production') {
+    SwaggerModule.setup('doc', app, SwaggerModule.createDocument(app, swaggerConfig))
+  }
 
   await app.listen(envConfig.PORT, '0.0.0.0', () => console.info(`The server is running on port ${envConfig.PORT} `))
 }

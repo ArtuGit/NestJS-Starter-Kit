@@ -8,6 +8,8 @@ config()
 
 export const envConfig = new EnvConfigDTO()
 
+envConfig.NODE_ENV = process.env.NODE_ENV || ''
+
 envConfig.PORT = parseInt(process.env.PORT || '')
 envConfig.HOST = process.env.HOST || ''
 

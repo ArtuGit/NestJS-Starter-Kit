@@ -1,6 +1,10 @@
 import { IsString, IsInt, IsNotEmpty, IsEmail, IsOptional } from 'class-validator'
 
 export class EnvConfigDTO {
+  @IsString()
+  @IsNotEmpty()
+  NODE_ENV: string
+
   @IsInt()
   @IsNotEmpty()
   PORT: number

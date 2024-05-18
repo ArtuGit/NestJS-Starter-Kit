@@ -8,7 +8,7 @@ import * as packageJson from '../package.json'
 export class AppController {
   constructor() {}
 
-  @Get()
+  @Get('/healthcheck')
   healthCheck(): AppHealthcheckResultDto {
     return {
       name: packageJson.name,
