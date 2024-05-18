@@ -83,9 +83,8 @@ export const runSeed = async () => {
   try {
     const user = {
       ...baseUser,
-      email: 'admin-77af6dfe@cantlove.nobitches.life',
-      password: 'duL5926KHCngrtcXmEhxkMeS',
-      apiAccessKey: 'x_' + crypto.randomBytes(32).toString('hex'),
+      email: 'admin.nsk@dev',
+      password: 'admin.nsk@dev',
     }
 
     const userRepository = dataSource.getRepository('users')
