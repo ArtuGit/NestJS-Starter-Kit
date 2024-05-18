@@ -8,7 +8,7 @@ export class InitialMigration1701790187576 implements MigrationInterface {
              CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         `)
     await queryRunner.query(`
-            CREATE TYPE "public"."users_role_enum" AS ENUM('Site Admin', 'User')
+            CREATE TYPE "public"."users_role_enum" AS ENUM('Site Admin', 'Primary User')
         `)
     await queryRunner.query(`
             CREATE TABLE "users" (
@@ -20,7 +20,7 @@ export class InitialMigration1701790187576 implements MigrationInterface {
                 "email" character varying NOT NULL,
                 "isEmailConfirmed" boolean NOT NULL DEFAULT false,
                 "password" character varying NOT NULL,
-                "role" "public"."users_role_enum" NOT NULL DEFAULT 'User',
+                "role" "public"."users_role_enum" NOT NULL DEFAULT 'Primary User',
                 "primaryUserId" uuid,
                 CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
             )

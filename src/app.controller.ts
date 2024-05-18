@@ -1,13 +1,19 @@
 import { Controller, Get } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { AppHealthcheckResultDto } from 'src/modules/app.healthcheck.result.dto'
+import * as packageJson from '../package.json'
 
-import { AppService } from './app.service'
-
+@ApiTags('Api')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  healthCheck(): AppHealthcheckResultDto {
+    return {
+      name: packageJson.name,
+      version: packageJson.version,
+      healthy: true,
+    }
   }
 }

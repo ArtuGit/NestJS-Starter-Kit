@@ -14,7 +14,6 @@ import { AuthModule } from './modules/auth/auth.module'
 import { envConfig, typeOrmAsyncConfig } from './config'
 
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
 
 @Module({
   imports: [
@@ -52,7 +51,6 @@ import { AppService } from './app.service'
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
-    AppService,
   ],
 })
 export class AppModule {}

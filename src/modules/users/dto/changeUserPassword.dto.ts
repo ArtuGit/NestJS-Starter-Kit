@@ -19,7 +19,7 @@ export class ChangeUserPasswordDTO {
   newPassword: string
 
   @ApiProperty({
-    description: 'Repeate your new password, minimum 6 characters, maximum 24.',
+    description: 'Repeat your new password, minimum 6 characters, maximum 24.',
   })
   @IsNotEmpty()
   @MinLength(6)
