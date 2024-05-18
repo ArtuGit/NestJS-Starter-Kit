@@ -13,14 +13,14 @@ export function GetUser() {
   return applyDecorators(
     ApiOperation({
       summary: 'Get my user',
-      description: 'This route requires a Bearer token for authorization.',
+      description: 'This route requires a Bearer token for authorization',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiOkResponse({
-      description: 'The User profile successfully received.',
+      description: 'The User profile successfully received',
       type: User,
     }),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
   )
 }

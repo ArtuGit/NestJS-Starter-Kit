@@ -9,17 +9,17 @@ export function CreateUser() {
     ApiOperation({
       summary: 'Create User',
       description:
-        'This route is provided to create a new user, it will send a confirmation email, you will have 15 mins to confirm your email.',
+        'This route is provided to create a new user, it will send a confirmation email, you will have 15 mins to confirm your email',
     }),
     ApiBody({
       type: CreateUserRequestDto,
-      description: 'Body sign In.',
+      description: 'Body sign In',
     }),
     ApiCreatedResponse({
-      description: 'The new User has been successfully created, confirmation email sent.',
+      description: 'The new User has been successfully created, confirmation email sent',
       type: User,
     }),
-    ApiConflictResponse({ description: 'The User already exists.' }),
-    ApiBadRequestResponse({ description: 'Email or password is not valid.' }),
+    ApiConflictResponse({ description: 'The User already exists' }),
+    ApiBadRequestResponse({ description: 'Email or password is not valid' }),
   )
 }

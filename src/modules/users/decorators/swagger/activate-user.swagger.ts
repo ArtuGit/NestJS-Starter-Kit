@@ -11,19 +11,19 @@ export function ActivateUser() {
       summary: 'Activate User',
       description: `This route is provided to activate User, you have ${moment
         .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
-        .asHours()} hours to activate user, or you need to send email again.`,
+        .asHours()} hours to activate user, or you need to send email again`,
     }),
     ApiParam({
       name: 'activateToken',
-      description: 'The activate User token.',
+      description: 'The activate User token',
     }),
     ApiOkResponse({
-      description: 'The User has been successfully activated.',
+      description: 'The User has been successfully activated',
       type: LoginReturnDTO,
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
     ApiForbiddenResponse({
-      description: 'Activate token expired.; User already activated.',
+      description: 'Activate token expired.; User already activated',
     }),
   )
 }

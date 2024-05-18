@@ -11,10 +11,10 @@ export function RefreshToken() {
     }),
     ApiBearerAuth('JWT-auth'),
     ApiForbiddenResponse({
-      description: 'Token is not valid.',
+      description: 'Token is not valid',
     }),
     ApiOkResponse({
-      description: 'Tokens generated in successfully.',
+      description: 'Tokens generated in successfully',
       type: LoginReturnDTO,
     }),
   )

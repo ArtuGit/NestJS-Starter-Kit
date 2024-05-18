@@ -27,7 +27,7 @@ export class UsersController {
     private readonly logger: WinstonLogger,
   ) {}
 
-  @Get('get-me')
+  @Get('me')
   @UserDecorators.GetUser()
   async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
     const user = await this.usersService.findUserByID(req.user.id)
@@ -41,7 +41,7 @@ export class UsersController {
   async createUser(
     @Body()
     input: CreateUserRequestDto,
-  ): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
+  ): Promise<Omit<User, 'password'>> {
     const user = await this.usersService.createUser(input)
 
     return user.getPublicUser()
@@ -101,7 +101,7 @@ export class UsersController {
     })
   }
 
-  @Post('pass-restore/:changeToken')
+  @Post('password-restore/:changeToken')
   @Public()
   @UserDecorators.SetRestoredPassword()
   async setRestoredPassword(
@@ -112,7 +112,7 @@ export class UsersController {
     res.status(200).send(await this.usersService.setRestoredPassword({ ...input, restoreToken }))
   }
 
-  @Post('pass-restore')
+  @Post('password-restore')
   @Public()
   @UserDecorators.SendRestorePassword()
   async sendRestorePassword(
@@ -124,9 +124,9 @@ export class UsersController {
     })
   }
 
-  @Post('change-names')
-  @UserDecorators.ChangeUserNames()
-  async changeUserNames(
+  @Post('change')
+  @UserDecorators.ChangeUser()
+  async changeUser(
     @Req() req: AuthenticatedRequestType,
     @Res() res: Response,
     @Body()

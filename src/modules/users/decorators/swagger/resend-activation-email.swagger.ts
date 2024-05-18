@@ -15,15 +15,15 @@ export function ResendActivationEmail() {
     ApiOperation({
       summary: 'Resend Activation Email',
       description:
-        'This route is provided to resend activation email, you have 15 mins to activate user, or you need to send email again.',
+        'This route is provided to resend activation email, you have 15 mins to activate user, or you need to send email again',
     }),
     ApiCreatedResponse({
-      description: 'New activation email was successfully sent.',
+      description: 'New activation email was successfully sent',
       type: ReturnMessage,
     }),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
     ApiBadRequestResponse({
-      description: 'User already activated.',
+      description: 'User already activated',
     }),
     ApiNotFoundResponse({ description: 'User not found.' }),
   )

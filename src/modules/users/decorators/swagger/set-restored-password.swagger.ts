@@ -17,19 +17,19 @@ export function SetRestoredPassword() {
     ApiOperation({
       summary: 'Change User password',
       description:
-        'This route is provided to change user password, if change token expired you need to send change password email again.',
+        'This route is provided to change user password, if change token expired you need to send change password email again',
     }),
     ApiParam({ name: 'changeToken', description: 'The change password token' }),
     ApiBody({
       type: SetRestoredPasswordRequestDto,
-      description: 'Body to restore password.',
+      description: 'Body to restore password',
     }),
     ApiOkResponse({
-      description: 'The password has been successfully changed.',
+      description: 'The password has been successfully changed',
       type: ReturnMessage,
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
-    ApiBadRequestResponse({ description: 'Passwords mismatch.' }),
-    ApiForbiddenResponse({ description: 'Change token expired.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
+    ApiBadRequestResponse({ description: 'Passwords mismatch' }),
+    ApiForbiddenResponse({ description: 'Change token expired' }),
   )
 }

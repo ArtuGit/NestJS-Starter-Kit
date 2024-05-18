@@ -7,17 +7,17 @@ import { SendRestorePasswordRequestDto } from '../../dto'
 export function SendRestorePassword() {
   return applyDecorators(
     ApiOperation({
-      summary: 'Send restore password email.',
-      description: 'This route is provided to send restore password email.',
+      summary: 'Send restore password email',
+      description: 'This route is provided to send restore password email',
     }),
     ApiBody({
       type: SendRestorePasswordRequestDto,
-      description: 'Body to send restore password email.',
+      description: 'Body to send restore password email',
     }),
     ApiCreatedResponse({
-      description: 'The email massage restore password link has been successfully sent.',
+      description: 'The email massage restore password link has been successfully sent',
       type: ReturnMessage,
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
   )
 }

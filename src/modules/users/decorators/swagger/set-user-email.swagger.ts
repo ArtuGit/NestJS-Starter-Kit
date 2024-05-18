@@ -8,14 +8,14 @@ export function SetUserEmail() {
     ApiOperation({
       summary: 'Set User email',
       description:
-        'This route is provided to change user email, if change token expired you need to change email again.',
+        'This route is provided to change user email, if change token expired you need to change email again',
     }),
     ApiParam({ name: 'changeToken', description: 'The change email token' }),
     ApiOkResponse({
-      description: 'The email massage with change email link has been successfully sent.',
+      description: 'The email massage with change email link has been successfully sent',
       type: ReturnMessage,
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
-    ApiForbiddenResponse({ description: 'Change token expired.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
+    ApiForbiddenResponse({ description: 'Change token expired' }),
   )
 }

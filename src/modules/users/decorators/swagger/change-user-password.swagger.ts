@@ -15,22 +15,22 @@ export function ChangeUserPassword() {
   return applyDecorators(
     ApiOperation({
       summary: 'Change User Password',
-      description: 'This route is provided to change User password.',
+      description: 'This route is provided to change User password',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
       type: ChangeUserPasswordRequestDto,
-      description: 'Body to change User password.',
+      description: 'Body to change User password',
     }),
     ApiOkResponse({
-      description: 'The User password has been successfully changed.',
+      description: 'The User password has been successfully changed',
       type: ReturnMessage,
     }),
     ApiBadRequestResponse({
-      description: 'Passwords are the same, mismatch or wrong password.',
+      description: 'Passwords are the same, mismatch or wrong password',
     }),
     ApiNotFoundResponse({
-      description: 'User not found.',
+      description: 'User not found',
     }),
   )
 }

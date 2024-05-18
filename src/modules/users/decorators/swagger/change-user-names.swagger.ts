@@ -11,22 +11,22 @@ import {
 import { ReturnMessage } from '../../../../utils'
 import { ChangeUserNamesRequestDto } from '../../dto'
 
-export function ChangeUserNames() {
+export function ChangeUser() {
   return applyDecorators(
     ApiOperation({
       summary: 'Set User names',
-      description: 'This route is provided to change user names.',
+      description: 'This route is provided to change user names',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
       type: ChangeUserNamesRequestDto,
-      description: 'Body to change user names.',
+      description: 'Body to change user names',
     }),
     ApiOkResponse({
-      description: 'Names changed.',
+      description: 'Names changed',
       type: ReturnMessage,
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
-    ApiUnauthorizedResponse({ description: 'Token expired or not provided.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
+    ApiUnauthorizedResponse({ description: 'Token expired or not provided' }),
   )
 }
