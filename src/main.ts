@@ -12,7 +12,7 @@ async function bootstrap() {
   await validateDotEnvConfig()
 
   await runMigrations()
-  await runSeed();
+  await runSeed()
 
   const app = await NestFactory.create(AppModule, {
     rawBody: true,
@@ -28,7 +28,7 @@ async function bootstrap() {
     }),
   )
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (envConfig.NODE_ENV !== 'production') {
     SwaggerModule.setup('doc', app, SwaggerModule.createDocument(app, swaggerConfig))
   }
 
