@@ -34,4 +34,4 @@ async function bootstrap() {
 
   await app.listen(envConfig.PORT, '0.0.0.0', () => console.info(`The server is running on port ${envConfig.PORT} `))
 }
-bootstrap()
+bootstrap(0)
