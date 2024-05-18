@@ -16,13 +16,12 @@ import * as crypto from 'crypto'
 import { User } from './users.entity'
 import { WinstonLogger, envConfig } from '../../config'
 import {
-  ChangeUserPasswordDTO,
-  ChangeUserNamesDTO,
-  CreateUserDTO,
-  SendChangeUserEmailMessageDTO,
-  SendRestorePasswordDTO,
-  SetRestoredPasswordDTO,
-  UpdateSubUserDTO,
+  ChangeUserPasswordRequestDto,
+  ChangeUserNamesRequestDto,
+  CreateUserRequestDto,
+  SendChangeUserEmailMessageDto,
+  SendRestorePasswordRequestDto,
+  SetRestoredPasswordRequestDto,
 } from './dto'
 import { ReturnApiAccessKey, ReturnMessage } from '../../utils'
 import { HashProvider } from './providers'
@@ -105,7 +104,7 @@ export class UsersService {
     return user
   }
 
-  public async createUser(input: CreateUserDTO): Promise<User> {
+  public async createUser(input: CreateUserRequestDto): Promise<User> {
     if (await this.checkEmailExistance(input.email)) {
       this.logger.error(`User with ${input.email} already exists.`)
       throw new ConflictException('User exists')
@@ -127,37 +126,12 @@ export class UsersService {
     return user
   }
 
-  public async updateSubUser(id: string, subUserId: string, { fullName, userName, email, password }: UpdateSubUserDTO) {
-    const currentUser = await this.usersRepository.findOne({ where: { id } })
-
-    if (!currentUser) {
-      throw new NotFoundException('User not found.')
-    }
-
-    const subUser = await this.usersRepository.findOne({
-      where: { id: subUserId, primaryUser: { id } },
-    })
-
-    if (!subUser) {
-      throw new NotFoundException('Sub-User not found.')
-    }
-
-    if (fullName) subUser.fullName = fullName
-    if (userName) subUser.userName = userName
-    if (email) subUser.email = email
-    if (password) subUser.password = password
-
-    await subUser.save()
-
-    return { message: 'OK' }
-  }
-
   public async changeUserPassword({
     id,
     oldPassword,
     newPassword,
     repeatPassword,
-  }: ChangeUserPasswordDTO): Promise<ReturnMessage> {
+  }: ChangeUserPasswordRequestDto): Promise<ReturnMessage> {
     if (newPassword !== repeatPassword) {
       this.logger.error('Passwords mismatch.')
       throw new BadRequestException('Passwords mismatch.')
@@ -233,7 +207,7 @@ export class UsersService {
     id,
     password,
     email,
-  }: SendChangeUserEmailMessageDTO): Promise<ReturnMessage> {
+  }: SendChangeUserEmailMessageDto): Promise<ReturnMessage> {
     const user = await this.usersRepository.findOne({
       where: { id },
       select: ['id', 'password', 'email'],
@@ -306,7 +280,7 @@ export class UsersService {
     return { message: 'OK' }
   }
 
-  public async sendRestorePassword({ email, requestFromApi }: SendRestorePasswordDTO): Promise<ReturnMessage> {
+  public async sendRestorePassword({ email, requestFromApi }: SendRestorePasswordRequestDto): Promise<ReturnMessage> {
     const user = await this.findUserByEmail(email)
 
     const expiresIn = requestFromApi ? envConfig.EMAIL_ACTIVATION_EXPIRES_IN : envConfig.EMAIL_JWT_EXPIRES_IN
@@ -335,7 +309,7 @@ export class UsersService {
     restoreToken,
     password,
     repeatPassword,
-  }: SetRestoredPasswordDTO): Promise<ReturnMessage> {
+  }: SetRestoredPasswordRequestDto): Promise<ReturnMessage> {
     try {
       const { id }: { id: string; email: string } = await this.jwtService.verifyAsync(restoreToken, {
         secret: envConfig.EMAIL_JWT_SECRET,
@@ -359,7 +333,7 @@ export class UsersService {
     }
   }
 
-  public async changeUserNames({ id, fullName, userName }: ChangeUserNamesDTO): Promise<ReturnMessage> {
+  public async changeUserNames({ id, fullName, userName }: ChangeUserNamesRequestDto): Promise<ReturnMessage> {
     const user = await this.findUserByID(id)
 
     if (fullName) user.fullName = fullName

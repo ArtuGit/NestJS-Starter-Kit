@@ -10,7 +10,7 @@ import {
 } from '@nestjs/swagger'
 
 import { ReturnMessage } from '../../../../utils'
-import { SendChangeUserEmailMessageDTO } from '../../dto'
+import { SendChangeUserEmailMessageDto } from '../../dto'
 
 export function SendChangeUserEmailMessage() {
   return applyDecorators(
@@ -21,7 +21,7 @@ export function SendChangeUserEmailMessage() {
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
-      type: SendChangeUserEmailMessageDTO,
+      type: SendChangeUserEmailMessageDto,
       description: 'Body to change User email.',
     }),
     ApiCreatedResponse({

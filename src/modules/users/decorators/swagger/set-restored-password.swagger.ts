@@ -10,7 +10,7 @@ import {
 } from '@nestjs/swagger'
 
 import { ReturnMessage } from '../../../../utils'
-import { SetRestoredPasswordDTO } from '../../dto'
+import { SetRestoredPasswordRequestDto } from '../../dto'
 
 export function SetRestoredPassword() {
   return applyDecorators(
@@ -21,7 +21,7 @@ export function SetRestoredPassword() {
     }),
     ApiParam({ name: 'changeToken', description: 'The change password token' }),
     ApiBody({
-      type: SetRestoredPasswordDTO,
+      type: SetRestoredPasswordRequestDto,
       description: 'Body to restore password.',
     }),
     ApiOkResponse({

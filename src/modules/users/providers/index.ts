@@ -1,1 +1,1 @@
-export { HashProvider } from './hashProvider'
+export { HashProvider } from 'src/modules/users/providers/hash-provider'

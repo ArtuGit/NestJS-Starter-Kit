@@ -2,7 +2,7 @@ import { applyDecorators } from '@nestjs/common'
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger'
 
 import { User } from '../../users.entity'
-import { CreateUserDTO } from '../../dto'
+import { CreateUserRequestDto } from '../../dto'
 
 export function CreateUser() {
   return applyDecorators(
@@ -12,7 +12,7 @@ export function CreateUser() {
         'This route is provided to create a new user, it will send a confirmation email, you will have 15 mins to confirm your email.',
     }),
     ApiBody({
-      type: CreateUserDTO,
+      type: CreateUserRequestDto,
       description: 'Body sign In.',
     }),
     ApiCreatedResponse({

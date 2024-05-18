@@ -8,7 +8,7 @@ import {
   ApiOperation,
 } from '@nestjs/swagger'
 
-import { ChangeUserPasswordDTO } from '../../dto'
+import { ChangeUserPasswordRequestDto } from '../../dto'
 import { ReturnMessage } from '../../../../utils'
 
 export function ChangeUserPassword() {
@@ -19,7 +19,7 @@ export function ChangeUserPassword() {
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
-      type: ChangeUserPasswordDTO,
+      type: ChangeUserPasswordRequestDto,
       description: 'Body to change User password.',
     }),
     ApiOkResponse({

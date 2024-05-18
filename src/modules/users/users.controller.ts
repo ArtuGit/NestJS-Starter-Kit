@@ -5,14 +5,13 @@ import { Response } from 'express'
 import { UsersService } from './users.service'
 import * as UserDecorators from './decorators'
 import {
-  ChangeUserPasswordDTO,
-  ChangeUserNamesDTO,
-  CreateUserDTO,
-  ResendActivationEmailDTO,
-  SendChangeUserEmailMessageDTO,
-  SendRestorePasswordDTO,
-  SetRestoredPasswordDTO,
-  UpdateSubUserDTO,
+  ChangeUserPasswordRequestDto,
+  ChangeUserNamesRequestDto,
+  CreateUserRequestDto,
+  ResendActivationEmailRequestDto,
+  SendChangeUserEmailMessageDto,
+  SendRestorePasswordRequestDto,
+  SetRestoredPasswordRequestDto,
 } from './dto'
 import { User } from './users.entity'
 import { AuthenticatedRequestType } from '../auth/types/types'
@@ -43,7 +42,7 @@ export class UsersController {
   @UserDecorators.CreateUser()
   async createUser(
     @Body()
-    input: CreateUserDTO,
+    input: CreateUserRequestDto,
   ): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
     const user = await this.usersService.createUser(input)
 
@@ -53,7 +52,7 @@ export class UsersController {
   @Post('activate/resend')
   @Public()
   @UserDecorators.ResendActivationEmail()
-  async resendActivationEmail(@Query() query: ResendActivationEmailDTO): Promise<ReturnMessage> {
+  async resendActivationEmail(@Query() query: ResendActivationEmailRequestDto): Promise<ReturnMessage> {
     const user = await this.usersService.findUserByEmail(query.email)
 
     if (user.isEmailConfirmed) {
@@ -77,7 +76,7 @@ export class UsersController {
     @Req() req: AuthenticatedRequestType,
     @Res() res: Response,
     @Body()
-    input: ChangeUserPasswordDTO,
+    input: ChangeUserPasswordRequestDto,
   ): Promise<void> {
     const id = req.user['id']
 
@@ -96,7 +95,7 @@ export class UsersController {
   async sendChangeUserEmailMessage(
     @Req() req: AuthenticatedRequestType,
     @Body()
-    input: SendChangeUserEmailMessageDTO,
+    input: SendChangeUserEmailMessageDto,
   ): Promise<ReturnMessage> {
     return this.usersService.sendChangeUserEmailMessage({
       ...input,
@@ -110,7 +109,7 @@ export class UsersController {
   async setRestoredPassword(
     @Res() res: Response,
     @Param('changeToken') restoreToken: string,
-    @Body() input: SetRestoredPasswordDTO,
+    @Body() input: SetRestoredPasswordRequestDto,
   ): Promise<void> {
     res.status(200).send(await this.usersService.setRestoredPassword({ ...input, restoreToken }))
   }
@@ -120,7 +119,7 @@ export class UsersController {
   @UserDecorators.SendRestorePassword()
   async sendRestorePassword(
     @Body()
-    input: SendRestorePasswordDTO,
+    input: SendRestorePasswordRequestDto,
   ): Promise<ReturnMessage> {
     return this.usersService.sendRestorePassword({
       ...input,
@@ -133,7 +132,7 @@ export class UsersController {
     @Req() req: AuthenticatedRequestType,
     @Res() res: Response,
     @Body()
-    input: ChangeUserNamesDTO,
+    input: ChangeUserNamesRequestDto,
   ): Promise<void> {
     res.status(200).send(
       await this.usersService.changeUserNames({

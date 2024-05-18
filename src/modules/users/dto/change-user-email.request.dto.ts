@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
 
-export class SendChangeUserEmailMessageDTO {
+export class SendChangeUserEmailMessageDto {
   id: string
 
   @ApiProperty({

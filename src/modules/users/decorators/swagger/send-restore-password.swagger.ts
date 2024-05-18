@@ -2,7 +2,7 @@ import { applyDecorators } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiNotFoundResponse, ApiOperation } from '@nestjs/swagger'
 
 import { ReturnMessage } from '../../../../utils'
-import { SendRestorePasswordDTO } from '../../dto'
+import { SendRestorePasswordRequestDto } from '../../dto'
 
 export function SendRestorePassword() {
   return applyDecorators(
@@ -11,7 +11,7 @@ export function SendRestorePassword() {
       description: 'This route is provided to send restore password email.',
     }),
     ApiBody({
-      type: SendRestorePasswordDTO,
+      type: SendRestorePasswordRequestDto,
       description: 'Body to send restore password email.',
     }),
     ApiCreatedResponse({

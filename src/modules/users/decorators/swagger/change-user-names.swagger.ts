@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger'
 
 import { ReturnMessage } from '../../../../utils'
-import { ChangeUserNamesDTO } from '../../dto'
+import { ChangeUserNamesRequestDto } from '../../dto'
 
 export function ChangeUserNames() {
   return applyDecorators(
@@ -19,7 +19,7 @@ export function ChangeUserNames() {
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
-      type: ChangeUserNamesDTO,
+      type: ChangeUserNamesRequestDto,
       description: 'Body to change user names.',
     }),
     ApiOkResponse({

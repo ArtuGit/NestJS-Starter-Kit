@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
-export class ChangeUserNamesDTO {
+export class ChangeUserNamesRequestDto {
   @ApiProperty({
     description: 'Your full name',
   })
