@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { AppHealthcheckResultDto } from 'src/app.healthcheck.result.dto'
 import * as packageJson from '../package.json'
 
@@ -9,6 +9,14 @@ export class AppController {
   constructor() {}
 
   @Get('/healthcheck')
+  @ApiOperation({
+    summary: 'Health check endpoint, respond with app name, version and health status',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'App name and version and health status',
+    type: AppHealthcheckResultDto,
+  })
   healthCheck(): AppHealthcheckResultDto {
     return {
       name: packageJson.name,
