@@ -23,16 +23,11 @@ import {
   SendRestorePasswordRequestDto,
   SetRestoredPasswordRequestDto,
 } from './dto'
-import { ReturnApiAccessKey, ReturnMessage } from '../../utils'
+import { ReturnMessage } from '../../utils'
 import { HashProvider } from './providers'
 import { SendEmailService } from '../send-email/send-email.service'
-import { RolesEnum } from './enums'
-import { TokenPayloadType } from '../auth/types/types'
 import { AuthService } from '../auth/auth.service'
 import { LoginReturnDTO } from '../auth/dto'
-// import { StripeService } from '../stripe/stripe.service'
-// import { TransactionsService } from '../transactions/transactions.service'
-// import { TransactionFlowEnum, TransactionTypeEnum } from '../transactions/enums'
 
 @Injectable()
 export class UsersService {
@@ -44,8 +39,6 @@ export class UsersService {
     private authService: AuthService,
     private readonly logger: WinstonLogger,
     private readonly sendEmailService: SendEmailService,
-    // private readonly transactionsService: TransactionsService,
-    // private readonly stripeService: StripeService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -80,44 +73,15 @@ export class UsersService {
     return user
   }
 
-  public async findSubUserByID(primaryUserId: string, subUserId: string): Promise<User> {
-    const user = await this.usersRepository.findOne({
-      where: { id: subUserId, primaryUser: { id: primaryUserId } },
-    })
-
-    if (!user) {
-      throw new NotFoundException('Sub User not found!')
-    }
-
-    return user
-  }
-
-  public async findSubUserByStripeCustomerId(stripeCustomerId: string): Promise<User> {
-    const user = await this.usersRepository.findOne({
-      where: { stripeCustomerId },
-    })
-
-    if (!user) {
-      throw new NotFoundException('Sub User not found!')
-    }
-
-    return user
-  }
-
   public async createUser(input: CreateUserRequestDto): Promise<User> {
     if (await this.checkEmailExistance(input.email)) {
       this.logger.error(`User with ${input.email} already exists.`)
       throw new ConflictException('User exists')
     }
 
-    // ToDo: newVersion
-    //const { id: stripeCustomerId } = await this.stripeService.createStripeCustomer(input.email)
-
     const user = await this.usersRepository
       .create({
         ...input,
-        stripeCustomerId: null, // ToDo: newVersion
-        apiAccessKey: 'x_' + crypto.randomBytes(32).toString('hex'),
       })
       .save()
 

@@ -3,9 +3,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import { HashProvider } from './providers'
 import { Base } from '../../config'
-import { RolesEnum } from './enums'
-// import { UserPhone } from '../userPhones/userPhones.entity'
-// import { Transaction } from '../transactions/transactions.entity'
+import { RolesEnum } from '../../shared'
 
 @Entity('users')
 export class User extends Base {
@@ -30,52 +28,14 @@ export class User extends Base {
   password: string
 
   @ApiProperty({
-    default: RolesEnum.PRIMARY_USER,
+    default: RolesEnum.USER,
   })
   @Column({
     type: 'enum',
     enum: RolesEnum,
-    default: RolesEnum.PRIMARY_USER,
+    default: RolesEnum.USER,
   })
   role: RolesEnum
-
-  @Column({
-    nullable: true,
-  })
-  stripeCustomerId: string
-
-  @ApiProperty({
-    default: 'External api key',
-  })
-  @Column({ select: false })
-  @Index({ unique: true })
-  apiAccessKey: string
-
-  @Column({ type: 'uuid', nullable: true })
-  primaryUserId: string
-
-  @Column({ type: 'float4', default: 0 })
-  balance: number
-
-  @OneToMany(() => User, (user) => user.primaryUser)
-  subUsers: User[]
-
-  @ManyToOne(() => User, (user) => user.subUsers)
-  @JoinColumn({ name: 'primaryUserId' })
-  primaryUser: User
-
-  // @OneToMany(() => UserPhone, (userPhones) => userPhones.user)
-  // userPhones: UserPhone[]
-  //
-  // @OneToMany(() => Transaction, (transactions) => transactions.fromUser, {
-  //   onDelete: 'SET NULL',
-  // })
-  // transactionFrom: Transaction[]
-  //
-  // @OneToMany(() => Transaction, (transactions) => transactions.toUser, {
-  //   onDelete: 'SET NULL',
-  // })
-  // transactionTo: Transaction[]
 
   @BeforeInsert()
   async generatePasswordHash() {
@@ -90,7 +50,7 @@ export class User extends Base {
   }
 
   getPublicUser() {
-    const { password, apiAccessKey, ...user } = this
+    const { password, ...user } = this
     return user as Omit<User, 'password' | 'apiAccessKey'>
   }
 

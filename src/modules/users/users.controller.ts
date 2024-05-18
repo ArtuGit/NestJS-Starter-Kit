@@ -15,11 +15,9 @@ import {
 } from './dto'
 import { User } from './users.entity'
 import { AuthenticatedRequestType } from '../auth/types/types'
-import { ReturnApiAccessKey, ReturnMessage } from '../../utils'
+import { ReturnMessage } from '../../utils'
 import { Public, Roles } from '../auth/decorators'
 import { WinstonLogger } from '../../config'
-import { RolesEnum } from './enums'
-import { ValidateIdAsUUIDInParamDTO } from '../../utils/validation'
 
 @ApiTags('Users')
 @Controller('users')

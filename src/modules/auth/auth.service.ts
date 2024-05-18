@@ -7,7 +7,7 @@ import { LoginDTO, LoginReturnDTO } from './dto'
 import { WinstonLogger, envConfig } from '../../config'
 import { RefreshTokenService } from './refreshToken.service'
 import { ReturnMessage } from '../../utils'
-import { RolesEnum } from '../users/enums'
+import { RolesEnum } from '../../shared'
 import { TokenPayloadType } from './types/types'
 
 @Injectable()

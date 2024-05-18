@@ -1,4 +1,4 @@
-import { RolesEnum } from '../../users/enums'
+import { RolesEnum } from '../../../shared'
 
 export type TokenPayloadType = {
   id: string
