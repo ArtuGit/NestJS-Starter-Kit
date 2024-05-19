@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { AppHealthcheckResultDto } from 'src/app.healthcheck.result.dto'
-import { Public } from 'src/modules/auth/decorators'
+import { AppHealthcheckResultDto } from './app.healthcheck.result.dto'
+import { Public } from './modules/auth/decorators'
 import * as packageJson from '../package.json'
 
 @ApiTags('Api')

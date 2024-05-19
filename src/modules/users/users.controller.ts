@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 
 import { UsersService } from './users.service'
-import * as UserDecorators from './decorators'
+import * as UserDecorators from './decorators/swagger'
 import {
   ChangeUserPasswordRequestDto,
   ChangeUserNamesRequestDto,

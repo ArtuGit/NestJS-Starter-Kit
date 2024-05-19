@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication } from '@nestjs/common'
+import * as packageJson from '../package.json'
 import * as request from 'supertest'
 
 import { AppModule } from './../src/app.module'
@@ -16,7 +17,11 @@ describe('AppController (e2e)', () => {
     await app.init()
   })
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!')
+  it('/ (GET health check)', () => {
+    return request(app.getHttpServer()).get('/healthcheck').expect(200).expect({
+      name: packageJson.name,
+      version: packageJson.version,
+      healthy: true,
+    })
   })
 })

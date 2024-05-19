@@ -20,7 +20,12 @@
     "migration:create": "typeorm-ts-node-esm  migration:create",
     "migration:run": "npm run typeorm migration:run",
     "migration:revert": "npm run typeorm migration:revert",
-    "db:drop": "npm run typeorm schema:drop"
+    "db:drop": "npm run typeorm schema:drop",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json --passWithNoTests --detectOpenHandles"
   },
   "dependencies": {
     "@anchan828/nest-sendgrid": "^0.6.88",

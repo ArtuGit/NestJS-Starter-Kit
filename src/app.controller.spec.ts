@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import * as packageJson from '../package.json'
+
 
 import { AppController } from './app.controller'
 
@@ -15,10 +17,10 @@ describe('AppController', () => {
   })
 
   describe('health check', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.healthCheck()).toBe({
-        name: 'nest-api',
-        version: '1.0.0',
+    it('should return health check response', () => {
+      expect(appController.healthCheck()).toStrictEqual({
+        name: packageJson.name,
+        version: packageJson.version,
         healthy: true,
       })
     })
