@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as packageJson from '../package.json'
 
-
 import { AppController } from './app.controller'
 
 describe('AppController', () => {

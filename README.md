@@ -2,6 +2,8 @@
 
 TypeORM: Postgres
 
+Minimalist, ready-to-use boilerplate with full-fledged Auth and Users sections, dev and CI configs.
+
 ## Start / Stop
 
 Install dependencies:
@@ -12,8 +14,11 @@ Install dependencies:
 ```
 cp ./example.env ./.env
 docker compose up
-npm run start:dev
+pnpm run start:dev
 ```
+
+To prepare static for the following link:  
+`pnpm run build`
 
 Go to http://localhost:3000
 
