@@ -37,3 +37,19 @@ jobs:
       - name: Start App
         run: pnpm run start &
 
+      - name: Wait for health check to pass
+        run: |
+          MAX_ATTEMPTS=50
+          SLEEP_TIME=5
+          COUNTER=0
+
+          until curl --silent --show-error --fail http://localhost:3000/healthcheck > /dev/null 
+          do
+            echo "Waiting for health check to pass..."
+            sleep $SLEEP_TIME
+            COUNTER=$((COUNTER + 1))
+            if [[ $COUNTER -eq $MAX_ATTEMPTS ]]; then
+              echo "Max attempts reached. Exiting..."
+              exit 1
+            fi
+          done
