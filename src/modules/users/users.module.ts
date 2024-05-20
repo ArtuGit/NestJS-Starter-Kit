@@ -1,16 +1,25 @@
-import { forwardRef, Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { Module, forwardRef } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { AuthModule } from './modules/auth/auth.module'
 import { UsersService } from './users.service'
-import { User } from './entities/user.entity'
 import { UsersController } from './users.controller'
+import { User } from './users.entity'
+import { WinstonLogger } from '../../config'
+import { SendEmailModule } from '../send-email/send-email.module'
+import { AuthModule } from '../auth/auth.module'
+// import { StripeModule } from '../stripe/stripe.module'
+// import { TransactionsModule } from '../transactions/transactions.module'
 
 @Module({
-  imports: [ConfigModule, forwardRef(() => AuthModule), TypeOrmModule.forFeature([User])],
-  providers: [UsersService],
-  exports: [UsersService],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    SendEmailModule,
+    forwardRef(() => AuthModule),
+    // StripeModule,
+    // TransactionsModule,
+  ],
   controllers: [UsersController],
+  providers: [UsersService, WinstonLogger],
+  exports: [UsersService],
 })
 export class UsersModule {}

@@ -1,74 +1,57 @@
-import { join } from 'path'
-
-import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { ServeStaticModule } from '@nestjs/serve-static'
+import { Module, OnModuleInit } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { MongooseModule } from '@nestjs/mongoose'
-import { RouterModule } from '@nestjs/core'
+import { ScheduleModule } from '@nestjs/schedule'
+import { APP_FILTER, APP_GUARD } from '@nestjs/core'
+import { JwtModule } from '@nestjs/jwt'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { CacheModule } from '@nestjs/cache-manager'
+import { SendEmailModule } from './modules/send-email/send-email.module'
+import { HttpExceptionFilter } from './config/http-exception.filter'
+import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
+import { UsersModule } from './modules/users/users.module'
+import { AuthModule } from './modules/auth/auth.module'
+
+import { envConfig, typeOrmAsyncConfig } from './config'
 
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { validate } from './common/validations/env.validation'
-import { AuthModule } from './modules/users/modules/auth/auth.module'
-import { UsersModule } from './modules/users/users.module'
-import { CompaniesModule } from './modules/companies/companies.module'
-import { ContactsModule } from './modules/contacts/contacts.module'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      validate,
-      envFilePath: ['./config/common.env', './config/local.env'],
+    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    ScheduleModule.forRoot(),
+    JwtModule.register({
+      global: true,
+      secret: envConfig.JWT_SECRET,
+      signOptions: {
+        expiresIn: envConfig.JWT_EXPIRES_IN,
+      },
+    }),
+    CacheModule.register({
       isGlobal: true,
+      ttl: 0,
     }),
-
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static'),
+      rootPath: envConfig.STATIC_PATH,
+      serveRoot: '/',
     }),
-
-    TypeOrmModule.forRootAsync({
-      imports: [
-        ConfigModule,
-        RouterModule.register([
-          {
-            path: 'user',
-            module: UsersModule,
-            children: [
-              {
-                path: '/',
-                module: AuthModule,
-              },
-            ],
-          },
-        ]),
-      ],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('DB_HOST'),
-        port: +configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('DB_SYNC'),
-      }),
-      inject: [ConfigService],
-    }),
-
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-      }),
-      inject: [ConfigService],
-    }),
-
+    AuthModule,
     UsersModule,
-    CompaniesModule,
-    ContactsModule,
+    SendEmailModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

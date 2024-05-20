@@ -1,16 +1,29 @@
-import { Controller, Get, Header } from '@nestjs/common'
-import { ApiOperation } from '@nestjs/swagger'
+import { Controller, Get } from '@nestjs/common'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { AppHealthcheckResultDto } from './app.healthcheck.result.dto'
+import { Public } from './modules/auth/decorators'
+import * as packageJson from '../package.json'
 
-import { AppService } from './app.service'
-
+@ApiTags('Api')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() {}
 
-  @ApiOperation({ summary: 'Get hello information' })
-  @Get('hello')
-  @Header('Content-Type', 'text/html; charset=utf-8')
-  getHello(): string {
-    return this.appService.getHello()
+  @Public()
+  @Get('/healthcheck')
+  @ApiOperation({
+    summary: 'Health check endpoint, respond with app name, version and health status',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'App name and version and health status',
+    type: AppHealthcheckResultDto,
+  })
+  healthCheck(): AppHealthcheckResultDto {
+    return {
+      name: packageJson.name,
+      version: packageJson.version,
+      healthy: true,
+    }
   }
 }

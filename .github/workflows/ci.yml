@@ -1,0 +1,65 @@
+name: ci
+on:
+  pull_request:
+    branches: ['*']
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Copy repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install PNpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint code
+        run: pnpm run lint
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Start Docker Compose services
+        run: docker-compose up -d
+
+      - run: ls -la
+
+      - name: Copy .env file
+        run: cp ./example.env ./.env
+
+      - name: Start App
+        run: pnpm run start &
+      - name: Wait for health check to pass
+        run: |
+          MAX_ATTEMPTS=50
+          SLEEP_TIME=5
+          COUNTER=0
+
+          until curl --silent --show-error --fail http://localhost:3000/healthcheck > /dev/null 
+          do
+            echo "Waiting for health check to pass..."
+            sleep $SLEEP_TIME
+            COUNTER=$((COUNTER + 1))
+            if [[ $COUNTER -eq $MAX_ATTEMPTS ]]; then
+              echo "Max attempts reached. Exiting..."
+              exit 1
+            fi
+          done
+
+      - name: Run Unit tests
+        run: pnpm run test
+
+      - name: Rin E2E tests
+        run: pnpm run test:e2e

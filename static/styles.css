@@ -1,0 +1,46 @@
+body {
+    background-color: #f0f8ff;
+    color: #2f2d2d;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    color: #1e90ff;
+}
+
+p {
+    font-size: 16px;
+    color: #2f2d2d;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #1e90ff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 150px; /* Ensure all menu points are the same width */
+    text-align: center; /* Center the text within the menu points */
+}
+
+a:hover {
+    background-color: #4682b4;
+}
