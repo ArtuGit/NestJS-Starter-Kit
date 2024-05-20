@@ -35,10 +35,14 @@ jobs:
     needs: [checks]
     runs-on: ubuntu-latest
     steps:
-      - name: Start Docker Compose services
-        run: |
-          docker-compose up -d
-          docker-compose ps
+#      - name: Start Docker Compose services
+#        run: |
+#          docker-compose up -d
+#          docker-compose ps
 
       - name: Run additional checks
         run: ls -la
+      - name: Run tests
+        run: pnpm
+
+
