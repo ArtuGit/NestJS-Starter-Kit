@@ -1,5 +1,7 @@
 # NestJS Starter Kit v3
 
+See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/tree/v2)
+
 TypeORM: Postgres
 
 Minimalist, ready-to-use boilerplate with full-fledged Auth and Users sections, dev and CI configs.
