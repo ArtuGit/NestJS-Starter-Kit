@@ -30,3 +30,14 @@ jobs:
 
     - name: Build
       run: pnpm run build
+
+  run:
+    needs: [checks]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Docker Compose services
+        run: docker-compose up
+
+      - name: Run additional checks
+        run: |
+          # Add your additional checks or tasks here
