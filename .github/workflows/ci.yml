@@ -31,19 +31,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Run additional checks ZEro
-        run: ls
+      - name: Start Docker Compose services
+        run: docker-compose up -d
 
-  run:
-    needs: [checks]
-    runs-on: ubuntu-latest
-    steps:
-#      - name: Start Docker Compose services
-#        run: docker-compose up -d
-#        working-directory: ./path/to/docker-compose/directory
+      - name: Start App
+        run: pnpm run start &
 
-      - name: Run additional checks
-        run: ls
-
-#      - name: Run tests
-#        run: pnpm
