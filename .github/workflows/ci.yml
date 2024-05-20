@@ -31,6 +31,9 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Run additional checks ZEro
+        run: ls
+
   run:
     needs: [checks]
     runs-on: ubuntu-latest
@@ -42,5 +45,5 @@ jobs:
       - name: Run additional checks
         run: ls
 
-      - name: Run tests
-        run: pnpm
+#      - name: Run tests
+#        run: pnpm
