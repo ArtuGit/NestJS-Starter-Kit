@@ -34,12 +34,13 @@ jobs:
       - name: Start Docker Compose services
         run: docker-compose up -d
 
-      - name: Start App
-        run: pnpm run start &
+      - run: ls -la
 
       - name: Copy .env file
         run: cp ./example.env ./.env
 
+      - name: Start App
+        run: pnpm run start &
       - name: Wait for health check to pass
         run: |
           MAX_ATTEMPTS=50
@@ -59,3 +60,6 @@ jobs:
 
       - name: Run Unit tests
         run: pnpm run test
+
+      - name: Rin E2E tests
+        run: pnpm run test:e2e
