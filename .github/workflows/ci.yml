@@ -41,5 +41,4 @@ jobs:
           docker-compose ps
 
       - name: Run additional checks
-        run: |
-          # Add your additional checks or tasks here
+        run: ls -la

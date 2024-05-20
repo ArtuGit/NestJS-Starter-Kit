@@ -13,7 +13,7 @@ Install dependencies:
 
 ```
 cp ./example.env ./.env
-docker-compose up
+docker-compose up -d
 pnpm run start:dev
 ```
 
