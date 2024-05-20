@@ -4,7 +4,7 @@ on:
     branches: ['*']
 
 jobs:
-  checks:
+  ci:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -37,6 +37,9 @@ jobs:
       - name: Start App
         run: pnpm run start &
 
+      - name: Copy .env file
+        run: cp ./example.env ./.env
+
       - name: Wait for health check to pass
         run: |
           MAX_ATTEMPTS=50
@@ -53,3 +56,6 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Run Unit tests
+        run: pnpm run test
