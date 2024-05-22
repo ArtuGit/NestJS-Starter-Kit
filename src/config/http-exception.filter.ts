@@ -18,48 +18,20 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus()
     const errorResponce = exception.getResponse()
 
-    const formatJson = (object: any): string => JSON.stringify(object, null, 4)
-
     const currentDate = new Date()
 
     const data = {
-      fields: [
-        {
-          name: 'PATH:',
-          value: path,
-        },
-        {
-          name: 'STATUS:',
-          value: status,
-        },
-        {
-          name: 'METHOD:',
-          value: method,
-        },
-        {
-          name: 'PARAMS:',
-          value: formatJson(params),
-        },
-        {
-          name: 'QUERY:',
-          value: formatJson(query),
-        },
-        {
-          name: 'BODY:',
-          value: formatJson(body),
-        },
-        {
-          name: 'USER:',
-          value: formatJson(user),
-        },
-        {
-          name: 'ERROR:',
-          value: formatJson(errorResponce),
-        },
-      ],
+      currentDate,
+      path,
+      status,
+      method,
+      params,
+      query,
+      body,
+      user,
     }
 
-    this.logger.error(`Error on path: ${data}`)
+    this.logger.error(`Error on path: ${JSON.stringify(data, null, 2)}`)
 
     response.status(status).json(errorResponce)
   }
