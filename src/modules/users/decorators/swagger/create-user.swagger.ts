@@ -4,12 +4,12 @@ import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse
 import { User } from '../../users.entity'
 import { CreateUserRequestDto } from '../../dto'
 
-export function CreateUser() {
+export function RegisterUser() {
   return applyDecorators(
     ApiOperation({
-      summary: 'Create User',
+      summary: 'Register User',
       description:
-        'This route is provided to create a new user, it will send a confirmation email, you will have 15 mins to confirm your email',
+        'Register a new user, it will send a confirmation email, you will have 15 mins to confirm your email',
     }),
     ApiBody({
       type: CreateUserRequestDto,

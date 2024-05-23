@@ -35,9 +35,9 @@ export class UsersController {
     return user.getPublicUser()
   }
 
-  @Post('create')
+  @Post('register')
   @Public()
-  @UserDecorators.CreateUser()
+  @UserDecorators.RegisterUser()
   async createUser(
     @Body()
     input: CreateUserRequestDto,
