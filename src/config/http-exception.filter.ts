@@ -16,7 +16,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>()
     const { path, method, params, query, user, body } = ctx.getRequest()
     const status = exception.getStatus()
-    const errorResponce = exception.getResponse()
+    const errorResponse = exception.getResponse()
 
     const currentDate = new Date()
 
@@ -31,8 +31,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       user,
     }
 
-    this.logger.error(`Error on path: ${JSON.stringify(data, null, 2)}`)
+    this.logger.error(`${JSON.stringify(data, null, 2)}`)
 
-    response.status(status).json(errorResponce)
+    response.status(status).json(errorResponse)
   }
 }

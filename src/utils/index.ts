@@ -1,3 +1,3 @@
-export * from './classes'
-export * from './pipes/parseIntPipe'
-export * from './functions'
+export * from 'src/shared/classes/classes'
+export * from '../shared/enums/pipes/parseIntPipe'
+export * from 'src/utils/system'

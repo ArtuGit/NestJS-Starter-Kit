@@ -5,7 +5,7 @@ export class LoginDTO {
   @ApiProperty({
     description: 'Your email',
   })
-  @IsEmail()
+  @IsEmail({ allow_utf8_local_part: true, allow_ip_domain: false }, { message: 'Invalid email address' })
   email: string
 
   @ApiProperty({
