@@ -29,6 +29,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       query,
       body,
       user,
+      errorResponse,
     }
 
     this.logger.error(`${JSON.stringify(data, null, 2)}`)
