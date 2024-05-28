@@ -21,7 +21,6 @@ export class InitialMigration1716023312075 implements MigrationInterface {
                 "isEmailConfirmed" boolean NOT NULL DEFAULT false,
                 "password" character varying NOT NULL,
                 "role" "public"."users_role_enum" NOT NULL DEFAULT 'Regular User',
-                "primaryUserId" uuid,
                 CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
             )
         `)
