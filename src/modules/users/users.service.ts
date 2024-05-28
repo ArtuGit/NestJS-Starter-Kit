@@ -8,7 +8,9 @@ import {
   forwardRef,
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, FindOptionsRelations, In } from 'typeorm'
+import { TokenPayloadType } from 'src/modules/auth/types/types'
+import { PageDTO, PageMetaDTO, PaginationDTO } from 'src/shared'
+import { Repository, FindOptionsRelations, In, ILike, FindOptionsWhere } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
 import * as crypto from 'crypto'
@@ -306,5 +308,31 @@ export class UsersService {
     await user.save()
 
     return { message: 'OK' }
+  }
+
+  public async findUsers({
+    user,
+    pagination,
+    search,
+  }: {
+    user: TokenPayloadType
+    pagination: PaginationDTO
+    search?: string
+  }): Promise<PageDTO<User>> {
+    const { role } = user
+    const like = search ? ILike(`%${search}%`) : undefined
+
+    const where: FindOptionsWhere<User> = {
+      email: like,
+    }
+
+    const [entities, count] = await this.usersRepository.findAndCount({
+      where,
+      order: { email: 'ASC' },
+      skip: pagination?.skip,
+      take: pagination?.take,
+    })
+
+    return new PageDTO(entities, new PageMetaDTO({ pagination, count }))
   }
 }

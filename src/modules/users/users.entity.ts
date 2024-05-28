@@ -23,7 +23,6 @@ export class User extends Base {
   @Column({ default: false })
   isEmailConfirmed: boolean
 
-  @ApiProperty()
   @Column({ select: false })
   password: string
 

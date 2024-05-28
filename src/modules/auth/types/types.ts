@@ -4,8 +4,6 @@ export type TokenPayloadType = {
   id: string
   role: RolesEnum
   session: string
-  teamId: string
-  subscriptionExpired: boolean
   iat: Date
   exp: Date
 }

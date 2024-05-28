@@ -1,6 +1,7 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, Res } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
+import { PageDTO, PaginationDTO, RolesEnum } from 'src/shared'
 
 import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'
@@ -138,5 +139,20 @@ export class UsersController {
         id: req.user.id,
       }),
     )
+  }
+
+  @Get()
+  @Roles([RolesEnum.SITE_ADMIN])
+  @UserDecorators.GetUsers(User)
+  async getUsers(
+    @Req() req: AuthenticatedRequestType,
+    @Query() pagination: PaginationDTO,
+    @Query('search') search: string,
+  ): Promise<PageDTO<User>> {
+    return this.usersService.findUsers({
+      user: req.user,
+      pagination,
+      search,
+    })
   }
 }
