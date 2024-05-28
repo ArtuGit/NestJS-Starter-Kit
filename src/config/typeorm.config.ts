@@ -98,7 +98,7 @@ export const runSeed = async () => {
       await userRepository.create(user).save()
     }
 
-    await Promise.all(USERS_SEED_DATA.map(statement => userRepository.query(statement)));
+    await Promise.all(USERS_SEED_DATA.map((statement) => userRepository.query(statement)))
   } catch (error) {
     logger.error(JSON.stringify(error))
     console.log(error)

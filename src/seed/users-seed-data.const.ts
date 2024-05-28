@@ -37,5 +37,5 @@ export const USERS_SEED_DATA = [
 
   `INSERT INTO public.users (id, "createdAt", "updatedAt", "fullName", "userName", email, "isEmailConfirmed", password, role) VALUES
       ('d89072b9-5c7e-4d25-9308-7af5e6d9f255', now(), now(), 'Jackie O', 'jackie_o', 'jackie@example.com', true, 'hashed_password_10', 'Regular User')
-      ON CONFLICT (id) DO NOTHING;`
-];
+      ON CONFLICT (id) DO NOTHING;`,
+]
