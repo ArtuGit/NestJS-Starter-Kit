@@ -1,4 +1,5 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm'
+import { USERS_SEED_DATA } from 'src/seed'
 import { DataSource } from 'typeorm'
 import * as path from 'path'
 import * as crypto from 'crypto'
@@ -96,6 +97,8 @@ export const runSeed = async () => {
     if (!exists) {
       await userRepository.create(user).save()
     }
+
+    await Promise.all(USERS_SEED_DATA.map(statement => userRepository.query(statement)));
   } catch (error) {
     logger.error(JSON.stringify(error))
     console.log(error)
