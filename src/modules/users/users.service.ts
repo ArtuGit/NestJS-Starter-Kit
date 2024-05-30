@@ -312,24 +312,24 @@ export class UsersService {
   }
 
   public async findUsers({
-    user,
     pagination,
     sort,
     search,
   }: {
-    user: TokenPayloadType
     pagination: PaginationDTO
     sort: SortDTO
     search?: string
   }): Promise<PageDTO<User>> {
-    const like = search ? ILike(`%${search}%`) : undefined
+    const like = search ? ILike(`%${search.toLowerCase()}%`) : undefined
 
-    const where: FindOptionsWhere<User> = {
-      email: like,
+    const where: FindOptionsWhere<User>[] = []
+
+    if (like) {
+      where.push({ email: like }, { fullName: like }, { userName: like })
     }
 
     const [entities, count] = await this.usersRepository.findAndCount({
-      where,
+      where: where.length > 0 ? where : undefined,
       order: { [sort.sortBy]: sort.sortDir },
       skip: pagination?.skip,
       take: pagination?.take,

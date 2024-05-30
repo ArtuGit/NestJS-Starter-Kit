@@ -21,7 +21,7 @@ export function GetUsers<TModel extends Type<any>>(model: TModel) {
     ApiExtraModels(PageDTO, model),
     ApiQuery({
       name: 'search',
-      description: 'Search users by email',
+      description: 'Search users by email, username, or full name',
       type: 'string',
       required: false,
     }),

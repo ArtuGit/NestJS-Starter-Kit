@@ -146,14 +146,11 @@ export class UsersController {
   @Roles([RolesEnum.SITE_ADMIN])
   @UserDecorators.GetUsers(User)
   async getUsers(
-    @Req() req: AuthenticatedRequestType,
     @Query() pagination: PaginationDTO,
     @Query() sort: SortDTO,
     @Query('search') search: string,
   ): Promise<PageDTO<User>> {
-    console.log('sort', sort)
     return this.usersService.findUsers({
-      user: req.user,
       pagination,
       sort,
       search,
