@@ -1,8 +1,7 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { USERS_SEED_DATA } from 'src/seed'
+import { USERS_SEED_DATA } from '../seed'
 import { DataSource } from 'typeorm'
 import * as path from 'path'
-import * as crypto from 'crypto'
 
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { envConfig } from './env.config'

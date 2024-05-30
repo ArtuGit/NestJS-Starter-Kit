@@ -9,7 +9,7 @@ import {
   ApiUnauthorizedResponse,
   getSchemaPath,
 } from '@nestjs/swagger'
-import { PageDTO } from 'src/shared'
+import { PageDTO } from '../../../../shared'
 
 export function GetUsers<TModel extends Type<any>>(model: TModel) {
   return applyDecorators(

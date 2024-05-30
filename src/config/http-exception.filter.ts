@@ -1,7 +1,5 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Injectable } from '@nestjs/common'
 import { Response } from 'express'
-import axios from 'axios'
-import { envConfig } from './env.config'
 import { WinstonLogger } from './winston.logger'
 
 @Catch(HttpException)

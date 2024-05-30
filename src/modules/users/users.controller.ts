@@ -1,8 +1,8 @@
 import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, Res } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
-import { PageDTO, PaginationDTO, RolesEnum } from 'src/shared'
-import { SortDTO } from 'src/shared/dto/sort.dto'
+import { PageDTO, PaginationDTO, RolesEnum } from '../../shared'
+import { SortDTO } from '../../shared/dto/sort.dto'
 
 import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'

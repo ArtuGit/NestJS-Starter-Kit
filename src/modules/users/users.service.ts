@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TokenPayloadType } from 'src/modules/auth/types/types'
-import { PageDTO, PageMetaDTO, PaginationDTO } from 'src/shared'
+import { PageDTO, PageMetaDTO, PaginationDTO } from '../../shared'
 import { SortDTO } from 'src/shared/dto/sort.dto'
 import { Repository, FindOptionsRelations, In, ILike, FindOptionsWhere } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
