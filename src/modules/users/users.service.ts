@@ -10,6 +10,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm'
 import { TokenPayloadType } from 'src/modules/auth/types/types'
 import { PageDTO, PageMetaDTO, PaginationDTO } from 'src/shared'
+import { SortDTO } from 'src/shared/dto/sort.dto'
 import { Repository, FindOptionsRelations, In, ILike, FindOptionsWhere } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
@@ -313,13 +314,14 @@ export class UsersService {
   public async findUsers({
     user,
     pagination,
+    sort,
     search,
   }: {
     user: TokenPayloadType
     pagination: PaginationDTO
+    sort: SortDTO
     search?: string
   }): Promise<PageDTO<User>> {
-    const { role } = user
     const like = search ? ILike(`%${search}%`) : undefined
 
     const where: FindOptionsWhere<User> = {
@@ -328,7 +330,7 @@ export class UsersService {
 
     const [entities, count] = await this.usersRepository.findAndCount({
       where,
-      order: { email: 'ASC' },
+      order: { [sort.sortBy]: sort.sortDir },
       skip: pagination?.skip,
       take: pagination?.take,
     })

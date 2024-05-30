@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post,
 import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { PageDTO, PaginationDTO, RolesEnum } from 'src/shared'
+import { SortDTO } from 'src/shared/dto/sort.dto'
 
 import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'
@@ -147,11 +148,14 @@ export class UsersController {
   async getUsers(
     @Req() req: AuthenticatedRequestType,
     @Query() pagination: PaginationDTO,
+    @Query() sort: SortDTO,
     @Query('search') search: string,
   ): Promise<PageDTO<User>> {
+    console.log('sort', sort)
     return this.usersService.findUsers({
       user: req.user,
       pagination,
+      sort,
       search,
     })
   }

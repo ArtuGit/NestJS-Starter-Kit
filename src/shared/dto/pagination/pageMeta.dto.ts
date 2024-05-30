@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { PaginationDTO } from 'src/shared/pagination/pagination.dto'
+import { PaginationDTO } from 'src/shared/dto/pagination/pagination.dto'
 
 interface IPageMetaDTOParameters {
   pagination?: PaginationDTO
