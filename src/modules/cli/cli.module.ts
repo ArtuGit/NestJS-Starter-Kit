@@ -6,6 +6,5 @@ import { JobService } from './jobService'
 @Module({
   imports: [ConsoleModule],
   providers: [JobService, SeedJob],
-  exports: [JobService, SeedJob],
 })
 export class CliModule {}
