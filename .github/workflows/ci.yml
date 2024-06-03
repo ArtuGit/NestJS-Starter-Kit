@@ -31,9 +31,6 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Seed data
-        run: pnpm run console job seed
-
       - name: Start Docker Compose services
         run: docker-compose up -d
 
@@ -60,6 +57,9 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Seed data
+        run: pnpm run console job seed
 
       - name: Run Unit tests
         run: pnpm run test
