@@ -15,6 +15,7 @@
     "start:repl": "pnpm run start -- --entryFile repl",
     "start:repl:watch": "pnpm run start -- --watch --entryFile repl",
     "console:dev": "ts-node -r tsconfig-paths/register src/console.ts",
+    "console": "node dist/src/console.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d src/config/typeorm.config.ts",
     "migration:generate": "pnpm run typeorm migration:generate -- --pretty",
