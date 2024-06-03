@@ -1,5 +1,4 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { USERS_SEED_DATA } from '../seed'
 import { DataSource } from 'typeorm'
 import * as path from 'path'
 
