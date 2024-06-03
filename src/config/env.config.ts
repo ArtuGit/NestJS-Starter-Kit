@@ -35,7 +35,7 @@ envConfig.SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || ''
 envConfig.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || ''
 envConfig.SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID = process.env.SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID || ''
 
-envConfig.STATIC_PATH = process.env.STATIC_PATH || join(__dirname, '..', '..', 'static')
+envConfig.STATIC_PATH = join(__dirname, '..', 'static')
 
 export const validateDotEnvConfig = async () => {
   const validationErrors = await validate(envConfig)

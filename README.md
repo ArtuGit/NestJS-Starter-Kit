@@ -22,8 +22,6 @@ pnpm run start:dev
 Seed demo data:
 `pnpm run console:dev job seed`
 
-Prepare static for the home page: `pnpm run build`
-
 Go to http://localhost:3000
 
 ### Stop
