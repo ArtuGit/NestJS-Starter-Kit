@@ -19,6 +19,9 @@ docker-compose up -d
 pnpm run start:dev
 ```
 
+Seed demo data
+`pnpm run console:dev job seed`
+
 To prepare static for the following link:  
 `pnpm run build`
 
