@@ -28,6 +28,7 @@ export class JobService {
       await job.run()
     } catch (error) {
       console.error(`Job "${jobName}" failed: ${error}`)
+      throw error
     }
     console.log(`Job "${jobName}" completed`)
   }
