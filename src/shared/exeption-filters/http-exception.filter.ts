@@ -1,6 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Injectable } from '@nestjs/common'
 import { Response } from 'express'
-import { WinstonLogger } from './winston.logger'
+import { WinstonLogger } from '../../config/winston.logger'
 
 @Catch(HttpException)
 @Injectable()
