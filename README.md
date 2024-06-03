@@ -19,8 +19,10 @@ docker-compose up -d
 pnpm run start:dev
 ```
 
-To prepare static for the following link:  
-`pnpm run build`
+Seed demo data:
+`pnpm run console:dev job seed`
+
+Prepare static for the home page: `pnpm run build`
 
 Go to http://localhost:3000
 

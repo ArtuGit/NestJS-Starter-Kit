@@ -1,5 +1,5 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsIn } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger'
+import { IsString, IsOptional, IsIn } from 'class-validator'
 
 export class SortDTO {
   @ApiPropertyOptional({
@@ -9,7 +9,7 @@ export class SortDTO {
   })
   @IsString()
   @IsOptional()
-  readonly sortBy?: string = 'id';
+  readonly sortBy?: string = 'id'
 
   @ApiPropertyOptional({
     description: 'The order of sorting',

@@ -4,7 +4,7 @@ import { SwaggerModule } from '@nestjs/swagger'
 import { config } from 'dotenv'
 
 import { AppModule } from './app.module'
-import { envConfig, runMigrations, runSeed, swaggerConfig, validateDotEnvConfig } from './config'
+import { envConfig, runMigrations, swaggerConfig, validateDotEnvConfig } from './config'
 
 config()
 
@@ -12,7 +12,6 @@ async function bootstrap() {
   await validateDotEnvConfig()
 
   await runMigrations()
-  await runSeed()
 
   const app = await NestFactory.create(AppModule, {
     rawBody: true,
