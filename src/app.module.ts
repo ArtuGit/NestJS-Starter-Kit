@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Logger } from 'winston'
+import { CronModule } from './modules/cron/cron.module'
 import { SendEmailModule } from './modules/send-email/send-email.module'
 import { HttpExceptionFilter } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
@@ -40,6 +41,7 @@ import { AppService } from './app.service'
       rootPath: envConfig.STATIC_PATH,
       serveRoot: '/',
     }),
+    CronModule,
     AuthModule,
     UsersModule,
     SendEmailModule,
