@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common'
+import { TerminusModule } from '@nestjs/terminus'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ScheduleModule } from '@nestjs/schedule'
 import { APP_FILTER, APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
+import { Logger } from 'winston'
 import { SendEmailModule } from './modules/send-email/send-email.module'
 import { HttpExceptionFilter } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
@@ -14,9 +16,13 @@ import { AuthModule } from './modules/auth/auth.module'
 import { envConfig, typeOrmAsyncConfig } from './config'
 
 import { AppController } from './app.controller'
+import { AppService } from './app.service'
 
 @Module({
   imports: [
+    TerminusModule.forRoot({
+      logger: Logger,
+    }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     ScheduleModule.forRoot(),
     JwtModule.register({
@@ -52,6 +58,7 @@ import { AppController } from './app.controller'
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
     },
+    AppService,
   ],
 })
 export class AppModule {}

@@ -17,11 +17,15 @@ describe('AppController (e2e)', () => {
     await app.init()
   })
 
-  it('/ (GET health check)', () => {
-    return request(app.getHttpServer()).get('/healthcheck').expect(200).expect({
-      name: packageJson.name,
-      version: packageJson.version,
-      healthy: true,
-    })
+  it('/ (GET health check)', async () => {
+    const response = await request(app.getHttpServer()).get('/healthcheck').expect(200)
+
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        name: packageJson.name,
+        version: packageJson.version,
+        health: expect.objectContaining({ status: 'ok' }),
+      }),
+    )
   })
 })
