@@ -21,11 +21,11 @@ export class InitialMigration1716023312075 implements MigrationInterface {
                 "isEmailConfirmed" boolean NOT NULL DEFAULT false,
                 "password" character varying NOT NULL,
                 "role" "public"."users_role_enum" NOT NULL DEFAULT 'Regular User',
-                CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
+                CONSTRAINT "PK_users_id" PRIMARY KEY ("id")
             )
         `)
     await queryRunner.query(`
-            CREATE UNIQUE INDEX "IDX_97672ac88f789774dd47f7c8be" ON "users" ("email")
+            CREATE UNIQUE INDEX "IDX_users_email" ON "users" ("email")
         `)
     await queryRunner.query(`
             CREATE TABLE "refresh-token" (
@@ -33,8 +33,8 @@ export class InitialMigration1716023312075 implements MigrationInterface {
                 "token" character varying NOT NULL,
                 "userId" character varying NOT NULL,
                 "expiresAt" TIMESTAMP NOT NULL,
-                CONSTRAINT "UQ_895eefbc5efe4f52da9090b4d18" UNIQUE ("token"),
-                CONSTRAINT "PK_62793706ec70c44e0bb5f448923" PRIMARY KEY ("id")
+                CONSTRAINT "UQ_refresh_token_token" UNIQUE ("token"),
+                CONSTRAINT "PK_refresh_token_id" PRIMARY KEY ("id")
             )
         `)
   }
