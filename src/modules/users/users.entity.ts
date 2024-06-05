@@ -36,6 +36,9 @@ export class User extends Base {
   })
   role: RolesEnum
 
+  @Column({ select: false, default: false })
+  deleted: boolean
+
   @BeforeInsert()
   async generatePasswordHash() {
     const hashProvider = new HashProvider()
