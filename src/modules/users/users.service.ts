@@ -2,6 +2,7 @@ import {
   BadRequestException,
   ConflictException,
   ForbiddenException,
+  ServiceUnavailableException,
   Inject,
   Injectable,
   NotFoundException,
@@ -77,7 +78,7 @@ export class UsersService {
   }
 
   public async createUser(input: CreateUserRequestDto): Promise<User> {
-    if (await this.checkEmailExistance(input.email)) {
+    if (await this.checkEmailExistence(input.email)) {
       this.logger.error(`User with ${input.email} already exists.`)
       throw new ConflictException('User exists')
     }
@@ -187,7 +188,7 @@ export class UsersService {
 
     const [passwordValid, emailExists] = await Promise.all([
       user.checkPassword(password),
-      this.checkEmailExistance(email),
+      this.checkEmailExistence(email),
     ])
 
     if (!passwordValid) {
@@ -216,7 +217,7 @@ export class UsersService {
     return { message: 'OK' }
   }
 
-  public async checkEmailExistance(email: string): Promise<boolean> {
+  public async checkEmailExistence(email: string): Promise<boolean> {
     return !!(await this.usersRepository.findOne({
       where: {
         email: email.toLowerCase(),
@@ -242,6 +243,7 @@ export class UsersService {
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
+      throw new ServiceUnavailableException('Error sending email.')
     }
 
     return { message: 'OK' }
@@ -267,6 +269,7 @@ export class UsersService {
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
+      throw new ServiceUnavailableException('Error sending email.')
     }
 
     return { message: 'OK' }
