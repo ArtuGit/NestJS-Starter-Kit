@@ -1,6 +1,6 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { DataSource } from 'typeorm'
 import * as path from 'path'
+import { DataSource } from 'typeorm'
 
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { envConfig } from './env.config'
@@ -48,20 +48,3 @@ export const typeOrmConfig: PostgresConnectionOptions = {
 
 export default new DataSource(typeOrmConfig)
 
-export const runMigrations = async () => {
-  const dataSource = new DataSource(typeOrmConfig)
-
-  logger.log('Migration starts')
-
-  try {
-    await dataSource.initialize()
-    await dataSource.runMigrations()
-    await dataSource.destroy()
-  } catch (error) {
-    logger.error(JSON.stringify(error))
-    console.log(error)
-    process.exit()
-  }
-
-  logger.log('Migration successful!')
-}
