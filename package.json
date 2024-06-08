@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@anchan828/nest-sendgrid": "^0.6.88",
+    "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/cache-manager": "^2.2.2",
     "@nestjs/common": "^10.3.8",
     "@nestjs/core": "^10.3.8",
@@ -45,6 +46,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "@nestjs/websockets": "^10.3.8",
     "@types/faker": "^6.6.9",
+    "@types/nodemailer": "^6.4.15",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "cache-manager": "^5.5.2",
@@ -55,6 +57,7 @@
     "lodash.flatten": "^4.4.0",
     "moment": "^2.30.1",
     "nestjs-console": "^9.0.0",
+    "nodemailer": "^6.9.13",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pg": "^8.11.5",
