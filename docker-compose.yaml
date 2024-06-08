@@ -18,3 +18,10 @@ services:
     environment:
       - POSTGRES_DB=nsk
       - POSTGRES_PASSWORD=postgres
+
+  maildev:
+    image: maildev/maildev
+    container_name: "nsk-maildev"
+    ports:
+      - "1080:1080"
+      - "1025:1025"
