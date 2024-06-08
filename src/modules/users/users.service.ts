@@ -10,12 +10,13 @@ import {
 } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { TokenPayloadType } from 'src/modules/auth/types/types'
-import { PageDTO, PageMetaDTO, PaginationDTO } from '../../shared'
+import { IConfirmationEmailMessage, PageDTO, PageMetaDTO, PaginationDTO } from '../../shared'
 import { SortDTO } from 'src/shared/dto/sort.dto'
 import { Repository, FindOptionsRelations, In, ILike, FindOptionsWhere } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
 import * as crypto from 'crypto'
+import { MailService } from '../mail/mail.service'
 
 import { User } from './users.entity'
 import { WinstonLogger, envConfig } from '../../config'
@@ -43,6 +44,7 @@ export class UsersService {
     private authService: AuthService,
     private readonly logger: WinstonLogger,
     private readonly sendEmailService: SendEmailService,
+    private readonly mailService: MailService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -235,11 +237,21 @@ export class UsersService {
     )
 
     try {
-      await this.sendEmailService.sendConfirmationEmailMessage(email, {
-        ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
-        OperationText: `Please confirm your email in ${moment
-          .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
-          .asHours()} hours, or resend activation email.`,
+      // await this.sendEmailService.sendConfirmationEmailMessage(email, {
+      //   ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
+      //   OperationText: `Please confirm your email in ${moment
+      //     .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
+      //     .asHours()} hours, or resend activation email.`,
+      // })
+
+      await this.mailService.sendConfirmationEmailMessage( {
+        to: email,
+        data: {
+          ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
+          OperationText: `Please confirm your email in ${moment
+            .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
+            .asHours()} hours, or resend activation email.`,
+        },
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
