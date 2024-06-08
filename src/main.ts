@@ -2,9 +2,12 @@ import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
 import { SwaggerModule } from '@nestjs/swagger'
 import { config } from 'dotenv'
+import { Logger } from '@nestjs/common'
 
 import { AppModule } from './app.module'
 import { envConfig, runMigrations, swaggerConfig, validateDotEnvConfig } from './config'
+
+const logger = new Logger('NestApplication')
 
 config()
 
@@ -18,7 +21,7 @@ async function bootstrap() {
   })
 
   app.enableCors()
-
+  app.enableShutdownHooks()
   app.useGlobalPipes(
     new ValidationPipe({
       //whitelist: true, does not work with query params
@@ -30,7 +33,7 @@ async function bootstrap() {
   if (envConfig.NODE_ENV !== 'production') {
     SwaggerModule.setup('doc', app, SwaggerModule.createDocument(app, swaggerConfig))
   }
-
-  await app.listen(envConfig.PORT, '0.0.0.0', () => console.info(`The server is running on port ${envConfig.PORT} `))
+  await app.listen(envConfig.PORT, '0.0.0.0')
+  logger.verbose(`Application is running on: ${await app.getUrl()}`)
 }
 bootstrap()
