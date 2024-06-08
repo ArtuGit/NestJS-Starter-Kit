@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsNotEmpty, IsEmail, IsOptional } from 'class-validator'
+import { IsString, IsInt, IsNotEmpty, IsEmail, IsOptional, IsBoolean } from 'class-validator'
 
 export class EnvConfigDTO {
   @IsString()
@@ -12,6 +12,14 @@ export class EnvConfigDTO {
   @IsString()
   @IsNotEmpty()
   HOST: string
+
+  @IsString()
+  @IsNotEmpty()
+  APP_HEADER_LANGUAGE: string
+
+  @IsString()
+  @IsNotEmpty()
+  APP_FALLBACK_LANGUAGE: string
 
   @IsString()
   @IsNotEmpty()
@@ -82,4 +90,40 @@ export class EnvConfigDTO {
 
   @IsString()
   STATIC_PATH: string
+
+  @IsString()
+  @IsNotEmpty()
+  MAIL_HOST: string
+
+  @IsInt()
+  @IsNotEmpty()
+  MAIL_PORT: number
+
+  @IsString()
+  @IsNotEmpty()
+  MAIL_USER: string
+
+  @IsString()
+  @IsNotEmpty()
+  MAIL_PASSWORD: string
+
+  @IsEmail()
+  @IsNotEmpty()
+  MAIL_DEFAULT_EMAIL: string
+
+  @IsString()
+  @IsNotEmpty()
+  MAIL_DEFAULT_NAME: string
+
+  @IsBoolean()
+  @IsNotEmpty()
+  MAIL_IGNORE_TLS: boolean
+
+  @IsBoolean()
+  @IsNotEmpty()
+  MAIL_SECURE: boolean
+
+  @IsBoolean()
+  @IsNotEmpty()
+  MAIL_REQUIRE_TLS: boolean
 }

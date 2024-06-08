@@ -5,7 +5,6 @@ import * as path from 'path'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { envConfig } from './env.config'
 import { WinstonLogger } from './winston.logger'
-import { RolesEnum } from '../shared'
 
 const logger = new WinstonLogger()
 
