@@ -1,4 +1,4 @@
 export interface IMailData<T = any> {
-  to: string;
-  data: T;
+  to: string
+  data: T
 }

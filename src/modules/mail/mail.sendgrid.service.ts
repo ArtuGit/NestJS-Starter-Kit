@@ -7,7 +7,7 @@ import { MailService } from './mail.service'
 import { IMailData } from './types'
 
 @Injectable()
-export class MailSendgridService implements MailService{
+export class MailSendgridService implements MailService {
   constructor(
     private readonly sendGrid: SendGridService,
     private readonly logger: WinstonLogger,

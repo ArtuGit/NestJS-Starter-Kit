@@ -12,7 +12,7 @@ export class MailMailerService implements MailService {
     private readonly logger: WinstonLogger,
   ) {}
 
-  async sendConfirmationEmailMessage(mailData: IMailData<IConfirmationEmailMessage>): Promise<boolean>{
+  async sendConfirmationEmailMessage(mailData: IMailData<IConfirmationEmailMessage>): Promise<boolean> {
     try {
       await this.mailerService.sendMail({
         to: mailData.to,
