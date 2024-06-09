@@ -15,7 +15,6 @@ import { SortDTO } from 'src/shared/dto/sort.dto'
 import { Repository, FindOptionsRelations, In, ILike, FindOptionsWhere } from 'typeorm'
 import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
-import * as crypto from 'crypto'
 import { MailService } from '../mail/mail.service'
 
 import { User } from './users.entity'
@@ -30,7 +29,6 @@ import {
 } from './dto'
 import { ReturnMessage } from '../../utils'
 import { HashProvider } from './providers'
-import { SendEmailService } from '../send-email/send-email.service'
 import { AuthService } from '../auth/auth.service'
 import { LoginReturnDTO } from '../auth/dto'
 
@@ -43,7 +41,6 @@ export class UsersService {
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
     private readonly logger: WinstonLogger,
-    private readonly sendEmailService: SendEmailService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
   ) {}
@@ -209,11 +206,14 @@ export class UsersService {
       },
     )
 
-    await this.sendEmailService.sendConfirmationEmailMessage(user.email, {
-      ConfirmationLink: `${envConfig.FRONTEND_HOST}users/change-email/${token}`,
-      OperationText: `Please confirm your new email in ${moment
-        .duration(envConfig.EMAIL_JWT_EXPIRES_IN * 1000)
-        .asMinutes()} mins, or change email again. If you did not request this change, simply ignore this email.`,
+    await this.mailService.sendConfirmationEmailMessage({
+      to: email,
+      data: {
+        ConfirmationLink: `${envConfig.FRONTEND_HOST}users/change-email/${token}`,
+        OperationText: `Please confirm your new email in ${moment
+          .duration(envConfig.EMAIL_JWT_EXPIRES_IN * 1000)
+          .asMinutes()} mins, or change email again. If you did not request this change, simply ignore this email.`,
+      },
     })
 
     return { message: 'OK' }
@@ -237,14 +237,7 @@ export class UsersService {
     )
 
     try {
-      // await this.sendEmailService.sendConfirmationEmailMessage(email, {
-      //   ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
-      //   OperationText: `Please confirm your email in ${moment
-      //     .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
-      //     .asHours()} hours, or resend activation email.`,
-      // })
-
-      await this.mailService.sendConfirmationEmailMessage( {
+      await this.mailService.sendConfirmationEmailMessage({
         to: email,
         data: {
           ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
@@ -275,9 +268,12 @@ export class UsersService {
     )
 
     try {
-      await this.sendEmailService.sendConfirmationEmailMessage(email, {
-        ConfirmationLink: `${envConfig.FRONTEND_HOST}users/pass-restore/${token}`,
-        OperationText: `Please restore your password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
+      await this.mailService.sendConfirmationEmailMessage({
+        to: email,
+        data: {
+          ConfirmationLink: `${envConfig.FRONTEND_HOST}users/pass-restore/${token}`,
+          OperationText: `Please restore your password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
+        },
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))

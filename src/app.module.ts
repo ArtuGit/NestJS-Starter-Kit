@@ -10,7 +10,6 @@ import { CacheModule } from '@nestjs/cache-manager'
 import { Logger } from 'winston'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
-import { SendEmailModule } from './modules/send-email/send-email.module'
 import { HttpExceptionFilter } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
@@ -49,7 +48,6 @@ import { AppService } from './app.service'
     CronModule,
     AuthModule,
     UsersModule,
-    SendEmailModule,
   ],
   controllers: [AppController],
   providers: [
