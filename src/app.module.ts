@@ -1,3 +1,4 @@
+import { MailerModule } from '@nestjs-modules/mailer'
 import { Module } from '@nestjs/common'
 import { TerminusModule } from '@nestjs/terminus'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -8,7 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Logger } from 'winston'
 import { CronModule } from './modules/cron/cron.module'
-import { SendEmailModule } from './modules/send-email/send-email.module'
+import { MailConfigService } from './config/mail.config'
 import { HttpExceptionFilter } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
@@ -25,6 +26,9 @@ import { AppService } from './app.service'
       logger: Logger,
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    MailerModule.forRootAsync({
+      useClass: MailConfigService,
+    }),
     ScheduleModule.forRoot(),
     JwtModule.register({
       global: true,
@@ -44,7 +48,6 @@ import { AppService } from './app.service'
     CronModule,
     AuthModule,
     UsersModule,
-    SendEmailModule,
   ],
   controllers: [AppController],
   providers: [

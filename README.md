@@ -2,19 +2,30 @@
 
 See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/tree/v2)
 
-TypeORM: Postgres
+## Features
 
-Minimalist, ready-to-use boilerplate with full-fledged Auth and Users sections, dev and CI configs.
+- TypeORM (Postgres), Migrations, Seeding
+- OpenAPI (Swagger)
+- Auth (JWT) and Users full-fledged modules
+- Sending mail (Nodemailer or SendGrid), catch with MailHog
+- CI (GitHub Actions)
+- Docker setup
+- Config, Logger, Validation
+- Unit and e2e test examples
 
-## Start / Stop
+## Run
+
+### Prepare
 
 Install dependencies:
 `pnpm install`
 
+Copy `.env.example` to `.env`
+`cp ./example.env ./.env`
+
 ### Start
 
 ```
-cp ./example.env ./.env
 docker-compose up -d
 pnpm run start:dev
 ```

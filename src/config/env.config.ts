@@ -8,10 +8,13 @@ config()
 
 export const envConfig = new EnvConfigDTO()
 
-envConfig.NODE_ENV = process.env.NODE_ENV || ''
+envConfig.NODE_ENV = process.env.NODE_ENV || 'local'
 
 envConfig.PORT = parseInt(process.env.PORT || '')
-envConfig.HOST = process.env.HOST || ''
+envConfig.HOST = process.env.HOST || '3000'
+
+envConfig.APP_HEADER_LANGUAGE = process.env.APP_HEADER_LANGUAGE || 'x-custom-lang'
+envConfig.APP_FALLBACK_LANGUAGE = process.env.APP_FALLBACK_LANGUAGE || 'en'
 
 envConfig.DB_HOST = process.env.DB_HOST || ''
 envConfig.DB_PORT = parseInt(process.env.DB_PORT || '')
@@ -34,6 +37,16 @@ envConfig.SENDGRID_FROM = process.env.SENDGRID_FROM || ''
 envConfig.SENDGRID_FROM_NAME = process.env.SENDGRID_FROM_NAME || ''
 envConfig.SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || ''
 envConfig.SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID = process.env.SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID || ''
+
+envConfig.MAIL_HOST = process.env.MAIL_HOST || ''
+envConfig.MAIL_PORT = parseInt(process.env.MAIL_PORT || '')
+envConfig.MAIL_USER = process.env.MAIL_USER || ''
+envConfig.MAIL_PASSWORD = process.env.MAIL_PASSWORD || ''
+envConfig.MAIL_DEFAULT_EMAIL = process.env.MAIL_DEFAULT_EMAIL || ''
+envConfig.MAIL_DEFAULT_NAME = process.env.MAIL_DEFAULT_NAME || ''
+envConfig.MAIL_IGNORE_TLS = process.env.MAIL_IGNORE_TLS === 'true'
+envConfig.MAIL_SECURE = process.env.MAIL_SECURE === 'true'
+envConfig.MAIL_REQUIRE_TLS = process.env.MAIL_REQUIRE_TLS === 'true'
 
 envConfig.STATIC_PATH = join(__dirname, '..', 'static')
 
