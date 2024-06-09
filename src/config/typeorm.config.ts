@@ -47,4 +47,3 @@ export const typeOrmConfig: PostgresConnectionOptions = {
 }
 
 export default new DataSource(typeOrmConfig)
-

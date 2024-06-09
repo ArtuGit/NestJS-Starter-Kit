@@ -1,4 +1,4 @@
 export interface IConfirmationEmailMessage {
-  ConfirmationLink: string;
-  OperationText: string;
+  ConfirmationLink: string
+  OperationText: string
 }
