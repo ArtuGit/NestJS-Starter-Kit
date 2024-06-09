@@ -19,9 +19,10 @@ services:
       - POSTGRES_DB=nsk
       - POSTGRES_PASSWORD=postgres
 
-  maildev:
-    image: maildev/maildev
-    container_name: "nsk-maildev"
+  mailhog:
+    image: mailhog/mailhog
+    container_name: "nsk-mailhog"
+    restart: always
     ports:
-      - "1080:1080"
+      - "8025:8025"
       - "1025:1025"
