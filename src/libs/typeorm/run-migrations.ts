@@ -1,7 +1,8 @@
+import { Logger } from '@nestjs/common'
 import { DataSource } from 'typeorm'
 import { typeOrmConfig, WinstonLogger } from '../../config'
 
-const logger = new WinstonLogger()
+const logger = new Logger('Seed')
 
 export const runMigrations = async () => {
   const dataSource = new DataSource(typeOrmConfig)

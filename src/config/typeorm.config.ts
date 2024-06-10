@@ -4,9 +4,6 @@ import { DataSource } from 'typeorm'
 
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import { envConfig } from './env.config'
-import { WinstonLogger } from './winston.logger'
-
-const logger = new WinstonLogger()
 
 const migrationsFolder = path.join(__dirname, '..', 'migrations', '**', '*.{ts,js}')
 

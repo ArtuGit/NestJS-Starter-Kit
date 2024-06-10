@@ -15,11 +15,11 @@ config()
 async function bootstrap() {
   await validateDotEnvConfig()
 
-  await runMigrations()
-
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: getWinstonLoggerModule(),
   })
+
+  await runMigrations()
 
   app.enableCors()
   app.enableShutdownHooks()
