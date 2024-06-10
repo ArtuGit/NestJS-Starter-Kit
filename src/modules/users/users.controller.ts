@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { PageDTO, PaginationDTO, RolesEnum } from '../../shared'
 import { SortDTO } from '../../shared/dto/sort.dto'
-
+import { Logger } from '@nestjs/common'
 import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'
 import {
@@ -19,14 +19,14 @@ import { User } from './users.entity'
 import { AuthenticatedRequestType } from '../auth/types/types'
 import { ReturnMessage } from '../../utils'
 import { Public, Roles } from '../auth/decorators'
-import { WinstonLogger } from '../../config'
+
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
+  private readonly logger: Logger = new Logger(UsersController.name);
   constructor(
     private readonly usersService: UsersService,
-    private readonly logger: WinstonLogger,
   ) {}
 
   @Get('me')

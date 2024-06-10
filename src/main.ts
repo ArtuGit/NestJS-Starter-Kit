@@ -1,11 +1,12 @@
 import { NestFactory } from '@nestjs/core'
 import { ValidationPipe } from '@nestjs/common'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { SwaggerModule } from '@nestjs/swagger'
 import { config } from 'dotenv'
 import { Logger } from '@nestjs/common'
 
 import { AppModule } from './app.module'
-import { envConfig, runMigrations, swaggerConfig, validateDotEnvConfig } from './config'
+import { envConfig, getWinstonLoggerModule, runMigrations, swaggerConfig, validateDotEnvConfig } from './config'
 
 const logger = new Logger('NestApplication')
 
@@ -16,8 +17,8 @@ async function bootstrap() {
 
   await runMigrations()
 
-  const app = await NestFactory.create(AppModule, {
-    rawBody: true,
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: getWinstonLoggerModule(),
   })
 
   app.enableCors()

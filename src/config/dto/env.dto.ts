@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import { IsString, IsInt, IsNotEmpty, IsEmail, IsOptional, IsBoolean } from 'class-validator'
 
 export class EnvConfigDTO {
@@ -20,6 +21,18 @@ export class EnvConfigDTO {
   @IsString()
   @IsNotEmpty()
   APP_FALLBACK_LANGUAGE: string
+
+  @IsString()
+  @Type(() => String)
+  LOGGING_LEVEL!: 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly'
+
+  @IsBoolean()
+  @IsNotEmpty()
+  LOGGING_FILE_LOG: boolean
+
+  @IsString()
+  @IsNotEmpty()
+  LOGGING_FILE_NAME: string
 
   @IsString()
   @IsNotEmpty()

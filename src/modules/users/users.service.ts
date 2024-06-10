@@ -3,6 +3,7 @@ import {
   ConflictException,
   ForbiddenException,
   ServiceUnavailableException,
+  Logger,
   Inject,
   Injectable,
   NotFoundException,
@@ -18,7 +19,7 @@ import * as moment from 'moment'
 import { MailService } from '../mail/mail.service'
 
 import { User } from './users.entity'
-import { WinstonLogger, envConfig } from '../../config'
+import { envConfig } from '../../config'
 import {
   ChangeUserPasswordRequestDto,
   ChangeUserNamesRequestDto,
@@ -34,13 +35,12 @@ import { LoginReturnDTO } from '../auth/dto'
 
 @Injectable()
 export class UsersService {
+  private readonly logger: Logger = new Logger(UsersService.name);
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
-
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
-    private readonly logger: WinstonLogger,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
   ) {}
