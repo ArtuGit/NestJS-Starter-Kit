@@ -1,16 +1,14 @@
 import { MailerService } from '@nestjs-modules/mailer'
-import { Injectable } from '@nestjs/common'
-import { WinstonLogger } from '../../config'
+import { Injectable, Logger } from '@nestjs/common'
 import { IConfirmationEmailMessage } from '../../shared'
 import { MailService } from './mail.service'
 import { IMailData } from './types/mail-data-interface'
 
 @Injectable()
 export class MailMailerService implements MailService {
-  constructor(
-    private mailerService: MailerService,
-    private readonly logger: WinstonLogger,
-  ) {}
+  private readonly logger: Logger = new Logger(MailMailerService.name)
+
+  constructor(private mailerService: MailerService) {}
 
   async sendConfirmationEmailMessage(mailData: IMailData<IConfirmationEmailMessage>): Promise<boolean> {
     try {

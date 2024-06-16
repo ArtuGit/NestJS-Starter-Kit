@@ -1,17 +1,15 @@
 import { SendGridService } from '@anchan828/nest-sendgrid'
-import { Injectable } from '@nestjs/common'
-
-import { WinstonLogger, envConfig } from '../../config'
+import { Injectable, Logger } from '@nestjs/common'
+import { envConfig } from '../../config'
 import { IConfirmationEmailMessage } from '../../shared'
 import { MailService } from './mail.service'
 import { IMailData } from './types'
 
 @Injectable()
 export class MailSendgridService implements MailService {
-  constructor(
-    private readonly sendGrid: SendGridService,
-    private readonly logger: WinstonLogger,
-  ) {}
+  private readonly logger: Logger = new Logger(MailSendgridService.name)
+
+  constructor(private readonly sendGrid: SendGridService) {}
 
   public async sendConfirmationEmailMessage(mailData: IMailData<IConfirmationEmailMessage>): Promise<boolean> {
     try {

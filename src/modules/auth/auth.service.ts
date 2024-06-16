@@ -1,10 +1,10 @@
-import { ForbiddenException, Inject, Injectable, UnauthorizedException, forwardRef } from '@nestjs/common'
+import { ForbiddenException, Inject, Injectable, UnauthorizedException, forwardRef, Logger } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
 import { UsersService } from '../users/users.service'
 import { User } from '../users/users.entity'
 import { LoginDTO, LoginReturnDTO } from './dto'
-import { WinstonLogger, envConfig } from '../../config'
+import { envConfig } from '../../config'
 import { RefreshTokenService } from './refreshToken.service'
 import { ReturnMessage } from '../../utils'
 import { RolesEnum } from '../../shared'
@@ -12,12 +12,13 @@ import { TokenPayloadType } from './types/types'
 
 @Injectable()
 export class AuthService {
+  private readonly logger: Logger = new Logger(AuthService.name)
+
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
     private readonly refreshTokenService: RefreshTokenService,
     private readonly jwtService: JwtService,
-    private readonly logger: WinstonLogger,
   ) {}
 
   public async validateUser({ email, password }: LoginDTO): Promise<User | null> {
