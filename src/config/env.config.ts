@@ -59,8 +59,10 @@ export const validateDotEnvConfig = async () => {
   const validationErrors = await validate(envConfig)
 
   if (validationErrors.length > 0) {
+    // eslint-disable-next-line no-console
     console.error('Validation failed for environment variables:')
     validationErrors.forEach((error: any) => {
+      // eslint-disable-next-line no-console
       console.error(`- ${error.property}: ${error.constraints}`)
     })
     throw new Error('Environment variable validation failed')

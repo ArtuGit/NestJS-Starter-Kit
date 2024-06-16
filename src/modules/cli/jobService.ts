@@ -15,6 +15,7 @@ export class JobService {
     ],
     description: 'Run a job',
   })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async runJob(jobName: string, options: CommandOption): Promise<void> {
     let job: Job
     if (jobName === 'seed') {
