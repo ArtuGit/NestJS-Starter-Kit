@@ -10,7 +10,8 @@ See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/t
 - Sending mail (Nodemailer or SendGrid), catch with MailHog
 - CI (GitHub Actions)
 - Docker setup
-- Config, Logger, Validation
+- Config, Validation
+- Logger (Winston), LoggerMiddleware
 - Unit and e2e test examples
 
 ## Run
