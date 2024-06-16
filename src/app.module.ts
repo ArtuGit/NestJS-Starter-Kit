@@ -1,5 +1,5 @@
 import { MailerModule } from '@nestjs-modules/mailer'
-import { Module, Logger } from '@nestjs/common'
+import { Module, Logger, NestModule, MiddlewareConsumer } from '@nestjs/common'
 import { TerminusModule } from '@nestjs/terminus'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ScheduleModule } from '@nestjs/schedule'
@@ -9,7 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
-import { HttpExceptionFilter } from './shared'
+import { HttpExceptionFilter, LoggerMiddleware } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
 import { AuthModule } from './modules/auth/auth.module'
@@ -65,4 +65,8 @@ import { AppService } from './app.service'
     AppService,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*')
+  }
+}
