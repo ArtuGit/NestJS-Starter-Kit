@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LessThan, Repository } from 'typeorm'
 import * as moment from 'moment'
 
-import { WinstonLogger, envConfig } from '../../config'
+import { envConfig } from '../../config'
 import { RefreshToken } from './refreshToken.entity'
 
 @Injectable()
 export class RefreshTokenService {
+  private readonly logger: Logger = new Logger(RefreshTokenService.name)
+
   constructor(
     @InjectRepository(RefreshToken)
     private readonly refreshTokenRepository: Repository<RefreshToken>,
-    private readonly logger: WinstonLogger,
   ) {}
 
   public async create(refreshToken: string, userId: string): Promise<RefreshToken> {

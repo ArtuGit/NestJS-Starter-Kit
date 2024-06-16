@@ -35,7 +35,8 @@ import { LoginReturnDTO } from '../auth/dto'
 
 @Injectable()
 export class UsersService {
-  private readonly logger: Logger = new Logger(UsersService.name);
+  private readonly logger: Logger = new Logger(UsersService.name)
+
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,

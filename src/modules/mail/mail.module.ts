@@ -1,6 +1,6 @@
 import { SendGridModule } from '@anchan828/nest-sendgrid'
 import { Module } from '@nestjs/common'
-import { envConfig, WinstonLogger } from '../../config'
+import { envConfig } from '../../config'
 import { MailMailerService } from './mail.mailer.service'
 import { MailSendgridService } from './mail.sendgrid.service'
 import { MailService } from './mail.service'
@@ -13,7 +13,6 @@ import { MailService } from './mail.service'
     }),
   ],
   providers: [
-    WinstonLogger,
     {
       provide: MailService,
       // Change useClass to MailSendgridService if SendGrid is used

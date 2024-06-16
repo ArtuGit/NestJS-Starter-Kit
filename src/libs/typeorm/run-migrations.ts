@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common'
 import { DataSource } from 'typeorm'
-import { typeOrmConfig, WinstonLogger } from '../../config'
+import { typeOrmConfig } from '../../config'
 
 const logger = new Logger('Seed')
 

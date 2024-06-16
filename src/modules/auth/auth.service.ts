@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt'
 import { UsersService } from '../users/users.service'
 import { User } from '../users/users.entity'
 import { LoginDTO, LoginReturnDTO } from './dto'
-import { WinstonLogger, envConfig } from '../../config'
+import { envConfig } from '../../config'
 import { RefreshTokenService } from './refreshToken.service'
 import { ReturnMessage } from '../../utils'
 import { RolesEnum } from '../../shared'
@@ -12,7 +12,8 @@ import { TokenPayloadType } from './types/types'
 
 @Injectable()
 export class AuthService {
-  private readonly logger: Logger = new Logger(AuthService.name);
+  private readonly logger: Logger = new Logger(AuthService.name)
+
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,

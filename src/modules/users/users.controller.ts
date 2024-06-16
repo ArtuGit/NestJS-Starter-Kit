@@ -20,14 +20,12 @@ import { AuthenticatedRequestType } from '../auth/types/types'
 import { ReturnMessage } from '../../utils'
 import { Public, Roles } from '../auth/decorators'
 
-
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  private readonly logger: Logger = new Logger(UsersController.name);
-  constructor(
-    private readonly usersService: UsersService,
-  ) {}
+  private readonly logger: Logger = new Logger(UsersController.name)
+
+  constructor(private readonly usersService: UsersService) {}
 
   @Get('me')
   @UserDecorators.GetUser()

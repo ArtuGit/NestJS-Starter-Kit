@@ -1,7 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpException, Injectable } from '@nestjs/common'
 import { Response } from 'express'
 import { Logger } from '@nestjs/common'
-import { WinstonLogger } from '../../config/winston.logger'
 
 @Catch(HttpException)
 @Injectable()
@@ -16,7 +15,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const { path, method, params, query, user, body } = ctx.getRequest()
     const status = exception.getStatus()
     const errorResponse = exception.getResponse()
-
 
     const data = {
       path,
