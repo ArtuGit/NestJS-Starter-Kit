@@ -1,4 +1,4 @@
-import { ForbiddenException, Inject, Injectable, UnauthorizedException, forwardRef, Logger } from '@nestjs/common'
+import { ForbiddenException, Inject, Injectable, forwardRef, Logger } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
 import { UsersService } from '../users/users.service'

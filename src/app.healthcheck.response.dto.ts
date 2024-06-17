@@ -1,13 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { HealthCheckResult } from '@nestjs/terminus'
 import { Type } from 'class-transformer'
-import { Allow } from 'class-validator'
+import { Allow, IsString } from 'class-validator'
 
 export class AppHealthCheckResponseDto {
   @ApiProperty()
+  @IsString()
   readonly name: string
 
   @ApiProperty()
+  @IsString()
   readonly version: string
 
   @Allow()

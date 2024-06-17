@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer'
-import { IsString, IsInt, IsNotEmpty, IsEmail, IsOptional, IsBoolean } from 'class-validator'
+import { IsString, IsInt, IsNotEmpty, IsEmail, IsBoolean } from 'class-validator'
 
 export class EnvConfigDTO {
   @IsString()

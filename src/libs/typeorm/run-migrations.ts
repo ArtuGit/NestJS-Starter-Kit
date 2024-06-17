@@ -7,7 +7,7 @@ const logger = new Logger('Seed')
 export const runMigrations = async () => {
   const dataSource = new DataSource(typeOrmConfig)
 
-  logger.log('Migration starts')
+  logger.log('Migration is starting')
 
   try {
     await dataSource.initialize()
@@ -15,9 +15,10 @@ export const runMigrations = async () => {
     await dataSource.destroy()
   } catch (error) {
     logger.error(JSON.stringify(error))
+    // eslint-disable-next-line no-console
     console.log(error)
     process.exit()
   }
 
-  logger.log('Migration successful!')
+  logger.log('Migration is successful!')
 }

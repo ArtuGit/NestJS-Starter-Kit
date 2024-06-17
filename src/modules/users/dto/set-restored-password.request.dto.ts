@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator'
+import { Allow, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
 
 export class SetRestoredPasswordRequestDto {
   @ApiProperty({
@@ -18,5 +18,6 @@ export class SetRestoredPasswordRequestDto {
   @MaxLength(24)
   repeatPassword: string
 
+  @Allow()
   restoreToken: string
 }

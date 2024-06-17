@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator'
+import { Allow, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class ChangeUserNamesRequestDto {
   @ApiProperty({
@@ -18,5 +18,6 @@ export class ChangeUserNamesRequestDto {
   @IsOptional()
   userName: string
 
+  @Allow()
   id: string
 }

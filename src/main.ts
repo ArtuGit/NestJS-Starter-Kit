@@ -27,6 +27,7 @@ async function bootstrap() {
     new ValidationPipe({
       //whitelist: true, does not work with query params
       forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
       transform: true,
     }),
   )
@@ -37,4 +38,5 @@ async function bootstrap() {
   await app.listen(envConfig.PORT, '0.0.0.0')
   logger.verbose(`Application is running on: ${await app.getUrl()}`)
 }
-bootstrap()
+// eslint-disable-next-line no-console
+bootstrap().catch((err) => console.error(err))

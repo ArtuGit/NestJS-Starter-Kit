@@ -15,21 +15,25 @@ export class JobService {
     ],
     description: 'Run a job',
   })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async runJob(jobName: string, options: CommandOption): Promise<void> {
     let job: Job
     if (jobName === 'seed') {
       job = this.seedJob
     } else {
+      // eslint-disable-next-line no-console
       console.error(`Job "${jobName}" not found.`)
     }
-
+    // eslint-disable-next-line no-console
     console.log(`Running job "${jobName}"`)
     try {
       await job.run()
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Job "${jobName}" failed: ${error}`)
       throw error
     }
+    // eslint-disable-next-line no-console
     console.log(`Job "${jobName}" completed`)
   }
 }
