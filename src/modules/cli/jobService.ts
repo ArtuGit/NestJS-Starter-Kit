@@ -21,16 +21,19 @@ export class JobService {
     if (jobName === 'seed') {
       job = this.seedJob
     } else {
+      // eslint-disable-next-line no-console
       console.error(`Job "${jobName}" not found.`)
     }
-
+    // eslint-disable-next-line no-console
     console.log(`Running job "${jobName}"`)
     try {
       await job.run()
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Job "${jobName}" failed: ${error}`)
       throw error
     }
+    // eslint-disable-next-line no-console
     console.log(`Job "${jobName}" completed`)
   }
 }

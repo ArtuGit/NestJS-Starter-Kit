@@ -28,6 +28,7 @@ export class User extends Base {
 
   @ApiProperty({
     default: RolesEnum.USER,
+    enumName: 'RolesEnum',
   })
   @Column({
     type: 'enum',
@@ -52,6 +53,7 @@ export class User extends Base {
   }
 
   getPublicUser() {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...user } = this
     return user as Omit<User, 'password' | 'apiAccessKey'>
   }

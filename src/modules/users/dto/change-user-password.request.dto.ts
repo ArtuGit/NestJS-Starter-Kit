@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator'
+import { Allow, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
 
 export class ChangeUserPasswordRequestDto {
   @ApiProperty({
@@ -26,5 +26,6 @@ export class ChangeUserPasswordRequestDto {
   @MaxLength(24)
   repeatPassword: string
 
+  @Allow()
   id: string
 }

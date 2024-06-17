@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger'
-import { IsString, IsOptional, IsIn } from 'class-validator'
+import { IsString, IsOptional, IsEnum } from 'class-validator'
 
 export class SortDTO {
   @ApiPropertyOptional({
@@ -16,8 +16,7 @@ export class SortDTO {
     example: 'asc',
     enum: ['asc', 'desc'],
   })
-  @IsString()
+  @IsEnum(['asc', 'desc'])
   @IsOptional()
-  @IsIn(['asc', 'desc'])
   readonly sortDir?: 'asc' | 'desc' = 'asc'
 }

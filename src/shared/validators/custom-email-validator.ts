@@ -8,6 +8,7 @@ import {
 @ValidatorConstraint({ async: false })
 export class IsEmailConstraint implements ValidatorConstraintInterface {
   validate(email: string) {
+    // eslint-disable-next-line security/detect-unsafe-regex
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
     return emailRegex.test(email)
   }

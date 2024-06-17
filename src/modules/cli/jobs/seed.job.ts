@@ -37,7 +37,9 @@ export class SeedJob implements Job {
 
       await Promise.all(USERS_SEED_DATA.map((statement) => userRepository.query(statement)))
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(JSON.stringify(error))
+      // eslint-disable-next-line no-console
       console.log(error)
       await dataSource.destroy()
     }
