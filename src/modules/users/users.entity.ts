@@ -29,8 +29,10 @@ export class UserEntity extends Base {
   /**
    * User email confirmation status
    */
+  @Column({ default: false })
   isEmailConfirmed: boolean
 
+  @Column({ select: false })
   password: string
 
   /**
