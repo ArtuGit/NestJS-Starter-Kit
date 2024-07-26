@@ -37,7 +37,7 @@ export class UsersController {
 
   @Post('register')
   @Public()
-  @UserDecorators.RegisterUser()
+  //@UserDecorators.RegisterUser()
   async createUser(
     @Body()
     input: CreateUserRequestDto,

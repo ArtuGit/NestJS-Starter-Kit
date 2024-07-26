@@ -12,6 +12,7 @@ See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/t
 - Docker setup
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
+- Health check
 - Unit and e2e test examples
 - Enhanced ESLinters
 
