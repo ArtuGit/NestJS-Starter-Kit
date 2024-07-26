@@ -17,6 +17,7 @@ async function bootstrap() {
 
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: getWinstonLoggerModule(),
+    rawBody: true,
   })
 
   await runMigrations()
