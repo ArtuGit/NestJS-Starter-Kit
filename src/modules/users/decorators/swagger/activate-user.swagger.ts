@@ -9,9 +9,9 @@ export function ActivateUser() {
   return applyDecorators(
     ApiOperation({
       summary: 'Activate User',
-      description: `This route is provided to activate User, you have ${moment
+      description: `Activate User, there are ${moment
         .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
-        .asHours()} hours to activate user, or you need to send email again`,
+        .asHours()} hours to activate user`,
     }),
     ApiParam({
       name: 'activateToken',

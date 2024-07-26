@@ -13,8 +13,7 @@ export function ResendActivationEmail() {
   return applyDecorators(
     ApiOperation({
       summary: 'Resend Activation Email',
-      description:
-        'This route is provided to resend activation email, you have 15 mins to activate user, or you need to send email again',
+      description: 'Resend activation email, there are 15 mins to activate user, or the email can be changed again',
     }),
     ApiCreatedResponse({
       description: 'New activation email was successfully sent',

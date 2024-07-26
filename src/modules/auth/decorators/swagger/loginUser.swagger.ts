@@ -13,11 +13,11 @@ export function LoginUser() {
   return applyDecorators(
     ApiOperation({
       summary: 'Login',
-      description: 'This route is provided to login in the system',
+      description: 'Login in the system',
     }),
     ApiBody({
       type: LoginDTO,
-      description: 'Body sign In',
+      description: 'Body login',
     }),
     ApiUnauthorizedResponse({
       description: 'Login or password are incorrect',

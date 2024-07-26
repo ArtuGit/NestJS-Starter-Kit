@@ -7,8 +7,7 @@ export function SetUserEmail() {
   return applyDecorators(
     ApiOperation({
       summary: 'Set User email',
-      description:
-        'This route is provided to change user email, if change token expired you need to change email again',
+      description: 'Change user email, if change token expired it is needed to change email again',
     }),
     ApiParam({ name: 'changeToken', description: 'The change email token' }),
     ApiOkResponse({

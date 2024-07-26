@@ -17,7 +17,7 @@ export function SendChangeUserEmailMessage() {
     ApiOperation({
       summary: 'Change User email',
       description:
-        'This route is provided to change user email, it will send a message on the old email, you will have 15 mins to change it, or you need to change email again',
+        'Change user email, it will send a message on the old email, there are 15 mins to change it, or email can be changed again',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({

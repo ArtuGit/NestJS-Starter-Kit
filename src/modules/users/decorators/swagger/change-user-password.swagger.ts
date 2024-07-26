@@ -15,7 +15,7 @@ export function ChangeUserPassword() {
   return applyDecorators(
     ApiOperation({
       summary: 'Change User Password',
-      description: 'This route is provided to change User password',
+      description: 'Change User password',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({

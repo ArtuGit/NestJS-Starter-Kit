@@ -15,7 +15,7 @@ export function ChangeUser() {
   return applyDecorators(
     ApiOperation({
       summary: 'Set User names',
-      description: 'This route is provided to change user names',
+      description: 'Change user names',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
