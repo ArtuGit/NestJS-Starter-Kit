@@ -42,7 +42,7 @@ export class AuthService {
 
     if (token) await this.refreshTokenService.remove(token)
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async refreshToken(userId: string, refreshToken: string): Promise<LoginReturnDTO> {

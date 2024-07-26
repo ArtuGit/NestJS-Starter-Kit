@@ -127,7 +127,7 @@ export class UsersService {
       await user.save()
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async setUserEmail(changeToken: string): Promise<ReturnMessage> {
@@ -141,7 +141,7 @@ export class UsersService {
       user.email = email.toLowerCase()
       await user.save()
 
-      return { message: 'OK' }
+      return { message: 'Ok' }
     } catch (error: any & { message: string }) {
       this.logger.error(JSON.stringify(error))
       throw new ForbiddenException(error.message)
@@ -216,7 +216,7 @@ export class UsersService {
       },
     })
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async checkEmailExistence(email: string): Promise<boolean> {
@@ -251,7 +251,7 @@ export class UsersService {
       throw new ServiceUnavailableException('Error sending email.')
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async sendRestorePassword({ email, requestFromApi }: SendRestorePasswordRequestDto): Promise<ReturnMessage> {
@@ -280,7 +280,7 @@ export class UsersService {
       throw new ServiceUnavailableException('Error sending email.')
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async setRestoredPassword({
@@ -305,7 +305,7 @@ export class UsersService {
       user.isEmailConfirmed = true
       await user.save()
 
-      return { message: 'OK' }
+      return { message: 'Ok' }
     } catch (error: any & { message: string }) {
       this.logger.error(JSON.stringify(error))
       throw new ForbiddenException(error.message)
@@ -320,7 +320,7 @@ export class UsersService {
 
     await user.save()
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async findUsers({
