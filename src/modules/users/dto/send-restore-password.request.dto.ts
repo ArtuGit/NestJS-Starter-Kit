@@ -3,7 +3,7 @@ import { Allow, IsEmail } from 'class-validator'
 
 export class SendRestorePasswordRequestDto {
   @ApiProperty({
-    description: 'Your email',
+    description: 'Email',
   })
   @IsEmail()
   email: string

@@ -4,14 +4,14 @@ import { IsEmail } from '../../../shared'
 
 export class LoginDTO {
   @ApiProperty({
-    description: 'Your email',
+    description: 'Email',
   })
   @IsEmail()
   @IsDefined()
   email: string
 
   @ApiProperty({
-    description: 'Your password',
+    description: 'Password',
   })
   @IsNotEmpty()
   @MinLength(6)

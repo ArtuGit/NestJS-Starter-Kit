@@ -210,7 +210,7 @@ export class UsersService {
       to: email,
       data: {
         ConfirmationLink: `${envConfig.FRONTEND_HOST}users/change-email/${token}`,
-        OperationText: `Please confirm your new email in ${moment
+        OperationText: `Please confirm the new email in ${moment
           .duration(envConfig.EMAIL_JWT_EXPIRES_IN * 1000)
           .asMinutes()} mins, or change email again. If you did not request this change, simply ignore this email.`,
       },
@@ -241,7 +241,7 @@ export class UsersService {
         to: email,
         data: {
           ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
-          OperationText: `Please confirm your email in ${moment
+          OperationText: `Please confirm the email in ${moment
             .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
             .asHours()} hours, or resend activation email.`,
         },
@@ -272,7 +272,7 @@ export class UsersService {
         to: email,
         data: {
           ConfirmationLink: `${envConfig.FRONTEND_HOST}users/pass-restore/${token}`,
-          OperationText: `Please restore your password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
+          OperationText: `Please restore the password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
         },
       })
     } catch (error) {

@@ -3,7 +3,7 @@ import { Allow, IsNotEmpty, IsOptional, IsString } from 'class-validator'
 
 export class ChangeUserNamesRequestDto {
   @ApiProperty({
-    description: 'Your full name',
+    description: 'Full name',
   })
   @IsString()
   @IsNotEmpty()
@@ -11,7 +11,7 @@ export class ChangeUserNamesRequestDto {
   fullName: string
 
   @ApiProperty({
-    description: 'Your username',
+    description: 'Username',
   })
   @IsString()
   @IsNotEmpty()

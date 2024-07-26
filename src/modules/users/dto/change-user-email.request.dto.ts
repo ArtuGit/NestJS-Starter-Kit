@@ -6,13 +6,13 @@ export class SendChangeUserEmailMessageDto {
   id: string
 
   @ApiProperty({
-    description: 'Your new email.',
+    description: 'New email',
   })
   @IsEmail()
   email: string
 
   @ApiProperty({
-    description: 'Your password, minimum 6 characters, maximum 24.',
+    description: 'Password, minimum 6 characters, maximum 24',
   })
   @IsNotEmpty()
   @MinLength(6)

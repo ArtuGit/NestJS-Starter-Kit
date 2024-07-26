@@ -3,7 +3,7 @@ import { IsEmail } from 'class-validator'
 
 export class ResendActivationEmailRequestDto {
   @ApiProperty({
-    description: 'Your email',
+    description: 'Email',
   })
   @IsEmail()
   email: string
