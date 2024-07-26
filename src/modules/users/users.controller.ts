@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common'
-import { ApiBadRequestResponse, ApiConflictResponse, ApiTags } from '@nestjs/swagger'
+import { ApiBadRequestResponse, ApiConflictResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { PageDTO, PaginationDTO, RolesEnum } from '../../shared'
 import { SortDTO } from '../../shared/dto/sort.dto'
@@ -36,12 +36,12 @@ export class UsersController {
     return user.getPublicUser()
   }
 
-  /**
-   * @summary Register a new user
-   * It sends a confirmation email, a user will have limited time to confirm the email
-   */
   @Post('register')
   @Public()
+  @ApiOperation({
+    summary: 'Register User',
+    description: 'It sends a confirmation email, a user will have limited time to confirm the email',
+  })
   @ApiBadRequestResponse({ description: 'Email or password is not valid' })
   @ApiConflictResponse({ description: 'User cannot be created' })
   async createUser(
