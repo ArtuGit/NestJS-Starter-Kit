@@ -1,3 +1,4 @@
+export * from './user.dto'
 export * from './create-user.request.dto'
 export * from './change-user-password.request.dto'
 export * from './change-user-email.request.dto'

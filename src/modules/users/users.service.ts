@@ -17,7 +17,7 @@ import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
 import { MailService } from '../mail/mail.service'
 
-import { User } from './users.entity'
+import { UserEntity } from './users.entity'
 import { envConfig } from '../../config'
 import {
   ChangeUserPasswordRequestDto,
@@ -37,15 +37,15 @@ export class UsersService {
   private readonly logger: Logger = new Logger(UsersService.name)
 
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
   ) {}
 
-  public async findUserByID(id: string, relations?: FindOptionsRelations<User>): Promise<User> {
+  public async findUserByID(id: string, relations?: FindOptionsRelations<UserEntity>): Promise<UserEntity> {
     const user = await this.usersRepository.findOne({
       relations,
       where: { id },
@@ -59,7 +59,7 @@ export class UsersService {
     return user
   }
 
-  public async findUserByEmail(email: string, relations?: FindOptionsRelations<User>): Promise<User> {
+  public async findUserByEmail(email: string, relations?: FindOptionsRelations<UserEntity>): Promise<UserEntity> {
     const user = await this.usersRepository.findOne({
       relations,
       where: {
@@ -76,7 +76,7 @@ export class UsersService {
     return user
   }
 
-  public async createUser(input: CreateUserRequestDto): Promise<User> {
+  public async createUser(input: CreateUserRequestDto): Promise<UserEntity> {
     if (await this.checkEmailExistence(input.email)) {
       this.logger.error(`User with ${input.email} already exists.`)
       throw new ConflictException('User exists')
@@ -331,10 +331,10 @@ export class UsersService {
     pagination: PaginationDTO
     sort: SortDTO
     search?: string
-  }): Promise<PageDTO<User>> {
+  }): Promise<PageDTO<UserEntity>> {
     const like = search ? ILike(`%${search.toLowerCase()}%`) : undefined
 
-    const where: FindOptionsWhere<User>[] = []
+    const where: FindOptionsWhere<UserEntity>[] = []
 
     if (like) {
       where.push({ email: like }, { fullName: like }, { userName: like })

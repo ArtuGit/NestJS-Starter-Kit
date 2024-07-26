@@ -1,7 +1,7 @@
 import { applyDecorators } from '@nestjs/common'
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger'
 
-import { User } from '../../users.entity'
+import { UserEntity } from '../../users.entity'
 import { CreateUserRequestDto } from '../../dto'
 
 export function RegisterUser() {
@@ -17,7 +17,7 @@ export function RegisterUser() {
     }),
     ApiCreatedResponse({
       description: 'The new User has been successfully created, confirmation email sent',
-      type: User,
+      type: UserEntity,
     }),
     ApiConflictResponse({ description: 'The User already exists' }),
     ApiBadRequestResponse({ description: 'Email or password is not valid' }),

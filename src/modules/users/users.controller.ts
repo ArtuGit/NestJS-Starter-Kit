@@ -14,8 +14,9 @@ import {
   SendChangeUserEmailMessageDto,
   SendRestorePasswordRequestDto,
   SetRestoredPasswordRequestDto,
+  UserDto,
 } from './dto'
-import { User } from './users.entity'
+import { UserEntity } from './users.entity'
 import { AuthenticatedRequestType } from '../auth/types/types'
 import { ReturnMessage } from '../../utils'
 import { Public, Roles } from '../auth/decorators'
@@ -29,7 +30,7 @@ export class UsersController {
 
   @Get('me')
   @UserDecorators.GetUser()
-  async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
+  async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<UserEntity, 'password' | 'apiAccessKey'>> {
     const user = await this.usersService.findUserByID(req.user.id)
 
     return user.getPublicUser()
@@ -41,7 +42,7 @@ export class UsersController {
   async createUser(
     @Body()
     input: CreateUserRequestDto,
-  ): Promise<Omit<User, 'password'>> {
+  ): Promise<UserDto> {
     const user = await this.usersService.createUser(input)
 
     return user.getPublicUser()
@@ -142,12 +143,12 @@ export class UsersController {
 
   @Get()
   @Roles([RolesEnum.SITE_ADMIN])
-  @UserDecorators.GetUsers(User)
+  @UserDecorators.GetUsers(UserEntity)
   async getUsers(
     @Query() pagination: PaginationDTO,
     @Query() sort: SortDTO,
     @Query('search') search: string,
-  ): Promise<PageDTO<User>> {
+  ): Promise<PageDTO<UserEntity>> {
     return this.usersService.findUsers({
       pagination,
       sort,

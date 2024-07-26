@@ -2,7 +2,7 @@ import { ForbiddenException, Inject, Injectable, forwardRef, Logger } from '@nes
 import { JwtService } from '@nestjs/jwt'
 
 import { UsersService } from '../users/users.service'
-import { User } from '../users/users.entity'
+import { UserEntity } from '../users/users.entity'
 import { LoginDTO, LoginReturnDTO } from './dto'
 import { envConfig } from '../../config'
 import { RefreshTokenService } from './refreshToken.service'
@@ -21,7 +21,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async validateUser({ email, password }: LoginDTO): Promise<User | null> {
+  public async validateUser({ email, password }: LoginDTO): Promise<UserEntity | null> {
     const user = await this.usersService.findUserByEmail(email.toLowerCase())
     const passwordValid = await user.checkPassword(password)
 
