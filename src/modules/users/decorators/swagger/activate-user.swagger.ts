@@ -23,7 +23,7 @@ export function ActivateUser() {
     }),
     ApiNotFoundResponse({ description: 'User not found' }),
     ApiForbiddenResponse({
-      description: 'Activate token expired.; User already activated',
+      description: 'Activate token expired, User already activated',
     }),
   )
 }

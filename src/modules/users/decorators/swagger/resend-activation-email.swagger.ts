@@ -24,6 +24,6 @@ export function ResendActivationEmail() {
     ApiBadRequestResponse({
       description: 'User already activated',
     }),
-    ApiNotFoundResponse({ description: 'User not found.' }),
+    ApiNotFoundResponse({ description: 'User not found' }),
   )
 }

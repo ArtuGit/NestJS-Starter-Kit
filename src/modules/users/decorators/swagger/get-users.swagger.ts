@@ -43,7 +43,7 @@ export function GetUsers<TModel extends Type<any>>(model: TModel) {
     }),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
     ApiForbiddenResponse({
-      description: 'Forbidden resource.',
+      description: 'Forbidden resource',
     }),
   )
 }

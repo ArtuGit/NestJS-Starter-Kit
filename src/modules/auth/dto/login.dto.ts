@@ -11,7 +11,7 @@ export class LoginDTO {
   email: string
 
   @ApiProperty({
-    description: 'Your password.',
+    description: 'Your password',
   })
   @IsNotEmpty()
   @MinLength(6)

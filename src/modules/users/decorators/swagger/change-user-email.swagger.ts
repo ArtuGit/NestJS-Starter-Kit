@@ -29,7 +29,7 @@ export function SendChangeUserEmailMessage() {
       type: ReturnMessage,
     }),
     ApiConflictResponse({ description: 'Email is already taken' }),
-    ApiBadRequestResponse({ description: 'Password is not valid' }),
+    ApiBadRequestResponse({ description: 'Invalid password' }),
     ApiNotFoundResponse({ description: 'User not found' }),
   )
 }
