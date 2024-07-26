@@ -1,4 +1,3 @@
-export * from './create-user.swagger'
 export * from './get-user.swagger'
 export * from './change-user-password.swagger'
 export * from './change-user-email.swagger'
