@@ -26,7 +26,7 @@ async function bootstrap() {
   app.enableShutdownHooks()
   app.useGlobalPipes(
     new ValidationPipe({
-      //whitelist: true, does not work with query params
+      //whitelist: true, does not work with query params //ToDo
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
       transform: true,
