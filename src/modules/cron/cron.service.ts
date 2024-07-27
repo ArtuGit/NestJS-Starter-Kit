@@ -13,7 +13,7 @@ export class CronService {
   private async removeExpieredTokens() {
     try {
       await this.refreshTokenService.removeExpiered()
-      this.logger.log('Expired tokens removed.')
+      this.logger.log('Expired tokens removed')
     } catch (error) {
       this.logger.error(JSON.stringify(error))
     }

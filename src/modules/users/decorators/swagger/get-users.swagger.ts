@@ -15,7 +15,7 @@ export function GetUsers<TModel extends Type<any>>(model: TModel) {
   return applyDecorators(
     ApiOperation({
       summary: 'Get users',
-      description: 'This route requires a Bearer token for authorization. (Only SITE ADMIN allowed)',
+      description: 'Only for admin users. Get users list with pagination and search',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiExtraModels(PageDTO, model),

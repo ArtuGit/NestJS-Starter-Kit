@@ -70,7 +70,7 @@ export class UsersService {
 
     if (!user) {
       this.logger.error(`User with ${email} not found`)
-      throw new NotFoundException('User not found!')
+      throw new NotFoundException('User not found')
     }
 
     return user
@@ -78,7 +78,7 @@ export class UsersService {
 
   public async createUser(input: CreateUserRequestDto): Promise<UserEntity> {
     if (await this.checkEmailExistence(input.email)) {
-      this.logger.error(`User with ${input.email} already exists.`)
+      this.logger.error(`User with ${input.email} already exists`)
       throw new ConflictException('User exists')
     }
 
@@ -100,8 +100,8 @@ export class UsersService {
     repeatPassword,
   }: ChangeUserPasswordRequestDto): Promise<ReturnMessage> {
     if (newPassword !== repeatPassword) {
-      this.logger.error('Passwords mismatch.')
-      throw new BadRequestException('Passwords mismatch.')
+      this.logger.error('Passwords mismatch')
+      throw new BadRequestException('Passwords mismatch')
     }
 
     const user = await this.usersRepository.findOne({
@@ -115,12 +115,12 @@ export class UsersService {
     }
 
     if (!(await user.checkPassword(oldPassword))) {
-      this.logger.error('Wrong password.')
-      throw new BadRequestException('Wrong password.')
+      this.logger.error('Wrong password')
+      throw new BadRequestException('Wrong password')
     } else {
       if (newPassword === oldPassword) {
-        this.logger.error('The new password is the same as the old one.')
-        throw new BadRequestException('The new password is the same as the old one.')
+        this.logger.error('The new password is the same as the old one')
+        throw new BadRequestException('The new password is the same as the old one')
       }
 
       user.password = await new HashProvider().generateHash(newPassword)
@@ -157,7 +157,7 @@ export class UsersService {
       const user = await this.findUserByID(id)
 
       if (user.isEmailConfirmed) {
-        throw new ForbiddenException('User already activated.')
+        throw new ForbiddenException('User already activated')
       }
 
       user.isEmailConfirmed = true
@@ -191,11 +191,11 @@ export class UsersService {
     ])
 
     if (!passwordValid) {
-      this.logger.error('Wrong password.')
-      throw new BadRequestException('Wrong password.')
+      this.logger.error('Wrong password')
+      throw new BadRequestException('Wrong password')
     } else if (emailExists) {
-      this.logger.error('Email already exists.')
-      throw new ConflictException('Email already exists.')
+      this.logger.error('Email already exists')
+      throw new ConflictException('Email already exists')
     }
 
     const token = await this.jwtService.signAsync(
@@ -248,7 +248,7 @@ export class UsersService {
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
-      throw new ServiceUnavailableException('Error sending email.')
+      throw new ServiceUnavailableException('Error sending email')
     }
 
     return { message: 'Ok' }
@@ -277,7 +277,7 @@ export class UsersService {
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
-      throw new ServiceUnavailableException('Error sending email.')
+      throw new ServiceUnavailableException('Error sending email')
     }
 
     return { message: 'Ok' }
@@ -295,8 +295,8 @@ export class UsersService {
 
       // eslint-disable-next-line security/detect-possible-timing-attacks
       if (password !== repeatPassword) {
-        this.logger.error('Passwords mismatch.')
-        throw new BadRequestException('Passwords mismatch.')
+        this.logger.error('Passwords mismatch')
+        throw new BadRequestException('Passwords mismatch')
       }
 
       const user = await this.findUserByID(id)

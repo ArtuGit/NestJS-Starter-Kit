@@ -61,7 +61,7 @@ export class UsersController {
 
     if (user.isEmailConfirmed) {
       this.logger.error(`User with id: ${user.id} already activated.`)
-      throw new BadRequestException('User already activated.')
+      throw new BadRequestException('User already activated')
     }
 
     return this.usersService.sendActivationEmail(user.id, user.email)

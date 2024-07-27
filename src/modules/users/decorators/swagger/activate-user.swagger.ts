@@ -1,4 +1,4 @@
-import { applyDecorators } from '@nestjs/common'
+import { applyDecorators, HttpCode } from '@nestjs/common'
 import { ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam } from '@nestjs/swagger'
 import * as moment from 'moment'
 
@@ -25,5 +25,6 @@ export function ActivateUser() {
     ApiForbiddenResponse({
       description: 'Activate token expired, User already activated',
     }),
+    HttpCode(200),
   )
 }
