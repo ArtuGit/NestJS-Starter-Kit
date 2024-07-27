@@ -1,11 +1,5 @@
-import { applyDecorators, HttpCode } from '@nestjs/common'
-import {
-  ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger'
+import { applyDecorators } from '@nestjs/common'
+import { ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger'
 import { ReturnMessage } from '../../../../utils'
 
 export function LogoutUser() {

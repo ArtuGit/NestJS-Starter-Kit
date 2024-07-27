@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
+import { IsDefined, MaxLength, MinLength } from 'class-validator'
 import { IsEmail } from '../../../shared'
 
 export class LoginDTO {
