@@ -21,7 +21,7 @@ import { UserEntity } from './users.entity'
 import { envConfig } from '../../config'
 import {
   ChangeUserPasswordRequestDto,
-  ChangeUserNamesRequestDto,
+  ChangeUserDataRequestDto,
   CreateUserRequestDto,
   SendChangeUserEmailMessageDto,
   SendRestorePasswordRequestDto,
@@ -312,7 +312,7 @@ export class UsersService {
     }
   }
 
-  public async changeUserNames({ id, fullName, userName }: ChangeUserNamesRequestDto): Promise<ReturnMessage> {
+  public async changeUserNames({ id, fullName, userName }: ChangeUserDataRequestDto): Promise<ReturnMessage> {
     const user = await this.findUserByID(id)
 
     if (fullName) user.fullName = fullName

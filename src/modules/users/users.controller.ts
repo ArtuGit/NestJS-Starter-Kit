@@ -8,7 +8,7 @@ import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'
 import {
   ChangeUserPasswordRequestDto,
-  ChangeUserNamesRequestDto,
+  ChangeUserDataRequestDto,
   CreateUserRequestDto,
   ResendActivationEmailRequestDto,
   SendChangeUserEmailMessageDto,
@@ -136,7 +136,7 @@ export class UsersController {
     @Req() req: AuthenticatedRequestType,
     @Res() res: Response,
     @Body()
-    input: ChangeUserNamesRequestDto,
+    input: ChangeUserDataRequestDto,
   ): Promise<void> {
     res.status(200).send(
       await this.usersService.changeUserNames({
