@@ -5,7 +5,7 @@ See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/t
 ## Features
 
 - TypeORM (Postgres), Migrations, Seeding
-- OpenAPI (Swagger)
+- OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
 - Auth (JWT) and Users full-fledged modules
 - Sending mail (Nodemailer or SendGrid), catch with MailHog
 - CI (GitHub Actions)
