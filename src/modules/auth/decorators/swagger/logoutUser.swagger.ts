@@ -1,5 +1,11 @@
-import { applyDecorators } from '@nestjs/common'
-import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger'
+import { applyDecorators, HttpCode } from '@nestjs/common'
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger'
 import { ReturnMessage } from '../../../../utils'
 
 export function LogoutUser() {
@@ -12,7 +18,7 @@ export function LogoutUser() {
     ApiUnauthorizedResponse({
       description: 'Token is not valid',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       description: 'Logout successfully',
       type: ReturnMessage,
     }),

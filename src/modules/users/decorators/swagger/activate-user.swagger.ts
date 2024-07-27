@@ -1,5 +1,11 @@
-import { applyDecorators, HttpCode } from '@nestjs/common'
-import { ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam } from '@nestjs/swagger'
+import { applyDecorators } from '@nestjs/common'
+import {
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOperation,
+  ApiParam,
+} from '@nestjs/swagger'
 import * as moment from 'moment'
 
 import { LoginReturnDTO } from '../../../auth/dto'
@@ -17,7 +23,7 @@ export function ActivateUser() {
       name: 'activateToken',
       description: 'The activate User token',
     }),
-    ApiOkResponse({
+    ApiCreatedResponse({
       description: 'The User has been successfully activated',
       type: LoginReturnDTO,
     }),
@@ -25,6 +31,5 @@ export function ActivateUser() {
     ApiForbiddenResponse({
       description: 'Activate token expired, User already activated',
     }),
-    HttpCode(200),
   )
 }
