@@ -1,7 +1,5 @@
 # NestJS Starter Kit v3
 
-See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/tree/v2)
-
 ## Features
 
 - TypeORM (Postgres), Migrations, Seeding
@@ -42,3 +40,7 @@ Go to http://localhost:3000
 
 Finish Docker
 `docker compose stop`
+
+
+---
+See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/tree/v2)
