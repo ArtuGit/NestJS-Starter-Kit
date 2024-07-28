@@ -1,35 +1,43 @@
 import { BeforeInsert, Column, Entity, Index } from 'typeorm'
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiHideProperty } from '@nestjs/swagger'
 
 import { HashProvider } from './providers'
 import { Base } from '../../config'
 import { RolesEnum } from '../../shared'
 
 @Entity('users')
-export class User extends Base {
-  @ApiProperty()
+export class UserEntity extends Base {
+  /**
+   * Full name of the user
+   */
   @Column({ nullable: true })
   fullName: string
 
-  @ApiProperty()
+  /**
+   * User name
+   */
   @Column({ nullable: true })
   userName: string
 
-  @ApiProperty()
+  /**
+   * User email
+   */
   @Column()
   @Index({ unique: true })
   email: string
 
+  /**
+   * User email confirmation status
+   */
   @Column({ default: false })
   isEmailConfirmed: boolean
 
   @Column({ select: false })
   password: string
 
-  @ApiProperty({
-    default: RolesEnum.USER,
-    enumName: 'RolesEnum',
-  })
+  /**
+   * User role
+   */
   @Column({
     type: 'enum',
     enum: RolesEnum,
@@ -37,6 +45,7 @@ export class User extends Base {
   })
   role: RolesEnum
 
+  @ApiHideProperty()
   @Column({ select: false, default: false })
   deleted: boolean
 
@@ -55,7 +64,7 @@ export class User extends Base {
   getPublicUser() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...user } = this
-    return user as Omit<User, 'password' | 'apiAccessKey'>
+    return user as Omit<UserEntity, 'password' | 'apiAccessKey'>
   }
 
   async checkPassword(password: string): Promise<boolean> {

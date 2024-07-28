@@ -22,6 +22,8 @@ module.exports = {
   rules: {
     '@darraghor/nestjs-typed/injectable-should-be-provided': 'off',
     '@darraghor/nestjs-typed/api-method-should-specify-api-response': 'off',
+    '@darraghor/nestjs-typed/all-properties-are-whitelisted': 'off',
+    '@darraghor/nestjs-typed/all-properties-have-explicit-defined': 'off',
     '@sonarjs/no-duplicate-string': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

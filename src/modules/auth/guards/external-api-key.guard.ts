@@ -9,7 +9,7 @@ export class ExternalApiKeyGuard implements CanActivate {
 
     const externalApiKey = request.headers['x-external-api-key']
 
-    if (!externalApiKey) throw new UnauthorizedException('Api key was not provided.')
+    if (!externalApiKey) throw new UnauthorizedException('Api key was not provided')
 
     return true
   }

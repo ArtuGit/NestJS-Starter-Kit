@@ -1,9 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger'
-
 export class LoginReturnDTO {
-  @ApiProperty()
+  /**
+   * Access token for authentication
+   */
   accessToken: string
 
-  @ApiProperty()
+  /**
+   * Refresh token for obtaining new access tokens
+   */
   refreshToken: string
 }

@@ -7,7 +7,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger'
 
-import { User } from '../../users.entity'
+import { UserEntity } from '../../users.entity'
 
 export function GetUser() {
   return applyDecorators(
@@ -18,7 +18,7 @@ export function GetUser() {
     ApiBearerAuth('JWT-auth'),
     ApiOkResponse({
       description: 'The User profile successfully received',
-      type: User,
+      type: UserEntity,
     }),
     ApiUnauthorizedResponse({ description: 'Unauthorized' }),
     ApiNotFoundResponse({ description: 'User not found' }),

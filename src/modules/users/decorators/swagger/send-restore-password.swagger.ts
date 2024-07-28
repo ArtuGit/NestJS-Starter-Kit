@@ -8,7 +8,7 @@ export function SendRestorePassword() {
   return applyDecorators(
     ApiOperation({
       summary: 'Send restore password email',
-      description: 'This route is provided to send restore password email',
+      description: 'Send restore password email',
     }),
     ApiBody({
       type: SendRestorePasswordRequestDto,

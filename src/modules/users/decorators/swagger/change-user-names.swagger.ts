@@ -9,24 +9,22 @@ import {
 } from '@nestjs/swagger'
 
 import { ReturnMessage } from '../../../../utils'
-import { ChangeUserNamesRequestDto } from '../../dto'
+import { ChangeUserDataRequestDto } from '../../dto'
 
 export function ChangeUser() {
   return applyDecorators(
     ApiOperation({
-      summary: 'Set User names',
-      description: 'This route is provided to change user names',
+      summary: 'Set User data',
+      description: 'Change user data',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
-      type: ChangeUserNamesRequestDto,
-      description: 'Body to change user names',
+      type: ChangeUserDataRequestDto,
     }),
     ApiOkResponse({
-      description: 'Names changed',
       type: ReturnMessage,
     }),
     ApiNotFoundResponse({ description: 'User not found' }),
-    ApiUnauthorizedResponse({ description: 'Token expired or not provided' }),
+    ApiUnauthorizedResponse({ description: 'Unauthorized' }),
   )
 }

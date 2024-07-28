@@ -7,7 +7,7 @@ export function RefreshToken() {
   return applyDecorators(
     ApiOperation({
       summary: 'Update tokens',
-      description: 'This route is provided to update tokens. Please provide refreshToken in Bearer token',
+      description: 'Update tokens. Please provide refreshToken in Bearer token.',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiForbiddenResponse({

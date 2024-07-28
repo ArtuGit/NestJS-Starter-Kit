@@ -16,8 +16,7 @@ export function SetRestoredPassword() {
   return applyDecorators(
     ApiOperation({
       summary: 'Change User password',
-      description:
-        'This route is provided to change user password, if change token expired you need to send change password email again',
+      description: 'Change user password, if change token expired change password email can be sent again',
     }),
     ApiParam({ name: 'changeToken', description: 'The change password token' }),
     ApiBody({

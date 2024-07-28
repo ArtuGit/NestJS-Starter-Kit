@@ -18,7 +18,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     } as LoginDTO)
     if (!user) {
       throw new UnauthorizedException()
-    } else if (!user.isEmailConfirmed) throw new ForbiddenException('Please confirm your email!')
+    } else if (!user.isEmailConfirmed) throw new ForbiddenException('Please confirm the email!')
     return user
   }
 }

@@ -17,11 +17,11 @@ import { JwtService } from '@nestjs/jwt'
 import * as moment from 'moment'
 import { MailService } from '../mail/mail.service'
 
-import { User } from './users.entity'
+import { UserEntity } from './users.entity'
 import { envConfig } from '../../config'
 import {
   ChangeUserPasswordRequestDto,
-  ChangeUserNamesRequestDto,
+  ChangeUserDataRequestDto,
   CreateUserRequestDto,
   SendChangeUserEmailMessageDto,
   SendRestorePasswordRequestDto,
@@ -37,15 +37,15 @@ export class UsersService {
   private readonly logger: Logger = new Logger(UsersService.name)
 
   constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
     @Inject(forwardRef(() => AuthService))
     private authService: AuthService,
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
   ) {}
 
-  public async findUserByID(id: string, relations?: FindOptionsRelations<User>): Promise<User> {
+  public async findUserByID(id: string, relations?: FindOptionsRelations<UserEntity>): Promise<UserEntity> {
     const user = await this.usersRepository.findOne({
       relations,
       where: { id },
@@ -59,7 +59,7 @@ export class UsersService {
     return user
   }
 
-  public async findUserByEmail(email: string, relations?: FindOptionsRelations<User>): Promise<User> {
+  public async findUserByEmail(email: string, relations?: FindOptionsRelations<UserEntity>): Promise<UserEntity> {
     const user = await this.usersRepository.findOne({
       relations,
       where: {
@@ -70,15 +70,15 @@ export class UsersService {
 
     if (!user) {
       this.logger.error(`User with ${email} not found`)
-      throw new NotFoundException('User not found!')
+      throw new NotFoundException('User not found')
     }
 
     return user
   }
 
-  public async createUser(input: CreateUserRequestDto): Promise<User> {
+  public async createUser(input: CreateUserRequestDto): Promise<UserEntity> {
     if (await this.checkEmailExistence(input.email)) {
-      this.logger.error(`User with ${input.email} already exists.`)
+      this.logger.error(`User with ${input.email} already exists`)
       throw new ConflictException('User exists')
     }
 
@@ -100,8 +100,8 @@ export class UsersService {
     repeatPassword,
   }: ChangeUserPasswordRequestDto): Promise<ReturnMessage> {
     if (newPassword !== repeatPassword) {
-      this.logger.error('Passwords mismatch.')
-      throw new BadRequestException('Passwords mismatch.')
+      this.logger.error('Passwords mismatch')
+      throw new BadRequestException('Passwords mismatch')
     }
 
     const user = await this.usersRepository.findOne({
@@ -115,19 +115,19 @@ export class UsersService {
     }
 
     if (!(await user.checkPassword(oldPassword))) {
-      this.logger.error('Wrong password.')
-      throw new BadRequestException('Wrong password.')
+      this.logger.error('Wrong password')
+      throw new BadRequestException('Wrong password')
     } else {
       if (newPassword === oldPassword) {
-        this.logger.error('The new password is the same as the old one.')
-        throw new BadRequestException('The new password is the same as the old one.')
+        this.logger.error('The new password is the same as the old one')
+        throw new BadRequestException('The new password is the same as the old one')
       }
 
       user.password = await new HashProvider().generateHash(newPassword)
       await user.save()
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async setUserEmail(changeToken: string): Promise<ReturnMessage> {
@@ -141,7 +141,7 @@ export class UsersService {
       user.email = email.toLowerCase()
       await user.save()
 
-      return { message: 'OK' }
+      return { message: 'Ok' }
     } catch (error: any & { message: string }) {
       this.logger.error(JSON.stringify(error))
       throw new ForbiddenException(error.message)
@@ -157,7 +157,7 @@ export class UsersService {
       const user = await this.findUserByID(id)
 
       if (user.isEmailConfirmed) {
-        throw new ForbiddenException('User already activated.')
+        throw new ForbiddenException('User already activated')
       }
 
       user.isEmailConfirmed = true
@@ -191,11 +191,11 @@ export class UsersService {
     ])
 
     if (!passwordValid) {
-      this.logger.error('Wrong password.')
-      throw new BadRequestException('Wrong password.')
+      this.logger.error('Wrong password')
+      throw new BadRequestException('Wrong password')
     } else if (emailExists) {
-      this.logger.error('Email already exists.')
-      throw new ConflictException('Email already exists.')
+      this.logger.error('Email already exists')
+      throw new ConflictException('Email already exists')
     }
 
     const token = await this.jwtService.signAsync(
@@ -210,13 +210,13 @@ export class UsersService {
       to: email,
       data: {
         ConfirmationLink: `${envConfig.FRONTEND_HOST}users/change-email/${token}`,
-        OperationText: `Please confirm your new email in ${moment
+        OperationText: `Please confirm the new email in ${moment
           .duration(envConfig.EMAIL_JWT_EXPIRES_IN * 1000)
           .asMinutes()} mins, or change email again. If you did not request this change, simply ignore this email.`,
       },
     })
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async checkEmailExistence(email: string): Promise<boolean> {
@@ -241,17 +241,17 @@ export class UsersService {
         to: email,
         data: {
           ConfirmationLink: `${envConfig.FRONTEND_HOST}users/activate/${token}`,
-          OperationText: `Please confirm your email in ${moment
+          OperationText: `Please confirm the email in ${moment
             .duration(envConfig.EMAIL_ACTIVATION_EXPIRES_IN * 1000)
             .asHours()} hours, or resend activation email.`,
         },
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
-      throw new ServiceUnavailableException('Error sending email.')
+      throw new ServiceUnavailableException('Error sending email')
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async sendRestorePassword({ email, requestFromApi }: SendRestorePasswordRequestDto): Promise<ReturnMessage> {
@@ -272,15 +272,15 @@ export class UsersService {
         to: email,
         data: {
           ConfirmationLink: `${envConfig.FRONTEND_HOST}users/pass-restore/${token}`,
-          OperationText: `Please restore your password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
+          OperationText: `Please restore the password in ${moment.duration(expiresIn * 1000).asHours()} hours.`,
         },
       })
     } catch (error) {
       this.logger.error(JSON.stringify(error))
-      throw new ServiceUnavailableException('Error sending email.')
+      throw new ServiceUnavailableException('Error sending email')
     }
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async setRestoredPassword({
@@ -295,8 +295,8 @@ export class UsersService {
 
       // eslint-disable-next-line security/detect-possible-timing-attacks
       if (password !== repeatPassword) {
-        this.logger.error('Passwords mismatch.')
-        throw new BadRequestException('Passwords mismatch.')
+        this.logger.error('Passwords mismatch')
+        throw new BadRequestException('Passwords mismatch')
       }
 
       const user = await this.findUserByID(id)
@@ -305,14 +305,14 @@ export class UsersService {
       user.isEmailConfirmed = true
       await user.save()
 
-      return { message: 'OK' }
+      return { message: 'Ok' }
     } catch (error: any & { message: string }) {
       this.logger.error(JSON.stringify(error))
       throw new ForbiddenException(error.message)
     }
   }
 
-  public async changeUserNames({ id, fullName, userName }: ChangeUserNamesRequestDto): Promise<ReturnMessage> {
+  public async changeUserNames({ id, fullName, userName }: ChangeUserDataRequestDto): Promise<ReturnMessage> {
     const user = await this.findUserByID(id)
 
     if (fullName) user.fullName = fullName
@@ -320,7 +320,7 @@ export class UsersService {
 
     await user.save()
 
-    return { message: 'OK' }
+    return { message: 'Ok' }
   }
 
   public async findUsers({
@@ -331,10 +331,10 @@ export class UsersService {
     pagination: PaginationDTO
     sort: SortDTO
     search?: string
-  }): Promise<PageDTO<User>> {
+  }): Promise<PageDTO<UserEntity>> {
     const like = search ? ILike(`%${search.toLowerCase()}%`) : undefined
 
-    const where: FindOptionsWhere<User>[] = []
+    const where: FindOptionsWhere<UserEntity>[] = []
 
     if (like) {
       where.push({ email: like }, { fullName: like }, { userName: like })

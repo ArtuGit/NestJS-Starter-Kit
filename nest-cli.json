@@ -10,6 +10,15 @@
         "watchAssets": true,
         "outDir": "dist/src"
       }
+    ],
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "classValidatorShim": true,
+          "introspectComments": true
+        }
+      }
     ]
   }
 }

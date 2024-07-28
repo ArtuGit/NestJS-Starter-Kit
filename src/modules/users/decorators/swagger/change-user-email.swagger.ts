@@ -17,7 +17,7 @@ export function SendChangeUserEmailMessage() {
     ApiOperation({
       summary: 'Change User email',
       description:
-        'This route is provided to change user email, it will send a message on your old email, you will have 15 mins to change it, or you need to change email again',
+        'Change user email, it will send a message on the old email, there are 15 mins to change it, or email can be changed again',
     }),
     ApiBearerAuth('JWT-auth'),
     ApiBody({
@@ -29,7 +29,7 @@ export function SendChangeUserEmailMessage() {
       type: ReturnMessage,
     }),
     ApiConflictResponse({ description: 'Email is already taken' }),
-    ApiBadRequestResponse({ description: 'Password is not valid' }),
+    ApiBadRequestResponse({ description: 'Invalid password' }),
     ApiNotFoundResponse({ description: 'User not found' }),
   )
 }

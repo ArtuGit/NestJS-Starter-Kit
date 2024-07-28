@@ -15,18 +15,18 @@ config()
 async function bootstrap() {
   await validateDotEnvConfig()
 
+  await runMigrations()
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: getWinstonLoggerModule(),
     rawBody: true,
   })
 
-  await runMigrations()
-
   app.enableCors()
   app.enableShutdownHooks()
   app.useGlobalPipes(
     new ValidationPipe({
-      //whitelist: true, does not work with query params
+      //whitelist: true, does not work with query params //ToDo
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
       transform: true,

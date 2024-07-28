@@ -1,13 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiHideProperty } from '@nestjs/swagger'
 import { Allow, IsEmail } from 'class-validator'
 
 export class SendRestorePasswordRequestDto {
-  @ApiProperty({
-    description: 'Your email',
-  })
+  /**
+   * Email
+   */
   @IsEmail()
   email: string
 
   @Allow()
+  @ApiHideProperty()
   requestFromApi: boolean = false
 }

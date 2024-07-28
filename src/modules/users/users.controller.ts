@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiBadRequestResponse, ApiConflictResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { Response } from 'express'
 import { PageDTO, PaginationDTO, RolesEnum } from '../../shared'
 import { SortDTO } from '../../shared/dto/sort.dto'
@@ -8,14 +8,15 @@ import { UsersService } from './users.service'
 import * as UserDecorators from './decorators/swagger'
 import {
   ChangeUserPasswordRequestDto,
-  ChangeUserNamesRequestDto,
+  ChangeUserDataRequestDto,
   CreateUserRequestDto,
   ResendActivationEmailRequestDto,
   SendChangeUserEmailMessageDto,
   SendRestorePasswordRequestDto,
   SetRestoredPasswordRequestDto,
+  UserDto,
 } from './dto'
-import { User } from './users.entity'
+import { UserEntity } from './users.entity'
 import { AuthenticatedRequestType } from '../auth/types/types'
 import { ReturnMessage } from '../../utils'
 import { Public, Roles } from '../auth/decorators'
@@ -29,7 +30,7 @@ export class UsersController {
 
   @Get('me')
   @UserDecorators.GetUser()
-  async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<User, 'password' | 'apiAccessKey'>> {
+  async getProfile(@Req() req: AuthenticatedRequestType): Promise<Omit<UserEntity, 'password' | 'apiAccessKey'>> {
     const user = await this.usersService.findUserByID(req.user.id)
 
     return user.getPublicUser()
@@ -37,11 +38,16 @@ export class UsersController {
 
   @Post('register')
   @Public()
-  @UserDecorators.RegisterUser()
+  @ApiOperation({
+    summary: 'Register User',
+    description: 'It sends a confirmation email, a user will have limited time to confirm the email',
+  })
+  @ApiBadRequestResponse({ description: 'Email or password is not valid' })
+  @ApiConflictResponse({ description: 'User cannot be created' })
   async createUser(
     @Body()
     input: CreateUserRequestDto,
-  ): Promise<Omit<User, 'password'>> {
+  ): Promise<UserDto> {
     const user = await this.usersService.createUser(input)
 
     return user.getPublicUser()
@@ -55,7 +61,7 @@ export class UsersController {
 
     if (user.isEmailConfirmed) {
       this.logger.error(`User with id: ${user.id} already activated.`)
-      throw new BadRequestException('User already activated.')
+      throw new BadRequestException('User already activated')
     }
 
     return this.usersService.sendActivationEmail(user.id, user.email)
@@ -130,7 +136,7 @@ export class UsersController {
     @Req() req: AuthenticatedRequestType,
     @Res() res: Response,
     @Body()
-    input: ChangeUserNamesRequestDto,
+    input: ChangeUserDataRequestDto,
   ): Promise<void> {
     res.status(200).send(
       await this.usersService.changeUserNames({
@@ -142,12 +148,12 @@ export class UsersController {
 
   @Get()
   @Roles([RolesEnum.SITE_ADMIN])
-  @UserDecorators.GetUsers(User)
+  @UserDecorators.GetUsers(UserEntity)
   async getUsers(
     @Query() pagination: PaginationDTO,
     @Query() sort: SortDTO,
     @Query('search') search: string,
-  ): Promise<PageDTO<User>> {
+  ): Promise<PageDTO<UserEntity>> {
     return this.usersService.findUsers({
       pagination,
       sort,
