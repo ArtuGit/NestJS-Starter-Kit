@@ -1,12 +1,72 @@
 version: "3.8"
 
 services:
+  backend:
+    container_name: nsk-backend
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nks-net
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./test:/usr/src/app/tests
+      - ./package.json:/usr/src/app/package.json
+      - ./pnpm-lock.yaml:/usr/src/app/pnpm-lock.yaml
+    environment:
+      - NODE_ENV=local
+
+      - PORT=3000
+      - HOST=localhost
+
+      - LOGGING_LEVEL=debug
+      - LOGGING_FILE_LOG=true
+      - LOGGING_FILE_NAME=app.log
+
+      - DB_HOST=nsk-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_NAME=nsk
+      - DB_PASSWORD=postgres
+
+      - JWT_SECRET=my_secret
+      - JWT_EXPIRES_IN=60000
+      - JWT_REFRESH_SECRET=my_refresh_secret
+      - JWT_REFRESH_EXPIRES_IN=604800
+
+      - EMAIL_JWT_SECRET=my_random_secret
+      - EMAIL_JWT_EXPIRES_IN=900000
+      - EMAIL_ACTIVATION_EXPIRES_IN=86400
+
+      - FRONTEND_HOST=https://front.nsk.dev/
+
+      - SENDGRID_FROM=
+      - SENDGRID_FROM_
+      - SENDGRID_API_KEY=
+      - SENDGRID_CONFIRM_EMAIL_TEMPLATE_ID=
+
+      - MAIL_HOST=localhost
+      - MAIL_PORT=1025
+      - MAIL_USER=nope
+      - MAIL_PASSWORD=nope
+      - MAIL_DEFAULT_EMAIL=noreply@test.com
+      - MAIL_DEFAULT_NAME=NestJS Starter Kit
+      - MAIL_IGNORE_TLS=true
+      - MAIL_SECURE=false
+      - MAIL_REQUIRE_TLS=false
+
+    ports:
+      - '3000:3000'
 
   postgres:
     container_name: nsk-postgres
     image: postgres
     ports:
       - "7532:5432"
+    networks:
+      - nks-net
     volumes:
       - ./volumes/postgres:/var/lib/postgresql/data
     healthcheck:
@@ -26,3 +86,10 @@ services:
     ports:
       - "8025:8025"
       - "1025:1025"
+    networks:
+      - nks-net
+
+networks:
+  nks-net:
+    name: NSK Net
+    driver: bridge
