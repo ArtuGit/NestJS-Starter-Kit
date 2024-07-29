@@ -6,13 +6,14 @@
 - OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
 - Auth (JWT) and Users full-fledged modules/endpoints with RBAC
 - Sending mail (Nodemailer or SendGrid), catch with MailHog
-- CI (GitHub Actions)
-- Docker setup
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
 - Health check
 - Unit and e2e test examples
 - Enhanced ESLinters
+- CI (GitHub Actions)
+- Docker setup
+
 
 ## Run
 
