@@ -16,21 +16,21 @@
 
 ## Run
 
-### Prepare
+### Start with local node 
 
-Install dependencies:
-`pnpm install`
-
-Copy `.env.example` to `.env`
-`cp ./example.env ./.env`
-
-### Start
+Checked on node v20
 
 ```
-docker-compose up -d
+pnpm install
+cp ./example.env ./.env
+docker compose up postgres mailhog
 pnpm run start:dev
 ```
 
+### Start all in Docker
+`docker compose up`
+
+### Data
 Seed demo data:
 `pnpm run console:dev job seed`
 
@@ -38,9 +38,8 @@ Go to http://localhost:3000
 
 ### Stop
 
-Finish Docker
+Stop Docker containers
 `docker compose stop`
-
 
 ---
 See also [NestJS-Starter-Kit v2](https://github.com/ArtuGit/NestJS-Starter-Kit/tree/v2)

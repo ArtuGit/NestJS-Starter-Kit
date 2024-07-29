@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  nsk-backend:
+  backend:
     container_name: nsk-backend
     build:
       context: .
