@@ -4,7 +4,7 @@
 
 - TypeORM (Postgres), Migrations, Seeding
 - OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
-- Auth (JWT) and Users full-fledged modules/endpoints with RBAC
+- Auth (JWT) and Users full-fledged modules/endpoints with RBAC (see below)
 - Sending mail (Nodemailer or SendGrid), catch with MailHog
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
@@ -13,6 +13,10 @@
 - Enhanced ESLinters
 - CI (GitHub Actions)
 - Docker setup
+
+
+## Endpoints
+![](src/static/images/api-endpoints.png "Swagger Endpoints")
 
 
 ## Run
