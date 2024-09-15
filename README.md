@@ -9,7 +9,7 @@
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
 - Health check
-- Unit and e2e test examples
+- Unit and E2E test examples
 - Enhanced ESLinters
 - CI (GitHub Actions)
 - Docker setup
