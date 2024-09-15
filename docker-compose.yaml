@@ -62,7 +62,7 @@ services:
 
   postgres:
     container_name: nsk-postgres
-    image: postgres
+    image: postgres:15
     ports:
       - "7532:5432"
     networks:
