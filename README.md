@@ -10,6 +10,7 @@
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
 - Health check
+- CLI (console) jobs
 - Unit and E2E test examples
 - Enhanced ESLinters
 - CI (GitHub Actions)
