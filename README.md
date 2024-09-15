@@ -2,6 +2,7 @@
 
 ## Features
 
+- NestJS 10
 - TypeORM (Postgres), Migrations, Seeding
 - OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
 - Auth (JWT) and Users full-fledged modules/endpoints with RBAC (see below)
