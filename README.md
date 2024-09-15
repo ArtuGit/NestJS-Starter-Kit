@@ -39,6 +39,7 @@ pnpm run start:dev
 Seed demo data:
 `pnpm run console:dev job seed`
 
+### Go to the home page
 Go to http://localhost:3000
 
 ### Stop
