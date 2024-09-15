@@ -35,11 +35,16 @@ pnpm run start:dev
 ### Start all in Docker
 `docker compose up`
 
+### Go to the homepage
+http://localhost:3000
+
+![](src/static/images/home-page.png "Home Page")
+
 ### Data
 Seed demo data:
 `pnpm run console:dev job seed`
 
-Go to http://localhost:3000
+Admin user (`/auth/login`): `admin.nsk@dev` / `admin.nsk@dev`
 
 ### Stop
 
