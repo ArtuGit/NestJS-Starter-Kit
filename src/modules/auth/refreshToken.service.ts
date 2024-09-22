@@ -51,7 +51,7 @@ export class RefreshTokenService {
     return await token.remove()
   }
 
-  public async removeExpiered(): Promise<void> {
+  public async removeExpired(): Promise<void> {
     const tokens = await this.refreshTokenRepository.find({
       where: {
         expiresAt: LessThan(moment().toDate()),
