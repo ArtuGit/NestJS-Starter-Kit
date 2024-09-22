@@ -55,6 +55,9 @@ envConfig.MAIL_REQUIRE_TLS = process.env.MAIL_REQUIRE_TLS === 'true'
 
 envConfig.STATIC_PATH = join(__dirname, '..', 'static')
 
+envConfig.ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? ''
+envConfig.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? ''
+
 export const validateDotEnvConfig = async () => {
   const validationErrors = await validate(envConfig)
 

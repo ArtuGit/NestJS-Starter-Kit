@@ -25,8 +25,8 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
 const DEFAULT_ADMIN = {
-  email: 'admin@nsk.org',
-  password: 'changeme',
+  email: envConfig.ADMIN_EMAIL,
+  password: envConfig.ADMIN_PASSWORD,
 }
 
 const authenticate = async (email: string, password: string) => {
