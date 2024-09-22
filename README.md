@@ -9,6 +9,7 @@
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
 - Health check
+- AdminJS integration
 - Unit and E2E test examples
 - Enhanced ESLinters
 - CI (GitHub Actions)
@@ -45,6 +46,10 @@ Seed demo data:
 `pnpm run console:dev job seed`
 
 Admin user (`/auth/login`): `admin.nsk@dev` / `admin.nsk@dev`
+
+
+### Admin panel
+![](src/static/images/admin-users.png "Admin Panel")
 
 ### Stop
 
