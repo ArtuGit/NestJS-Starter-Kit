@@ -25,8 +25,8 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
 const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password',
+  email: 'admin@nsk.org',
+  password: 'changeme',
 }
 
 const authenticate = async (email: string, password: string) => {
