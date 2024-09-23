@@ -45,11 +45,12 @@ http://localhost:3000
 Seed demo data:
 `pnpm run console:dev job seed`
 
-Admin user (`/auth/login`): `admin.nsk@dev` / `admin.nsk@dev`
-
+App Admin user (`http://localhost:3000/auth/login`): `admin.nsk@dev` / `admin.nsk@dev`
 
 ### Admin panel
 ![](src/static/images/admin-users.png "Admin Panel")
+
+Admin Panel Admin user (`http://localhost:3000/auth/login`): `admin.nsk@dev` / `changeme`
 
 ### Stop
 
