@@ -31,6 +31,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json --passWithNoTests --forceExit"
   },
   "dependencies": {
+    "@adminjs/express": "^6.1.0",
+    "@adminjs/nestjs": "^6.1.0",
+    "@adminjs/typeorm": "^5.0.1",
     "@anchan828/nest-sendgrid": "^0.6.101",
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/cache-manager": "^2.2.2",
@@ -47,12 +50,15 @@
     "@nestjs/typeorm": "^10.0.2",
     "@nestjs/websockets": "^10.3.10",
     "@types/nodemailer": "^6.4.15",
+    "adminjs": "^7.8.12",
     "axios": "^1.7.3",
     "bcrypt": "^5.1.1",
     "cache-manager": "^5.7.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.18.0",
     "faker": "^6.6.6",
     "lodash.flatten": "^4.4.0",
     "moment": "^2.30.1",
@@ -100,6 +106,10 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
+  },
+  "resolutions": {
+    "@tiptap/core": "^2.6.6",
+    "@tiptap/pm": "^2.6.6"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -2,7 +2,6 @@
 
 ## Features
 
-- NestJS 10
 - TypeORM (Postgres), Migrations, Seeding
 - OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
 - Auth (JWT) and Users full-fledged modules/endpoints with RBAC (see below)
@@ -10,7 +9,7 @@
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
 - Health check
-- CLI (console) jobs
+- AdminJS integration
 - Unit and E2E test examples
 - Enhanced ESLinters
 - CI (GitHub Actions)
@@ -47,6 +46,10 @@ Seed demo data:
 `pnpm run console:dev job seed`
 
 Admin user (`/auth/login`): `admin.nsk@dev` / `admin.nsk@dev`
+
+
+### Admin panel
+![](src/static/images/admin-users.png "Admin Panel")
 
 ### Stop
 

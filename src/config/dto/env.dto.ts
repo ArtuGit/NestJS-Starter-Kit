@@ -139,4 +139,12 @@ export class EnvConfigDTO {
   @IsBoolean()
   @IsNotEmpty()
   MAIL_REQUIRE_TLS: boolean
+
+  @IsString()
+  @IsNotEmpty()
+  ADMIN_EMAIL: string
+
+  @IsString()
+  @IsNotEmpty()
+  ADMIN_PASSWORD: string
 }

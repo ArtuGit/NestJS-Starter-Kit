@@ -1,8 +1,8 @@
+// ToDo: Use app.module.ts instead of test.module.ts,
+// adapt the E2E tests and remove this file.
+
 import { MailerModule } from '@nestjs-modules/mailer'
 import { Module, Logger, NestModule, MiddlewareConsumer } from '@nestjs/common'
-
-// import * as AdminJSTypeorm from '@adminjs/typeorm'
-// import AdminJS from 'adminjs'
 
 import { TerminusModule } from '@nestjs/terminus'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -13,7 +13,6 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
-import { UserEntity } from './modules/users/users.entity'
 import { HttpExceptionFilter, LoggerMiddleware } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
@@ -24,46 +23,8 @@ import { envConfig, typeOrmAsyncConfig } from './config'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
-const DEFAULT_ADMIN = {
-  email: envConfig.ADMIN_EMAIL,
-  password: envConfig.ADMIN_PASSWORD,
-}
-
-const authenticate = async (email: string, password: string) => {
-  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-    return Promise.resolve(DEFAULT_ADMIN)
-  }
-  return null
-}
-
 @Module({
   imports: [
-    import('@adminjs/nestjs').then(({ AdminModule }) =>
-      AdminModule.createAdminAsync({
-        useFactory: async () => {
-          const { AdminJS } = await import('adminjs')
-          const AdminJSTypeORM = await import('@adminjs/typeorm')
-
-          AdminJS.registerAdapter({ Database: AdminJSTypeORM.Database, Resource: AdminJSTypeORM.Resource })
-          return {
-            adminJsOptions: {
-              rootPath: '/admin',
-              resources: [UserEntity],
-            },
-            auth: {
-              authenticate,
-              cookieName: 'adminjs',
-              cookiePassword: 'secret',
-            },
-            sessionOptions: {
-              resave: true,
-              saveUninitialized: true,
-              secret: 'secret',
-            },
-          }
-        },
-      }),
-    ),
     TerminusModule.forRoot({
       logger: Logger,
     }),

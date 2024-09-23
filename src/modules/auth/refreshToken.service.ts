@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LessThan, Repository } from 'typeorm'
-import * as moment from 'moment'
-
+import moment from 'moment'
 import { envConfig } from '../../config'
+
 import { RefreshToken } from './refreshToken.entity'
 
 @Injectable()
@@ -51,7 +51,7 @@ export class RefreshTokenService {
     return await token.remove()
   }
 
-  public async removeExpiered(): Promise<void> {
+  public async removeExpired(): Promise<void> {
     const tokens = await this.refreshTokenRepository.find({
       where: {
         expiresAt: LessThan(moment().toDate()),
