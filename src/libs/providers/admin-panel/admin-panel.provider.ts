@@ -11,13 +11,15 @@ export class AdminPanelProvider {
   private dataSource: DataSource
   constructor(typeOrmConfig: PostgresConnectionOptions) {
     this.dataSource = new DataSource(typeOrmConfig)
-    this.dataSource.initialize()
   }
 
   authenticate = async (email: string, password: string) => {
-    if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-      return Promise.resolve(DEFAULT_ADMIN)
+    if (!this.dataSource.isInitialized) {
+      await this.dataSource.initialize()
     }
+    // ToDo: admin.nsk@dev - admin email
+    const admin = await this.dataSource.getRepository('UserEntity').findOne({ where: { email, role: "Site Admin" } })
+    console.log({email, admin})
     return null
   }
 }
