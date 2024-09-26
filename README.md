@@ -4,21 +4,19 @@
 
 - TypeORM (Postgres), Migrations, Seeding
 - OpenAPI/Swagger: cli `swagger/plugin` allows to take all info which is defined in Typescript code to Swagger specification automatically 
-- Auth (JWT) and Users full-fledged modules/endpoints with RBAC (see below)
+- Authentication (JWT) and Users full-fledged modules/endpoints with RBAC (see below)
+- AdminJS integration: users management; app admin users (`Site Admin` role) can be authenticated in the Admin Panel
 - Sending mail (Nodemailer or SendGrid), catch with MailHog
 - Config, Validation
 - Logger (Winston), LoggerMiddleware
-- Health check
-- AdminJS integration
+- Health check 
 - Unit and E2E test examples
 - Enhanced ESLinters
 - CI (GitHub Actions)
 - Docker setup
 
-
 ## Endpoints
 ![](src/static/images/api-endpoints.png "Swagger Endpoints")
-
 
 ## Run
 
