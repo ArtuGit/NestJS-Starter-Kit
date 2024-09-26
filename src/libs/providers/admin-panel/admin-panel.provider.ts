@@ -1,11 +1,8 @@
+import { HashProvider } from '../../../modules/users/providers'
+import { RolesEnum } from '../../../shared'
+import { CurrentAdmin } from './admin-panel.interfaces'
 import { DataSource } from 'typeorm'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
-import { envConfig } from '../../../config'
-
-const DEFAULT_ADMIN = {
-  email: envConfig.ADMIN_EMAIL,
-  password: envConfig.ADMIN_PASSWORD,
-}
 
 export class AdminPanelProvider {
   private dataSource: DataSource
@@ -13,13 +10,21 @@ export class AdminPanelProvider {
     this.dataSource = new DataSource(typeOrmConfig)
   }
 
-  authenticate = async (email: string, password: string) => {
+  authenticate = async (email: string, password: string): Promise<CurrentAdmin | null> => {
     if (!this.dataSource.isInitialized) {
       await this.dataSource.initialize()
     }
-    // ToDo: admin.nsk@dev - admin email
-    const admin = await this.dataSource.getRepository('UserEntity').findOne({ where: { email, role: "Site Admin" } })
-    console.log({email, admin})
+
+    const admin = await this.dataSource
+      .getRepository('UserEntity')
+      .findOne({ where: { email, role: RolesEnum.SITE_ADMIN }, select: ['email', 'password'] })
+
+    if (admin && new HashProvider().compareHash(admin.password, password)) {
+      return {
+        email: admin.email,
+        ...(admin.username ? { title: admin.username } : {}),
+      }
+    }
     return null
   }
 }
