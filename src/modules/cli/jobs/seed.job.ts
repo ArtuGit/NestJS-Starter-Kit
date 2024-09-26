@@ -21,8 +21,8 @@ export class SeedJob implements Job {
     try {
       const user = {
         ...baseUser,
-        email: 'admin.nsk@dev',
-        password: 'admin.nsk@dev',
+        email: 'admin@nsk.dev',
+        password: 'admin@nsk.dev',
       }
 
       const userRepository = dataSource.getRepository('users')
