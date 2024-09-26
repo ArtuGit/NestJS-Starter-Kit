@@ -1,8 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer'
 import { Module, Logger, NestModule, MiddlewareConsumer } from '@nestjs/common'
 
-// import * as AdminJSTypeorm from '@adminjs/typeorm'
-// import AdminJS from 'adminjs'
+import { typeOrmConfig } from '../src/config/typeorm.config'
 
 import { TerminusModule } from '@nestjs/terminus'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -11,6 +10,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core'
 import { JwtModule } from '@nestjs/jwt'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { CacheModule } from '@nestjs/cache-manager'
+import { AdminPanelProvider } from './libs'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
 import { UserEntity } from './modules/users/users.entity'
@@ -23,19 +23,6 @@ import { envConfig, typeOrmAsyncConfig } from './config'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-
-const DEFAULT_ADMIN = {
-  email: envConfig.ADMIN_EMAIL,
-  password: envConfig.ADMIN_PASSWORD,
-}
-
-const authenticate = async (email: string, password: string) => {
-  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-    return Promise.resolve(DEFAULT_ADMIN)
-  }
-  return null
-}
-
 @Module({
   imports: [
     import('@adminjs/nestjs').then(({ AdminModule }) =>
@@ -43,6 +30,7 @@ const authenticate = async (email: string, password: string) => {
         useFactory: async () => {
           const { AdminJS } = await import('adminjs')
           const AdminJSTypeORM = await import('@adminjs/typeorm')
+          const adminPanelProvider = new AdminPanelProvider(typeOrmConfig)
 
           AdminJS.registerAdapter({ Database: AdminJSTypeORM.Database, Resource: AdminJSTypeORM.Resource })
           return {
@@ -51,7 +39,7 @@ const authenticate = async (email: string, password: string) => {
               resources: [UserEntity],
             },
             auth: {
-              authenticate,
+              authenticate: adminPanelProvider.authenticate,
               cookieName: 'adminjs',
               cookiePassword: 'secret',
             },
