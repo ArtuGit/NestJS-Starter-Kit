@@ -140,6 +140,9 @@ devDependencies:
   '@darraghor/eslint-plugin-nestjs-typed':
     specifier: ^5.0.16
     version: 5.0.16(@typescript-eslint/parser@7.18.0)(class-validator@0.14.1)(eslint@8.57.0)(typescript@5.5.4)
+  '@faker-js/faker':
+    specifier: ^9.0.1
+    version: 9.0.1
   '@nestjs/cli':
     specifier: ^10.4.2
     version: 10.4.2
@@ -2310,6 +2313,11 @@ packages:
   /@eslint/js@8.57.0:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
+  /@faker-js/faker@9.0.1:
+    resolution: {integrity: sha512-4mDeYIgM3By7X6t5E6eYwLAa+2h4DeZDF7thhzIg6XB76jeEvMwadYAMCFJL/R4AnEBcAUO9+gL0vhy3s+qvZA==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
     dev: true
 
   /@floating-ui/core@1.6.8:
