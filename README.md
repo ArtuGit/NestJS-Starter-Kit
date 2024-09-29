@@ -22,7 +22,7 @@
 
 ### Start with local node 
 
-Checked on node v20
+Proven on node v20
 
 ```
 pnpm install
