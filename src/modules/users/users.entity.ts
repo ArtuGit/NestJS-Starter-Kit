@@ -1,8 +1,8 @@
 import { BeforeInsert, Column, Entity, Index } from 'typeorm'
 import { ApiHideProperty } from '@nestjs/swagger'
 
-import { HashProvider } from './providers'
 import { Base } from '../../config'
+import { HashProvider } from '../../libs'
 import { RolesEnum } from '../../shared'
 
 @Entity('users')

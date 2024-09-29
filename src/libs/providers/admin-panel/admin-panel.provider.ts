@@ -1,4 +1,4 @@
-import { HashProvider } from '../../../modules/users/providers'
+import { HashProvider } from 'src/libs'
 import { RolesEnum } from '../../../shared'
 import { CurrentAdmin } from './admin-panel.interfaces'
 import { DataSource } from 'typeorm'

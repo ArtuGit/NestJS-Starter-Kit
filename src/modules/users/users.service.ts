@@ -28,9 +28,9 @@ import {
   SetRestoredPasswordRequestDto,
 } from './dto'
 import { ReturnMessage } from '../../utils'
-import { HashProvider } from './providers'
 import { AuthService } from '../auth/auth.service'
 import { LoginReturnDTO } from '../auth/dto'
+import { HashProvider } from 'src/libs'
 
 @Injectable()
 export class UsersService {
