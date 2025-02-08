@@ -43,7 +43,7 @@ http://localhost:3000
 Seed demo data:
 `pnpm run console:dev job seed`
 
-App Admin user (login/password): `admin.nsk@dev` / `admin.nsk@dev`
+App Admin user (login/password): `admin@nsk.dev` / `admin@nsk.dev`
 
 ### Admin panel
 ![](src/static/images/admin-users.png "Admin Panel")
