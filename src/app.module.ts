@@ -14,6 +14,7 @@ import { AdminPanelProvider } from './libs'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
 import { UserEntity } from './modules/users/users.entity'
+import { GroupEntity } from './modules/group/group.entity'
 import { HttpExceptionFilter, LoggerMiddleware } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
@@ -37,7 +38,43 @@ import { AppService } from './app.service'
           return {
             adminJsOptions: {
               rootPath: '/admin',
-              resources: [UserEntity],
+              resources: [
+                UserEntity,
+                {
+                  resource: GroupEntity,
+                  options: {
+                    navigation: {
+                      name: 'Content',
+                      icon: 'Group',
+                    },
+                    properties: {
+                      description: {
+                        type: 'textarea',
+                      },
+                      admin: {
+                        type: 'reference',
+                        reference: 'UserEntity',
+                        isVisible: { list: true, filter: true, show: true, edit: true },
+                      },
+                      members: {
+                        type: 'reference',
+                        reference: 'UserEntity',
+                        isArray: true,
+                      },
+                      createdAt: {
+                        isVisible: { list: true, filter: true, show: true, edit: false },
+                      },
+                      updatedAt: {
+                        isVisible: { list: true, filter: true, show: true, edit: false },
+                      },
+                    },
+                    listProperties: ['name', 'description', 'admin', 'createdAt', 'updatedAt'],
+                    filterProperties: ['name', 'description', 'admin', 'createdAt', 'updatedAt'],
+                    editProperties: ['name', 'description', 'admin', 'members'],
+                    showProperties: ['name', 'description', 'admin', 'members', 'createdAt', 'updatedAt'],
+                  },
+                },
+              ],
             },
             auth: {
               authenticate: adminPanelProvider.authenticate,
