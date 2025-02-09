@@ -1,9 +1,11 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, ILike, FindOptionsWhere } from 'typeorm'
 import { GroupEntity } from './group.entity'
 import { UserEntity } from '../users/users.entity'
 import { CreateGroupRequestDto } from './dto'
+import { PageDTO, PageMetaDTO, PaginationDTO } from '../../shared'
+import { SortDTO } from '../../shared/dto/sort.dto'
 
 @Injectable()
 export class GroupService {
@@ -51,5 +53,33 @@ export class GroupService {
 
     group.members.push(user)
     return this.groupRepository.save(group)
+  }
+
+  async findGroups({
+    pagination,
+    sort,
+    search,
+  }: {
+    pagination: PaginationDTO
+    sort: SortDTO
+    search?: string
+  }): Promise<PageDTO<GroupEntity>> {
+    const like = search ? ILike(`%${search.toLowerCase()}%`) : undefined
+
+    const where: FindOptionsWhere<GroupEntity>[] = []
+
+    if (like) {
+      where.push({ name: like }, { description: like })
+    }
+
+    const [entities, count] = await this.groupRepository.findAndCount({
+      where: where.length > 0 ? where : undefined,
+      order: { [sort.sortBy]: sort.sortDir },
+      skip: pagination?.skip,
+      take: pagination?.take,
+      relations: ['admin'], // Include admin relation for complete info
+    })
+
+    return new PageDTO(entities, new PageMetaDTO({ pagination, count }))
   }
 }

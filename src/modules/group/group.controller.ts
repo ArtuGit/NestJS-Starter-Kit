@@ -1,11 +1,13 @@
-import { Body, Controller, Param, Post, Req } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { GroupService } from './group.service'
 import { CreateGroupRequestDto, GroupDto } from './dto'
-import { Roles } from '../auth/decorators'
+import { Roles, Public } from '../auth/decorators'
 import { RolesEnum } from '../../shared'
 import { AuthenticatedRequestType } from '../auth/types/types'
 import * as GroupDecorators from './decorators/swagger'
+import { PageDTO, PaginationDTO } from '../../shared'
+import { SortDTO } from '../../shared/dto/sort.dto'
 
 @ApiTags('Groups')
 @Controller('groups')
@@ -24,5 +26,20 @@ export class GroupController {
   @GroupDecorators.JoinGroup()
   async joinGroup(@Param('groupId') groupId: string, @Req() req: AuthenticatedRequestType): Promise<GroupDto> {
     return this.groupService.joinGroup(groupId, req.user.id)
+  }
+
+  @Get()
+  @Public()
+  @GroupDecorators.GetGroups(GroupDto)
+  async getGroups(
+    @Query() pagination: PaginationDTO,
+    @Query() sort: SortDTO,
+    @Query('search') search: string,
+  ): Promise<PageDTO<GroupDto>> {
+    return this.groupService.findGroups({
+      pagination,
+      sort,
+      search,
+    })
   }
 }
