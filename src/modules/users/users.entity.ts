@@ -50,7 +50,7 @@ export class UserEntity extends Base {
   @Column({ select: false, default: false })
   deleted: boolean
 
-  @ManyToMany(() => GroupEntity, group => group.members)
+  @ManyToMany(() => GroupEntity, (group) => group.members)
   groups: GroupEntity[]
 
   @BeforeInsert()

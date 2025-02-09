@@ -9,4 +9,4 @@ export class CreateGroupRequestDto {
   @IsString()
   @MaxLength(255)
   description?: string
-} 
+}

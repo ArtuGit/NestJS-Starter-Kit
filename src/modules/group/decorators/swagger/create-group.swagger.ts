@@ -1,10 +1,5 @@
 import { applyDecorators } from '@nestjs/common'
-import {
-  ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiOperation,
-} from '@nestjs/swagger'
+import { ApiBearerAuth, ApiCreatedResponse, ApiForbiddenResponse, ApiOperation } from '@nestjs/swagger'
 import { GroupDto } from '../../dto'
 
 export function CreateGroup() {
@@ -20,4 +15,4 @@ export function CreateGroup() {
     }),
     ApiForbiddenResponse({ description: 'Forbidden resource' }),
   )
-} 
+}

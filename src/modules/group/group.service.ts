@@ -31,7 +31,7 @@ export class GroupService {
     return this.groupRepository.save(group)
   }
 
-  async addUserToGroup(groupId: string, userId: string): Promise<GroupEntity> {
+  async joinGroup(groupId: string, userId: string): Promise<GroupEntity> {
     const [user, group] = await Promise.all([
       this.userRepository.findOne({ where: { id: userId } }),
       this.groupRepository.findOne({
@@ -52,4 +52,4 @@ export class GroupService {
     group.members.push(user)
     return this.groupRepository.save(group)
   }
-} 
+}

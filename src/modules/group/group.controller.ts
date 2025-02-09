@@ -21,11 +21,8 @@ export class GroupController {
 
   @Post(':groupId/join')
   @Roles([RolesEnum.USER])
-  @GroupDecorators.AddMeToGroup()
-  async addMeToGroup(
-    @Param('groupId') groupId: string,
-    @Req() req: AuthenticatedRequestType,
-  ): Promise<GroupDto> {
-    return this.groupService.addUserToGroup(groupId, req.user.id)
+  @GroupDecorators.JoinGroup()
+  async joinGroup(@Param('groupId') groupId: string, @Req() req: AuthenticatedRequestType): Promise<GroupDto> {
+    return this.groupService.joinGroup(groupId, req.user.id)
   }
-} 
+}

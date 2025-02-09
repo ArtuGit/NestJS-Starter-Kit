@@ -7,12 +7,9 @@ import { UserEntity } from '../users/users.entity'
 import { AuthModule } from '../auth/auth.module'
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([GroupEntity, UserEntity]),
-    AuthModule,
-  ],
+  imports: [TypeOrmModule.forFeature([GroupEntity, UserEntity]), AuthModule],
   controllers: [GroupController],
   providers: [GroupService],
   exports: [GroupService],
 })
-export class GroupModule {} 
+export class GroupModule {}

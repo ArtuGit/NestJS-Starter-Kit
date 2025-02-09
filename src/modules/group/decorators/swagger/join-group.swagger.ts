@@ -8,7 +8,7 @@ import {
 } from '@nestjs/swagger'
 import { GroupDto } from '../../dto'
 
-export function AddMeToGroup() {
+export function JoinGroup() {
   return applyDecorators(
     ApiOperation({
       summary: 'Join group',
@@ -22,4 +22,4 @@ export function AddMeToGroup() {
     ApiNotFoundResponse({ description: 'Group not found' }),
     ApiForbiddenResponse({ description: 'Forbidden resource' }),
   )
-} 
+}
