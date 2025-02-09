@@ -1,9 +1,10 @@
-import { BeforeInsert, Column, Entity, Index } from 'typeorm'
+import { BeforeInsert, Column, Entity, Index, ManyToMany } from 'typeorm'
 import { ApiHideProperty } from '@nestjs/swagger'
 
 import { Base } from '../../config'
 import { HashProvider } from '../../libs'
 import { RolesEnum } from '../../shared'
+import { GroupEntity } from '../group/group.entity'
 
 @Entity('users')
 export class UserEntity extends Base {
@@ -48,6 +49,9 @@ export class UserEntity extends Base {
   @ApiHideProperty()
   @Column({ select: false, default: false })
   deleted: boolean
+
+  @ManyToMany(() => GroupEntity, group => group.members)
+  groups: GroupEntity[]
 
   @BeforeInsert()
   async generatePasswordHash() {

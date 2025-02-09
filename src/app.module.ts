@@ -18,6 +18,7 @@ import { HttpExceptionFilter, LoggerMiddleware } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { GroupModule } from './modules/group/group.module'
 
 import { envConfig, typeOrmAsyncConfig } from './config'
 
@@ -78,6 +79,7 @@ import { AppService } from './app.service'
     CronModule,
     AuthModule,
     UsersModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [
