@@ -82,7 +82,7 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: "nsk-mailhog"
-    restart: always
+    restart: no
     ports:
       - "8025:8025"
       - "1025:1025"
