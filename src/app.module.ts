@@ -39,39 +39,49 @@ import { AppService } from './app.service'
             adminJsOptions: {
               rootPath: '/admin',
               resources: [
-                UserEntity,
+                {
+                  resource: UserEntity,
+                  options: {
+                    properties: {
+                      groups: {
+                        type: 'reference',
+                        reference: 'GroupEntity',
+                        isArray: true,
+                        isVisible: { list: true, filter: true, show: true, edit: false },
+                      },
+                    },
+                  },
+                },
                 {
                   resource: GroupEntity,
                   options: {
-                    navigation: {
-                      name: 'Content',
-                      icon: 'Group',
-                    },
                     properties: {
-                      description: {
-                        type: 'textarea',
-                      },
-                      admin: {
+                      adminId: {
                         type: 'reference',
                         reference: 'UserEntity',
                         isVisible: { list: true, filter: true, show: true, edit: true },
+                        props: {
+                          optionLabel: 'fullName',
+                        },
                       },
                       members: {
                         type: 'reference',
                         reference: 'UserEntity',
                         isArray: true,
-                      },
-                      createdAt: {
-                        isVisible: { list: true, filter: true, show: true, edit: false },
-                      },
-                      updatedAt: {
-                        isVisible: { list: true, filter: true, show: true, edit: false },
+                        using: {
+                          joinTable: {
+                            name: 'group_members',
+                            inverseJoinColumn: 'user_id',
+                            joinColumn: 'group_id',
+                          },
+                        },
+                        props: {
+                          optionLabel: 'fullName',
+                        },
                       },
                     },
-                    listProperties: ['name', 'description', 'admin', 'createdAt', 'updatedAt'],
-                    filterProperties: ['name', 'description', 'admin', 'createdAt', 'updatedAt'],
-                    editProperties: ['name', 'description', 'admin', 'members'],
-                    showProperties: ['name', 'description', 'admin', 'members', 'createdAt', 'updatedAt'],
+                    listProperties: ['name', 'description', 'admin', 'adminId', 'members'],
+                    editProperties: ['name', 'description', 'admin', 'adminId', 'members'],
                   },
                 },
               ],
