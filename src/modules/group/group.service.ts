@@ -77,7 +77,7 @@ export class GroupService {
       order: { [sort.sortBy]: sort.sortDir },
       skip: pagination?.skip,
       take: pagination?.take,
-      relations: ['admin'], // Include admin relation for complete info
+      relations: ['admin', 'members'],
     })
 
     return new PageDTO(entities, new PageMetaDTO({ pagination, count }))
