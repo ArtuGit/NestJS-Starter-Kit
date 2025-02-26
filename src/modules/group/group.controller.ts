@@ -42,4 +42,11 @@ export class GroupController {
       search,
     })
   }
+
+  @Get(':id')
+  @Public()
+  @GroupDecorators.GetGroup()
+  async getGroupById(@Param('id') id: string): Promise<GroupDto> {
+    return this.groupService.findGroupById(id)
+  }
 }

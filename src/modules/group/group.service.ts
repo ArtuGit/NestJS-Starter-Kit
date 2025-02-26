@@ -82,4 +82,18 @@ export class GroupService {
 
     return new PageDTO(entities, new PageMetaDTO({ pagination, count }))
   }
+
+  async findGroupById(id: string): Promise<GroupEntity> {
+    const group = await this.groupRepository.findOne({
+      where: { id },
+      relations: ['admin', 'members'],
+    })
+
+    if (!group) {
+      this.logger.error(`Group with id ${id} not found`)
+      throw new NotFoundException('Group not found')
+    }
+
+    return group
+  }
 }
