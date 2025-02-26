@@ -11,8 +11,11 @@ export class GroupEntity extends Base {
   description: string
 
   @OneToOne(() => UserEntity)
-  @JoinColumn()
+  @JoinColumn({ name: 'adminId' })
   admin: UserEntity
+
+  @Column({ nullable: true })
+  adminId: string
 
   @ManyToMany(() => UserEntity, (user) => user.groups)
   @JoinTable({

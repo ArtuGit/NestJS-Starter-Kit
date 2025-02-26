@@ -41,48 +41,9 @@ import { AppService } from './app.service'
               resources: [
                 {
                   resource: UserEntity,
-                  options: {
-                    properties: {
-                      groups: {
-                        type: 'reference',
-                        reference: 'GroupEntity',
-                        isArray: true,
-                        isVisible: { list: true, filter: true, show: true, edit: false },
-                      },
-                    },
-                  },
                 },
                 {
                   resource: GroupEntity,
-                  options: {
-                    properties: {
-                      adminId: {
-                        type: 'reference',
-                        reference: 'UserEntity',
-                        isVisible: { list: true, filter: true, show: true, edit: true },
-                        props: {
-                          optionLabel: 'fullName',
-                        },
-                      },
-                      members: {
-                        type: 'reference',
-                        reference: 'UserEntity',
-                        isArray: true,
-                        using: {
-                          joinTable: {
-                            name: 'group_members',
-                            inverseJoinColumn: 'user_id',
-                            joinColumn: 'group_id',
-                          },
-                        },
-                        props: {
-                          optionLabel: 'fullName',
-                        },
-                      },
-                    },
-                    listProperties: ['name', 'description', 'admin', 'adminId', 'members'],
-                    editProperties: ['name', 'description', 'admin', 'adminId', 'members'],
-                  },
                 },
               ],
             },
