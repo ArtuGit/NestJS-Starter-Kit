@@ -14,10 +14,12 @@ import { AdminPanelProvider } from './libs'
 import { CronModule } from './modules/cron/cron.module'
 import { MailConfigService } from './config/mail.config'
 import { UserEntity } from './modules/users/users.entity'
+import { GroupEntity } from './modules/group/group.entity'
 import { HttpExceptionFilter, LoggerMiddleware } from './shared'
 import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { GroupModule } from './modules/group/group.module'
 
 import { envConfig, typeOrmAsyncConfig } from './config'
 
@@ -36,7 +38,14 @@ import { AppService } from './app.service'
           return {
             adminJsOptions: {
               rootPath: '/admin',
-              resources: [UserEntity],
+              resources: [
+                {
+                  resource: UserEntity,
+                },
+                {
+                  resource: GroupEntity,
+                },
+              ],
             },
             auth: {
               authenticate: adminPanelProvider.authenticate,
@@ -78,6 +87,7 @@ import { AppService } from './app.service'
     CronModule,
     AuthModule,
     UsersModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [
