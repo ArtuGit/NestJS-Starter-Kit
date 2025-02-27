@@ -20,6 +20,8 @@ import { JwtAuthGuard, RolesGuard } from './modules/auth/guards'
 import { UsersModule } from './modules/users/users.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { GroupModule } from './modules/group/group.module'
+import { PostEntity } from './modules/post/post.entity'
+import { PostModule } from './modules/post/post.module'
 
 import { envConfig, typeOrmAsyncConfig } from './config'
 
@@ -44,6 +46,9 @@ import { AppService } from './app.service'
                 },
                 {
                   resource: GroupEntity,
+                },
+                {
+                  resource: PostEntity,
                 },
               ],
             },
@@ -88,6 +93,7 @@ import { AppService } from './app.service'
     AuthModule,
     UsersModule,
     GroupModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [

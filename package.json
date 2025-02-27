@@ -33,6 +33,7 @@
   "dependencies": {
     "@adminjs/express": "^6.1.1",
     "@adminjs/nestjs": "^6.1.0",
+    "@adminjs/relations": "^1.1.2",
     "@adminjs/typeorm": "^5.0.1",
     "@anchan828/nest-sendgrid": "^0.6.124",
     "@nestjs-modules/mailer": "^2.0.2",

@@ -16,6 +16,9 @@ dependencies:
   '@adminjs/nestjs':
     specifier: ^6.1.0
     version: 6.1.0(@nestjs/common@10.4.15)(@nestjs/core@10.4.15)(adminjs@7.8.15)(rxjs@7.8.1)
+  '@adminjs/relations':
+    specifier: ^1.1.2
+    version: 1.1.2(adminjs@7.8.15)
   '@adminjs/typeorm':
     specifier: ^5.0.1
     version: 5.0.1(adminjs@7.8.15)(typeorm@0.3.20)
@@ -305,6 +308,16 @@ packages:
       tslib: 2.8.1
     dev: false
 
+  /@adminjs/license@1.0.1:
+    resolution: {integrity: sha512-I1z1jgXlv9Ouk/FPRqm3W7cPjhKBYRuO8sv6vtRudu7foLdhweWNNGMUN+ccWhl+5nqjMi7c9dhBQVLo3/5CFw==}
+    dependencies:
+      axios: 1.7.9
+      js-base64: 3.7.7
+      md5: 2.3.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@adminjs/nestjs@6.1.0(@nestjs/common@10.4.15)(@nestjs/core@10.4.15)(adminjs@7.8.15)(rxjs@7.8.1):
     resolution: {integrity: sha512-q9mhFGXhnVkN1Ca+CovWIb4dZcWkN4BQ8xpnU2hV2dYnmc6pKPVD+Rb2hbYp8Puw/tpsTIYtPI62N16V1hdO3A==}
     peerDependencies:
@@ -319,6 +332,18 @@ packages:
       adminjs: 7.8.15(@types/react@18.3.18)
       reflect-metadata: 0.1.14
       rxjs: 7.8.1
+    dev: false
+
+  /@adminjs/relations@1.1.2(adminjs@7.8.15):
+    resolution: {integrity: sha512-uA7ekwCNUqvNgabipoZ0ShOEBK2aW3fzdqejriM+iunkAFqc08S05L7IrfPOOTYrgINSgzVHiLzstKyBam1DOg==}
+    peerDependencies:
+      adminjs: ^7.3.0
+    dependencies:
+      '@adminjs/license': 1.0.1
+      adminjs: 7.8.15(@types/react@18.3.18)
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - debug
     dev: false
 
   /@adminjs/typeorm@5.0.1(adminjs@7.8.15)(typeorm@0.3.20):
@@ -5207,6 +5232,10 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
+  /charenc@0.0.2:
+    resolution: {integrity: sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==}
+    dev: false
+
   /check-disk-space@3.4.0:
     resolution: {integrity: sha512-drVkSqfwA+TvuEhFipiR1OC9boEGZL5RrWvVsOthdcvQNXyCCuKkEiTOTXZ7qxSf/GLwq4GvzfrQD/Wz325hgw==}
     engines: {node: '>=16'}
@@ -5661,6 +5690,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  /crypt@0.0.2:
+    resolution: {integrity: sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==}
+    dev: false
 
   /css-box-model@1.2.1:
     resolution: {integrity: sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw==}
@@ -7287,6 +7320,10 @@ packages:
     dependencies:
       binary-extensions: 2.3.0
 
+  /is-buffer@1.1.6:
+    resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
+    dev: false
+
   /is-core-module@2.16.1:
     resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
     engines: {node: '>= 0.4'}
@@ -7933,6 +7970,10 @@ packages:
       - ts-node
     dev: true
 
+  /js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
+    dev: false
+
   /js-beautify@1.15.1:
     resolution: {integrity: sha512-ESjNzSlt/sWE8sciZH8kBF8BPlwXPwhR6pWKAw8bw4Bwj+iZcnKW6ONWUutJ7eObuBZQpiIb8S7OYspWrKt7rA==}
     engines: {node: '>=14'}
@@ -8401,6 +8442,14 @@ packages:
   /math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
+
+  /md5@2.3.0:
+    resolution: {integrity: sha512-T1GITYmFaKuO91vxyoQMFETst+O71VUPEU3ze5GNzDm0OWdP8v1ziTaAEPUr/3kLsY3Sftgz242A1SetQiDL7g==}
+    dependencies:
+      charenc: 0.0.2
+      crypt: 0.0.2
+      is-buffer: 1.1.6
+    dev: false
 
   /mdurl@2.0.0:
     resolution: {integrity: sha512-Lf+9+2r+Tdp5wXDXC4PcIBjTDtq4UKjCPMQhKIuzpJNW0b96kVqSwW0bT7FhRSfmAiFYgP+SCRvdrDozfh0U5w==}

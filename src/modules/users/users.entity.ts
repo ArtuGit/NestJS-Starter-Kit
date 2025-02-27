@@ -1,10 +1,11 @@
-import { BeforeInsert, Column, Entity, Index, ManyToMany } from 'typeorm'
+import { BeforeInsert, Column, Entity, Index, ManyToMany, OneToMany } from 'typeorm'
 import { ApiHideProperty } from '@nestjs/swagger'
 
 import { Base } from '../../config'
 import { HashProvider } from '../../libs'
 import { RolesEnum } from '../../shared'
 import { GroupEntity } from '../group/group.entity'
+import { PostEntity } from '../post/post.entity'
 
 @Entity('users')
 export class UserEntity extends Base {
@@ -52,6 +53,9 @@ export class UserEntity extends Base {
 
   @ManyToMany(() => GroupEntity, (group) => group.members)
   groups: GroupEntity[]
+
+  @OneToMany(() => PostEntity, (post) => post.author)
+  posts: PostEntity[]
 
   @BeforeInsert()
   async generatePasswordHash() {
