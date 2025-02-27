@@ -22,6 +22,7 @@ import { AuthModule } from './modules/auth/auth.module'
 import { GroupModule } from './modules/group/group.module'
 import { PostEntity } from './modules/post/post.entity'
 import { PostModule } from './modules/post/post.module'
+import { GroupMemberEntity } from './modules/group/group-member.entity'
 
 import { envConfig, typeOrmAsyncConfig } from './config'
 
@@ -49,6 +50,9 @@ import { AppService } from './app.service'
                 },
                 {
                   resource: PostEntity,
+                },
+                {
+                  resource: GroupMemberEntity,
                 },
               ],
             },

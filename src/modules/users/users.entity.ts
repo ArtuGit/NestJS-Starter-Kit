@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, Index, ManyToMany, OneToMany } from 'typeorm'
+import { BeforeInsert, Column, Entity, Index, ManyToMany, OneToMany, JoinTable } from 'typeorm'
 import { ApiHideProperty } from '@nestjs/swagger'
 
 import { Base } from '../../config'
@@ -51,7 +51,12 @@ export class UserEntity extends Base {
   @Column({ select: false, default: false })
   deleted: boolean
 
-  @ManyToMany(() => GroupEntity, (group) => group.members)
+  @ManyToMany(() => GroupEntity, group => group.members)
+  @JoinTable({
+    name: 'group_members',
+    joinColumn: { name: 'userId' },
+    inverseJoinColumn: { name: 'groupId' },
+  })
   groups: GroupEntity[]
 
   @OneToMany(() => PostEntity, (post) => post.author)

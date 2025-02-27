@@ -17,11 +17,11 @@ export class GroupEntity extends Base {
   @Column({ nullable: true })
   adminId: string
 
-  @ManyToMany(() => UserEntity, (user) => user.groups)
+  @ManyToMany(() => UserEntity, user => user.groups)
   @JoinTable({
     name: 'group_members',
-    joinColumn: { name: 'group_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    joinColumn: { name: 'groupId' },
+    inverseJoinColumn: { name: 'userId' },
   })
   members: UserEntity[]
 }
