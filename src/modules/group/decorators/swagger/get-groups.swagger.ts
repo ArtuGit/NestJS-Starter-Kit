@@ -1,11 +1,5 @@
 import { Type, applyDecorators } from '@nestjs/common'
-import {
-  ApiExtraModels,
-  ApiOkResponse,
-  ApiOperation,
-  ApiQuery,
-  getSchemaPath,
-} from '@nestjs/swagger'
+import { ApiExtraModels, ApiOkResponse, ApiOperation, ApiQuery, getSchemaPath } from '@nestjs/swagger'
 import { PageDTO } from '../../../../shared'
 
 export function GetGroups<TModel extends Type<any>>(model: TModel) {
@@ -38,4 +32,4 @@ export function GetGroups<TModel extends Type<any>>(model: TModel) {
       },
     }),
   )
-} 
+}

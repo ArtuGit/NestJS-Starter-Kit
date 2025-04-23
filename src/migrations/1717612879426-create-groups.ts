@@ -50,4 +50,4 @@ export class CreateGroups1717612879426 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "group_members"`)
     await queryRunner.query(`DROP TABLE "groups"`)
   }
-} 
+}

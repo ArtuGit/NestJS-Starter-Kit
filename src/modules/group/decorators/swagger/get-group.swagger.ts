@@ -14,6 +14,6 @@ export function GetGroup() {
     }),
     ApiNotFoundResponse({
       description: 'Group not found',
-    })
+    }),
   )
-} 
+}
